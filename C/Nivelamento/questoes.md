@@ -2680,29 +2680,408 @@ int main() {
 ### Exercício 1: Contagem de Caracteres
 Escreva uma função que receba uma string como parâmetro e retorne o número de caracteres que ela contém. **Desafio:** não utilize a função `strlen()` da biblioteca `<string.h>`. Você deve percorrer o vetor de caracteres até encontrar o caractere nulo (`\0`).
 
+### Exercício 1: Contagem de Caracteres
+```c
+#include <stdio.h>
+
+// Função que conta os caracteres de uma string sem usar strlen()
+int contar_caracteres(const char *str) {
+    int contador = 0;
+    // Percorre a string até encontrar o caractere nulo '\0'
+    while (str[contador] != '\0') {
+        contador++;
+    }
+    return contador;
+}
+
+void remover_nova_linha(char *str) {
+    int i = 0;
+    while(str[i] != '\n' && str[i] != '\0') i++;
+    if (str[i] == '\n') str[i] = '\0';
+}
+
+int main() {
+    char minha_string[100];
+
+    printf("Digite uma string: ");
+    fgets(minha_string, 100, stdin);
+    remover_nova_linha(minha_string);
+
+    int tamanho = contar_caracteres(minha_string);
+    printf("A string \"%s\" possui %d caracteres.\n", minha_string, tamanho);
+
+    return 0;
+}
+```
+
 ### Exercício 2: Comparação de Strings
 Crie um programa que leia duas strings do teclado. Usando a função `strcmp()`, determine e informe se as strings são iguais. Se não forem, informe qual delas vem primeiro na ordem alfabética.
+
+### Exercício 2: Comparação de Strings
+```c
+#include <stdio.h>
+#include <string.h>
+
+void remover_nova_linha(char *str) {
+    str[strcspn(str, "\n")] = '\0';
+}
+
+int main() {
+    char str1[100], str2[100];
+    
+    printf("Digite a primeira string: ");
+    fgets(str1, 100, stdin);
+    remover_nova_linha(str1);
+
+    printf("Digite a segunda string: ");
+    fgets(str2, 100, stdin);
+    remover_nova_linha(str2);
+
+    int resultado = strcmp(str1, str2);
+
+    if (resultado == 0) {
+        printf("As strings sao iguais.\n");
+    } else if (resultado < 0) {
+        printf("A primeira string (\"%s\") vem antes na ordem alfabetica.\n", str1);
+    } else {
+        printf("A segunda string (\"%s\") vem antes na ordem alfabetica.\n", str2);
+    }
+
+    return 0;
+}
+```
 
 ### Exercício 3: Concatenar Duas Strings
 Faça um programa que leia duas strings e, em seguida, crie uma terceira string que seja a concatenação das duas primeiras. Por exemplo, se as strings lidas forem "bom" e "dia", a nova string deverá ser "bomdia". **Desafio:** implemente a lógica de concatenação manualmente, sem usar a função `strcat()`.
 
+### Exercício 3: Concatenar Duas Strings
+```c
+#include <stdio.h>
+#include <string.h>
+
+void remover_nova_linha(char *str) {
+    str[strcspn(str, "\n")] = '\0';
+}
+
+int main() {
+    char str1[100], str2[100];
+    char resultado[200]; // Deve ter tamanho suficiente para as duas
+    int i = 0, j = 0;
+
+    printf("Digite a primeira string: ");
+    fgets(str1, 100, stdin);
+    remover_nova_linha(str1);
+
+    printf("Digite a segunda string: ");
+    fgets(str2, 100, stdin);
+    remover_nova_linha(str2);
+
+    // Copia a primeira string para o resultado
+    while (str1[i] != '\0') {
+        resultado[i] = str1[i];
+        i++;
+    }
+
+    // Copia a segunda string para o final do resultado
+    while (str2[j] != '\0') {
+        resultado[i] = str2[j];
+        i++;
+        j++;
+    }
+    
+    // Adiciona o caractere nulo para finalizar a string
+    resultado[i] = '\0';
+
+    printf("String concatenada: %s\n", resultado);
+
+    return 0;
+}
+```
+
 ### Exercício 4: Inverter uma String
 Desenvolva um programa que leia uma string e a inverta. Por exemplo, se a string for "programar", o programa deve gerar a string "ramargorp". Você pode criar uma nova string para armazenar o resultado invertido.
+
+### Exercício 4: Inverter uma String
+```c
+#include <stdio.h>
+#include <string.h>
+
+void remover_nova_linha(char *str) {
+    str[strcspn(str, "\n")] = '\0';
+}
+
+int main() {
+    char original[100];
+    char invertida[100];
+    int i, j;
+    int tamanho;
+
+    printf("Digite uma string para inverter: ");
+    fgets(original, 100, stdin);
+    remover_nova_linha(original);
+
+    tamanho = strlen(original);
+    j = 0;
+
+    // Percorre a string original de trás para frente
+    for (i = tamanho - 1; i >= 0; i--) {
+        invertida[j] = original[i];
+        j++;
+    }
+    
+    // Adiciona o caractere nulo no final da string invertida
+    invertida[j] = '\0';
+    
+    printf("String original: %s\n", original);
+    printf("String invertida: %s\n", invertida);
+
+    return 0;
+}
+```
 
 ### Exercício 5: Contar Vogais e Consoantes
 Escreva um programa que leia uma string e conte quantas vogais e quantas consoantes (letras do alfabeto que não são vogais) ela possui. Imprima os dois totais.
 
+### Exercício 5: Contar Vogais e Consoantes
+```c
+#include <stdio.h>
+#include <ctype.h> // Para isalpha() e tolower()
+
+void remover_nova_linha(char *str) {
+    str[strcspn(str, "\n")] = '\0';
+}
+
+int main() {
+    char str[100];
+    int i = 0;
+    int vogais = 0, consoantes = 0;
+
+    printf("Digite uma frase: ");
+    fgets(str, 100, stdin);
+    remover_nova_linha(str);
+
+    while (str[i] != '\0') {
+        char c = tolower(str[i]); // Converte para minúscula para facilitar
+
+        if (isalpha(c)) { // Verifica se é uma letra
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                vogais++;
+            } else {
+                consoantes++;
+            }
+        }
+        i++;
+    }
+
+    printf("A frase contem %d vogais e %d consoantes.\n", vogais, consoantes);
+
+    return 0;
+}
+```
+
 ### Exercício 6: Converter para Maiúsculas
 Crie um programa que leia uma string e a converta inteiramente para letras maiúsculas. Utilize a função `toupper()` da biblioteca `<ctype.h>`. Imprima a string resultante.
+
+### Exercício 6: Converter para Maiúsculas
+```c
+#include <stdio.h>
+#include <ctype.h> // Para toupper()
+
+void remover_nova_linha(char *str) {
+    str[strcspn(str, "\n")] = '\0';
+}
+
+int main() {
+    char str[100];
+    int i = 0;
+
+    printf("Digite uma string com letras minusculas e maiusculas: ");
+    fgets(str, 100, stdin);
+    remover_nova_linha(str);
+
+    while(str[i] != '\0') {
+        str[i] = toupper(str[i]);
+        i++;
+    }
+
+    printf("String em maiusculas: %s\n", str);
+
+    return 0;
+}
+```
 
 ### Exercício 7: Verificar se é um Palíndromo
 Um palíndromo é uma palavra ou frase que se lê da mesma forma de trás para frente (desconsiderando espaços e acentos). Crie um programa que leia uma string e verifique se ela é um palíndromo. Exemplos: "arara", "ovo", "radar".
 
+### Exercício 7: Verificar se é um Palíndromo
+```c
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void remover_nova_linha(char *str) {
+    str[strcspn(str, "\n")] = '\0';
+}
+
+int main() {
+    char str[100];
+    int i, j, eh_palindromo = 1;
+    int tamanho;
+
+    printf("Digite uma palavra para verificar se e um palindromo: ");
+    fgets(str, 100, stdin);
+    remover_nova_linha(str);
+
+    tamanho = strlen(str);
+    i = 0;
+    j = tamanho - 1;
+
+    while (i < j) {
+        // Ignora espaços (opcional, para frases)
+        while (str[i] == ' ') i++;
+        while (str[j] == ' ') j--;
+
+        if (tolower(str[i]) != tolower(str[j])) {
+            eh_palindromo = 0; // Não é palíndromo
+            break;
+        }
+        i++;
+        j--;
+    }
+
+    if (eh_palindromo) {
+        printf("A string \"%s\" e um palindromo.\n", str);
+    } else {
+        printf("A string \"%s\" nao e um palindromo.\n", str);
+    }
+
+    return 0;
+}
+```
+
 ### Exercício 8: Remover Espaços Repetidos
 Faça um programa que leia uma frase e crie uma nova string removendo os espaços em branco extras entre as palavras. Por exemplo, se a entrada for "Eu   gosto   de   programar", a saída deve ser "Eu gosto de programar".
+
+### Exercício 8: Remover Espaços Repetidos
+```c
+#include <stdio.h>
+#include <string.h>
+
+void remover_nova_linha(char *str) {
+    str[strcspn(str, "\n")] = '\0';
+}
+
+int main() {
+    char original[200], limpa[200];
+    int i = 0, j = 0;
+
+    printf("Digite uma frase com espacos extras: ");
+    fgets(original, 200, stdin);
+    remover_nova_linha(original);
+
+    while (original[i] != '\0') {
+        // Copia o caractere se não for um espaço
+        if (original[i] != ' ') {
+            limpa[j++] = original[i];
+        } else {
+            // Se for um espaço, só copia se o caractere anterior na string limpa não for um espaço
+            if (j > 0 && limpa[j-1] != ' ') {
+                limpa[j++] = original[i];
+            }
+        }
+        i++;
+    }
+    limpa[j] = '\0'; // Finaliza a string limpa
+    
+    printf("String original: \"%s\"\n", original);
+    printf("String limpa:    \"%s\"\n", limpa);
+
+    return 0;
+}
+```
 
 ### Exercício 9: Contar Palavras
 Escreva um programa que leia uma frase e conte quantas palavras ela contém. Considere que as palavras são separadas por um ou mais espaços em branco.
 
+### Exercício 9: Contar Palavras
+```c
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void remover_nova_linha(char *str) {
+    str[strcspn(str, "\n")] = '\0';
+}
+
+int main() {
+    char frase[200];
+    int i = 0;
+    int contador_palavras = 0;
+    int no_meio_de_uma_palavra = 0; // Flag: 0 = não, 1 = sim
+
+    printf("Digite uma frase para contar as palavras: ");
+    fgets(frase, 200, stdin);
+    remover_nova_linha(frase);
+
+    while (frase[i] != '\0') {
+        // Se o caractere não é um espaço e estamos fora de uma palavra
+        if (!isspace(frase[i]) && no_meio_de_uma_palavra == 0) {
+            contador_palavras++;
+            no_meio_de_uma_palavra = 1;
+        } 
+        // Se o caractere é um espaço
+        else if (isspace(frase[i])) {
+            no_meio_de_uma_palavra = 0;
+        }
+        i++;
+    }
+
+    printf("A frase contem %d palavras.\n", contador_palavras);
+
+    return 0;
+}
+```
+
 ### Exercício 10: Substituir um Caractere
 Crie um programa que leia uma string, um caractere a ser procurado e um caractere a ser inserido no lugar do primeiro. O programa deve substituir todas as ocorrências do caractere procurado pelo novo caractere. Exemplo: na string "banana", substituir 'a' por 'o' resultaria em "bonono".
+
+### Exercício 10: Substituir um Caractere
+```c
+#include <stdio.h>
+#include <string.h>
+
+void remover_nova_linha(char *str) {
+    str[strcspn(str, "\n")] = '\0';
+}
+
+int main() {
+    char str[100];
+    char char_procurado, char_substituto;
+    int i = 0;
+
+    printf("Digite uma string: ");
+    fgets(str, 100, stdin);
+    remover_nova_linha(str);
+
+    printf("Digite o caractere a ser procurado: ");
+    scanf(" %c", &char_procurado);
+
+    printf("Digite o caractere que ira substitui-lo: ");
+    scanf(" %c", &char_substituto);
+
+    while (str[i] != '\0') {
+        if (str[i] == char_procurado) {
+            str[i] = char_substituto;
+        }
+        i++;
+    }
+
+    printf("String resultante: %s\n", str);
+
+    return 0;
+}
+```
+
+---
+
+## Exercícios focados em Strings
