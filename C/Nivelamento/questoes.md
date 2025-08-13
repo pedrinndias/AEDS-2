@@ -907,3 +907,42 @@ int main() {
     return 0;
 }
 ```
+
+## Exercícios focados em Estrutura de repetição (While / Do While / For)
+
+### Exercício 1: Contagem Crescente (For)
+Escreva um programa que use um laço `for` para imprimir os números de 1 a 10, um em cada linha.
+
+
+### Exercício 2: Tabuada (For)
+Peça ao usuário para inserir um número inteiro. Em seguida, use um laço `for` para calcular e exibir a tabuada desse número, do 1 ao 10.
+
+### Exercício 3: Soma de Pares (For)
+Crie um programa que calcule e mostre a soma de todos os números pares de 1 a 100.
+
+### Exercício 4: Validação de Senha (While)
+Desenvolva um programa que peça ao usuário para digitar uma senha. O programa deve continuar pedindo a senha enquanto o usuário não digitar a senha correta ("1234"). Quando a senha correta for digitada, exiba a mensagem "Acesso Permitido".
+
+### Exercício 5: Média de Notas (While)
+Escreva um programa que leia as notas de um número indeterminado de alunos. O programa deve parar de ler notas quando o usuário digitar um valor negativo. Ao final, o programa deve calcular e exibir a média das notas inseridas.
+
+### Exercício 6: Fatorial (While)
+Faça um programa que peça um número inteiro não negativo ao usuário e calcule o seu fatorial. Lembre-se que o fatorial de 0 é 1.
+*Exemplo: 5! = 5 \* 4 \* 3 \* 2 \* 1 = 120*
+
+### Exercício 7: Menu de Opções (Do-While)
+Crie um programa que exiba um menu com as seguintes opções:
+1.  Somar
+2.  Subtrair
+3.  Sair
+
+O programa deve permitir que o usuário escolha uma opção. Se a opção for 1 ou 2, ele deve pedir dois números, realizar a operação e mostrar o resultado. O programa deve continuar executando até que o usuário escolha a opção 3 (Sair). Garanta que o menu seja exibido pelo menos uma vez.
+
+### Exercício 8: Adivinhe o Número (Do-While)
+Desenvolva um jogo simples onde o programa "pensa" em um número secreto (por exemplo, 42). O programa deve pedir ao usuário para adivinhar o número. Use um laço `do-while` para continuar pedindo um palpite até que o usuário acerte. A cada palpite errado, informe se o número secreto é maior ou menor.
+
+### Exercício 9: Sequência de Fibonacci (For)
+Escreva um programa que peça ao usuário um número N e gere os N primeiros termos da sequência de Fibonacci. A sequência começa com 0 e 1, e cada termo subsequente é a soma dos dois anteriores (0, 1, 1, 2, 3, 5, 8, ...).
+
+### Exercício 10: Contagem de Dígitos (While)
+Crie um programa que peça ao usuário para inserir um número inteiro e, em seguida, conte e exiba quantos dígitos esse número possui. Por exemplo, o número 2548 tem 4 dígitos. (Dica: use divisões inteiras por 10).
