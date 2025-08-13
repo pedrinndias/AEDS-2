@@ -3389,3 +3389,397 @@ int main() {
 ```
 
 ## Exercícios focados em Funções
+
+### Exercício 1: Somar Elementos de um Vetor (com Aritmética)
+Crie uma função `int somarVetor(int *vetor, int tamanho)` que receba um ponteiro para o início de um vetor de inteiros e seu tamanho. Dentro da função, use um laço e aritmética de ponteiros (ex: `*vetor` e `vetor++`) para percorrer o vetor e somar todos os seus elementos. A função deve retornar a soma total.
+
+### Exercício 1: Somar Elementos de um Vetor (com Aritmética)
+```c
+#include <stdio.h>
+
+int somarVetor(int *vetor, int tamanho) {
+    int soma = 0;
+    int *ponteiro_final = vetor + tamanho; // Aponta para uma posição após o último elemento
+
+    // O laço continua enquanto o ponteiro do vetor não alcançar o ponteiro final
+    while (vetor < ponteiro_final) {
+        soma += *vetor; // Soma o valor apontado pelo ponteiro
+        vetor++;        // Avança o ponteiro para o próximo elemento
+    }
+    return soma;
+}
+
+int main() {
+    int numeros[] = {10, 20, 30, 40, 50};
+    int tamanho = sizeof(numeros) / sizeof(numeros[0]);
+    int resultado = somarVetor(numeros, tamanho);
+
+    printf("A soma dos elementos do vetor e: %d\n", resultado);
+
+    return 0;
+}
+```
+
+### Exercício 2: Inverter um Vetor "In-Place"
+Desenvolva uma função `void inverterVetor(int *vetor, int tamanho)` que inverte a ordem dos elementos do próprio vetor que foi passado como parâmetro. Para isso, crie dois ponteiros: um apontando para o início (`inicio`) e outro para o fim (`fim`) do vetor. Em um laço, troque os valores para os quais eles apontam e avance o ponteiro `inicio` e recue o ponteiro `fim` até que eles se cruzem.
+
+### Exercício 2: Inverter um Vetor "In-Place"
+```c
+#include <stdio.h>
+
+void inverterVetor(int *vetor, int tamanho) {
+    int *inicio = vetor;
+    int *fim = vetor + tamanho - 1; // Ponteiro para o último elemento
+    int temp;
+
+    while (inicio < fim) {
+        // Troca os valores
+        temp = *inicio;
+        *inicio = *fim;
+        *fim = temp;
+
+        // Move os ponteiros
+        inicio++;
+        fim--;
+    }
+}
+
+int main() {
+    int numeros[] = {1, 2, 3, 4, 5, 6, 7};
+    int tamanho = sizeof(numeros) / sizeof(numeros[0]);
+    int i;
+
+    printf("Vetor original: ");
+    for(i = 0; i < tamanho; i++) printf("%d ", numeros[i]);
+    printf("\n");
+
+    inverterVetor(numeros, tamanho);
+
+    printf("Vetor invertido: ");
+    for(i = 0; i < tamanho; i++) printf("%d ", numeros[i]);
+    printf("\n");
+
+    return 0;
+}
+```
+
+### Exercício 3: Encontrar o Maior Elemento e Retornar seu Endereço
+Faça uma função `int* encontrarMaior(int *vetor, int tamanho)` que receba um ponteiro para um vetor e seu tamanho. A função deve percorrer o vetor usando aritmética de ponteiros e retornar um *ponteiro* para o maior elemento encontrado. Na `main`, chame a função e use o ponteiro retornado para imprimir tanto o endereço quanto o valor do maior elemento.
+
+### Exercício 3: Encontrar o Maior Elemento e Retornar seu Endereço
+```c
+#include <stdio.h>
+
+int* encontrarMaior(int *vetor, int tamanho) {
+    if (tamanho <= 0) {
+        return NULL; // Retorna nulo se o vetor for vazio
+    }
+
+    int *ptr_maior = vetor; // Assume que o primeiro é o maior
+    int i;
+
+    for (i = 1; i < tamanho; i++) {
+        // Compara o valor do elemento atual com o valor do maior encontrado
+        if (*(vetor + i) > *ptr_maior) {
+            ptr_maior = vetor + i; // Atualiza o ponteiro para o novo maior
+        }
+    }
+    return ptr_maior;
+}
+
+int main() {
+    int numeros[] = {15, 98, 23, 54, 71, 6};
+    int tamanho = sizeof(numeros) / sizeof(numeros[0]);
+    int *ponteiro_maior = encontrarMaior(numeros, tamanho);
+
+    if (ponteiro_maior != NULL) {
+        printf("O maior valor e %d e esta no endereco de memoria %p\n", *ponteiro_maior, ponteiro_maior);
+    } else {
+        printf("Vetor vazio.\n");
+    }
+
+    return 0;
+}
+```
+
+### Exercício 4: Copiar uma String Usando Ponteiros
+Crie uma função `void copiarString(char *destino, char *origem)`. A função deve copiar o conteúdo da string de `origem` para a string de `destino`. A implementação deve usar um laço `while` que continua enquanto o caractere de origem (acessado via `*origem`) não for o nulo (`\0`), copiando e incrementando ambos os ponteiros a cada iteração.
+
+### Exercício 4: Copiar uma String Usando Ponteiros
+```c
+#include <stdio.h>
+
+void copiarString(char *destino, char *origem) {
+    // Esta é uma forma idiomática em C para copiar strings.
+    // O laço copia o caractere e avança os ponteiros.
+    // A condição do while é o próprio valor copiado, que será 0 (falso) no caractere nulo.
+    while ((*destino++ = *origem++));
+}
+
+int main() {
+    char string_origem[] = "Teste com ponteiros!";
+    char string_destino[50]; // Espaço suficiente para a cópia
+
+    copiarString(string_destino, string_origem);
+
+    printf("String de origem: %s\n", string_origem);
+    printf("String de destino: %s\n", string_destino);
+
+    return 0;
+}
+```
+
+### Exercício 5: Dividir um Vetor em Pares e Ímpares
+Escreva uma função `void separarParesImpares(int *original, int tam, int *pares, int *tam_p, int *impares, int *tam_i)`. A função recebe um vetor original e seu tamanho, e ponteiros para outros dois vetores (um para pares, outro para ímpares). Ela também recebe ponteiros para os tamanhos dos vetores de pares e ímpares, que devem ser atualizados pela função. Percorra o vetor original com um ponteiro e, para cada número, coloque-o no vetor de pares ou ímpares usando os respectivos ponteiros e atualize o contador de tamanho correspondente.
+
+### Exercício 5: Dividir um Vetor em Pares e Ímpares
+```c
+#include <stdio.h>
+
+void separarParesImpares(int *original, int tam, int *pares, int *tam_p, int *impares, int *tam_i) {
+    *tam_p = 0; // Zera o tamanho do vetor de pares
+    *tam_i = 0; // Zera o tamanho do vetor de ímpares
+    int i;
+    for(i = 0; i < tam; i++) {
+        if (*(original + i) % 2 == 0) {
+            *(pares + *tam_p) = *(original + i);
+            (*tam_p)++;
+        } else {
+            *(impares + *tam_i) = *(original + i);
+            (*tam_i)++;
+        }
+    }
+}
+
+int main() {
+    int original[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int tam_original = 10;
+    int pares[10], impares[10];
+    int tam_pares, tam_impares;
+    int i;
+
+    separarParesImpares(original, tam_original, pares, &tam_pares, impares, &tam_impares);
+
+    printf("Pares (%d): ", tam_pares);
+    for(i = 0; i < tam_pares; i++) printf("%d ", *(pares + i));
+    printf("\n");
+
+    printf("Impares (%d): ", tam_impares);
+    for(i = 0; i < tam_impares; i++) printf("%d ", *(impares + i));
+    printf("\n");
+
+    return 0;
+}
+```
+
+### Exercício 6: Preencher Vetor e Retornar Ponteiro para o Meio
+Crie uma função `int* preencherVetor(int *vetor, int tamanho)` que preencha um vetor com os `tamanho` primeiros múltiplos de 5. A função deve usar aritmética de ponteiros para preencher os valores. Ao final, a função deve retornar um ponteiro para o elemento que está exatamente no meio do vetor. Se o tamanho for par, pode ser o primeiro elemento da segunda metade.
+
+### Exercício 6: Preencher Vetor e Retornar Ponteiro para o Meio
+```c
+#include <stdio.h>
+
+int* preencherVetor(int *vetor, int tamanho) {
+    int i;
+    for (i = 0; i < tamanho; i++) {
+        *(vetor + i) = (i + 1) * 5;
+    }
+    return vetor + (tamanho / 2); // Retorna o endereço do elemento do meio
+}
+
+int main() {
+    int numeros[9];
+    int tamanho = 9;
+    int *ptr_meio;
+    int i;
+
+    ptr_meio = preencherVetor(numeros, tamanho);
+
+    printf("Vetor preenchido: ");
+    for(i = 0; i < tamanho; i++) printf("%d ", numeros[i]);
+    printf("\n");
+    
+    printf("O ponteiro do meio aponta para o endereco %p.\n", ptr_meio);
+    printf("O valor do elemento do meio e: %d\n", *ptr_meio);
+
+    return 0;
+}
+```
+
+### Exercício 7: Concatenar Duas Strings Manualmente
+Desenvolva uma função `void concatenarStrings(char *str1, char *str2)` que anexa a `str2` ao final da `str1`. Primeiro, use aritmética de ponteiros para mover um ponteiro até o final da `str1` (o caractere `\0`). Depois, use outro laço para copiar os caracteres de `str2` (a partir de onde o ponteiro da `str1` parou), também usando ponteiros. Assuma que `str1` tem espaço suficiente.
+
+### Exercício 7: Concatenar Duas Strings Manualmente
+```c
+#include <stdio.h>
+
+void concatenarStrings(char *str1, char *str2) {
+    // 1. Move o ponteiro str1 até o final da string
+    while (*str1 != '\0') {
+        str1++;
+    }
+    // 2. Copia str2 para o final de str1
+    while ((*str1++ = *str2++));
+}
+
+int main() {
+    char parte1[100] = "Programando em C ";
+    char parte2[] = "e divertido!";
+
+    concatenarStrings(parte1, parte2);
+
+    printf("String resultante: %s\n", parte1);
+    
+    return 0;
+}
+```
+
+### Exercício 8: "Aparar" Espaços de uma String
+Crie uma função `void trim(char *str)` que remove os espaços em branco do início e do fim de uma string, modificando a própria string.
+1.  Use um ponteiro (`inicio`) para avançar pelas posições iniciais enquanto encontrar espaços.
+2.  Use outro ponteiro (`fim`) para recuar a partir do final da string enquanto encontrar espaços, substituindo-os por `\0`.
+3.  Finalmente, mova o restante da string (a partir de `inicio`) para o começo da string original.
+
+### Exercício 8: "Aparar" Espaços de uma String
+```c
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void trim(char *str) {
+    char *inicio = str;
+    char *fim;
+
+    // Remove espaços do início
+    while (isspace((unsigned char)*inicio)) {
+        inicio++;
+    }
+
+    // Se a string for só de espaços ou vazia
+    if (*inicio == '\0') {
+        *str = '\0';
+        return;
+    }
+
+    // Remove espaços do fim
+    fim = str + strlen(str) - 1;
+    while (fim > inicio && isspace((unsigned char)*fim)) {
+        fim--;
+    }
+
+    // Finaliza a nova string
+    *(fim + 1) = '\0';
+
+    // Move o bloco de texto para o início da string original
+    // memmove é seguro para sobreposição de memória
+    if (str != inicio) {
+        memmove(str, inicio, strlen(inicio) + 1);
+    }
+}
+
+int main() {
+    char minha_string[] = "   Ola mundo, com espacos!   ";
+    printf("Original: |%s|\n", minha_string);
+    trim(minha_string);
+    printf("Aparada:  |%s|\n", minha_string);
+    return 0;
+}
+```
+
+### Exercício 9: Calcular Média e Desvio Padrão
+Faça uma função `void calcularEstatisticas(double *dados, int tamanho, double *media, double *desvio_padrao)`. A função deve:
+1.  Percorrer o vetor `dados` com um ponteiro para calcular a `*media`.
+2.  Percorrer o vetor uma segunda vez para calcular a soma dos quadrados das diferenças entre cada elemento e a média. O desvio padrão será a raiz quadrada dessa soma dividida pelo tamanho. Armazene o resultado em `*desvio_padrao`.
+
+### Exercício 9: Calcular Média e Desvio Padrão
+```c
+#include <stdio.h>
+#include <math.h> // Para sqrt() e pow()
+
+void calcularEstatisticas(double *dados, int tamanho, double *media, double *desvio_padrao) {
+    if (tamanho <= 0) return;
+
+    double soma = 0.0;
+    double soma_quadrados_diff = 0.0;
+    double *ptr;
+    
+    // 1. Calcula a média
+    for (ptr = dados; ptr < dados + tamanho; ptr++) {
+        soma += *ptr;
+    }
+    *media = soma / tamanho;
+    
+    // 2. Calcula a soma dos quadrados das diferenças
+    for (ptr = dados; ptr < dados + tamanho; ptr++) {
+        soma_quadrados_diff += pow(*ptr - *media, 2);
+    }
+    
+    // Calcula o desvio padrão
+    *desvio_padrao = sqrt(soma_quadrados_diff / tamanho);
+}
+
+int main() {
+    double amostra[] = {12.5, 15.3, 13.0, 14.8, 16.1, 15.5};
+    int tam = 6;
+    double media_res, dp_res;
+    
+    calcularEstatisticas(amostra, tam, &media_res, &dp_res);
+    
+    printf("Para os dados, a media e: %.2f\n", media_res);
+    printf("E o desvio padrao e: %.2f\n", dp_res);
+
+    return 0;
+}
+```
+
+### Exercício 10: Encontrar o Ponto de Soma Mínima em um Vetor
+Escreva uma função `int* encontrarPontoSomaMinima(int *vetor, int tamanho)` que encontre o "ponto de divisão" em um vetor onde a diferença absoluta entre a soma dos elementos à esquerda e a soma dos elementos à direita é a menor possível. A função deve retornar um ponteiro para o elemento que representa esse ponto de divisão. Use ponteiros para calcular as somas de forma eficiente à medida que percorre o vetor.
+
+### Exercício 10: Encontrar o Ponto de Soma Mínima em um Vetor
+```c
+#include <stdio.h>
+#include <stdlib.h> // Para abs()
+#include <limits.h> // Para INT_MAX
+
+int* encontrarPontoSomaMinima(int *vetor, int tamanho) {
+    if (tamanho < 2) return NULL; // Não faz sentido para vetores pequenos
+
+    long long soma_total = 0;
+    int *ptr_atual;
+    for(ptr_atual = vetor; ptr_atual < vetor + tamanho; ptr_atual++) {
+        soma_total += *ptr_atual;
+    }
+
+    long long soma_esquerda = 0;
+    long long soma_direita;
+    int diff_minima = INT_MAX;
+    int *ponto_otimo = NULL;
+    
+    // Itera até o penúltimo elemento, pois o último não pode ser um ponto de divisão
+    for(ptr_atual = vetor; ptr_atual < vetor + tamanho - 1; ptr_atual++) {
+        soma_esquerda += *ptr_atual;
+        soma_direita = soma_total - soma_esquerda;
+        int diff_atual = abs(soma_esquerda - soma_direita);
+
+        if(diff_atual < diff_minima) {
+            diff_minima = diff_atual;
+            ponto_otimo = ptr_atual;
+        }
+    }
+    return ponto_otimo;
+}
+
+int main() {
+    int numeros[] = {3, 1, 4, 1, 5, 9, 2, 6}; // Soma total = 31
+    int tamanho = 8;
+    int *ponto = encontrarPontoSomaMinima(numeros, tamanho);
+
+    if(ponto != NULL) {
+        printf("O ponto de divisao otimo e o elemento de valor %d no endereco %p.\n", *ponto, ponto);
+    }
+
+    return 0;
+}
+```
+
+## Exercícios focados em Alocação Dinâmica de Memória
