@@ -3388,6 +3388,8 @@ int main() {
 }
 ```
 
+---
+
 ## Exercícios focados em Funções
 
 ### Exercício 1: Somar Elementos de um Vetor (com Aritmética)
@@ -3781,6 +3783,8 @@ int main() {
     return 0;
 }
 ```
+
+---
 
 ## Exercícios focados em Alocação Dinâmica de Memória
 
@@ -4253,4 +4257,44 @@ int main() {
 }
 ```
 
-## Exercícios focados em Alocação Dinâmica de Memória
+---
+
+## Exercícios focados em Arquivos
+
+### Exercício 1: Escrevendo em um Arquivo de Texto
+Crie um programa que peça ao usuário para digitar uma frase. Em seguida, o programa deve abrir um arquivo chamado `frase.txt` em modo de escrita (`"w"`) e salvar a frase digitada pelo usuário dentro dele. Feche o arquivo e verifique se o conteúdo foi salvo corretamente.
+
+
+
+### Exercício 2: Lendo de um Arquivo de Texto
+Escreva um programa que abra o arquivo `frase.txt` criado no exercício anterior em modo de leitura (`"r"`). Leia o conteúdo do arquivo e exiba-o na tela do console. O programa deve também tratar o caso em que o arquivo não existe.
+
+### Exercício 3: Contando Linhas de um Arquivo
+Faça um programa que abra um arquivo de texto qualquer e conte quantas linhas ele possui. Para fazer isso, leia o arquivo caractere por caractere (com `fgetc`) e incremente um contador toda vez que encontrar um caractere de nova linha (`\n`).
+
+### Exercício 4: Adicionando Conteúdo a um Arquivo (Append)
+Desenvolva um programa que funcione como um diário simples. Peça ao usuário para digitar uma entrada para o diário. O programa deve abrir um arquivo `diario.txt` em modo de adição (`"a"`) e adicionar a nova entrada no final do arquivo, sem apagar o conteúdo anterior.
+
+### Exercício 5: Salvando Dados Formatados
+Crie um programa que receba de vários usuários o nome, a idade e a altura. Para cada usuário, salve esses dados em um arquivo chamado `pessoas.txt`, com cada informação em uma linha separada. Ex:
+Maria
+30
+1.65
+Joao
+25
+1.80
+
+### Exercício 6: Lendo Dados Formatados e Calculando a Média
+Escreva um programa que leia o arquivo `pessoas.txt` do exercício anterior. Para cada pessoa, leia o nome, a idade e a altura. Ao final, calcule e exiba a idade média e a altura média de todas as pessoas listadas no arquivo.
+
+### Exercício 7: Gravando uma `struct` em Arquivo Binário
+Defina uma `struct Aluno` com os campos `nome` (string), `matricula` (int) e `nota` (float). Crie um programa que leia os dados de um aluno, armazene-os em uma variável do tipo `struct Aluno` e, em seguida, grave essa `struct` em um arquivo binário chamado `aluno.bin` usando `fwrite`.
+
+### Exercício 8: Lendo uma `struct` de um Arquivo Binário
+Faça um programa que leia a `struct Aluno` do arquivo `aluno.bin` criado no exercício anterior. Use `fread` para carregar os dados do arquivo para uma variável `struct`. Exiba os dados do aluno na tela para confirmar que a leitura foi bem-sucedida.
+
+### Exercício 9: Acessando um Registro Específico com `fseek`
+Modifique o exercício 7 para permitir cadastrar vários alunos (adicionando-os ao final do arquivo `aluno.bin` em modo `"ab"`). Depois, crie um novo programa que peça ao usuário o número do registro que ele deseja ler (ex: o 2º aluno). Use `fseek` para posicionar o "cursor" do arquivo diretamente nesse registro, leia-o com `fread` e exiba seus dados.
+
+### Exercício 10: Copiando o Conteúdo de um Arquivo
+Escreva um programa que faça uma cópia de um arquivo. O programa deve pedir ao usuário o nome do arquivo de origem e o nome do arquivo de destino. Ele deve ler o conteúdo do arquivo de origem e escrevê-lo no arquivo de destino. Faça a cópia em modo binário para garantir que funcione para qualquer tipo de arquivo (texto, imagem, etc.).
