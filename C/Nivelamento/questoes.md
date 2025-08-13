@@ -2244,3 +2244,465 @@ int main() {
 ---
 
 ## Exercícios focados em Matrizes
+
+### Exercício 1: Ler e Imprimir uma Matriz
+Crie um programa que declare uma matriz 3x3 de inteiros. Peça ao usuário para digitar os valores para cada posição e, ao final, imprima a matriz na tela com a formatação correta (linhas e colunas).
+
+### Exercício 1: Ler e Imprimir uma Matriz
+```c
+#include <stdio.h>
+
+#define LIN 3
+#define COL 3
+
+int main() {
+    int matriz[LIN][COL];
+    int i, j;
+
+    // Leitura dos dados da matriz
+    printf("Digite os valores para a matriz %dx%d:\n", LIN, COL);
+    for (i = 0; i < LIN; i++) {
+        for (j = 0; j < COL; j++) {
+            printf("Elemento [%d][%d]: ", i, j);
+            scanf("%d", &matriz[i][j]);
+        }
+    }
+
+    // Impressão da matriz
+    printf("\nMatriz digitada:\n");
+    for (i = 0; i < LIN; i++) {
+        for (j = 0; j < COL; j++) {
+            printf("%d\t", matriz[i][j]); // \t para alinhar as colunas
+        }
+        printf("\n"); // Pula para a próxima linha
+    }
+
+    return 0;
+}
+```
+
+### Exercício 2: Soma dos Elementos da Diagonal Principal
+Escreva um programa que leia uma matriz quadrada 4x4 de números reais. Calcule e imprima a soma dos elementos que estão na diagonal principal (onde o índice da linha é igual ao da coluna).
+
+### Exercício 2: Soma dos Elementos da Diagonal Principal
+```c
+#include <stdio.h>
+
+#define ORDEM 4 // Matriz quadrada de ordem 4
+
+int main() {
+    float matriz[ORDEM][ORDEM];
+    float soma_diagonal = 0.0;
+    int i, j;
+
+    printf("Digite os valores para a matriz %dx%d:\n", ORDEM, ORDEM);
+    for (i = 0; i < ORDEM; i++) {
+        for (j = 0; j < ORDEM; j++) {
+            scanf("%f", &matriz[i][j]);
+        }
+    }
+    
+    // Soma os elementos da diagonal principal (onde i == j)
+    for (i = 0; i < ORDEM; i++) {
+        soma_diagonal += matriz[i][i];
+    }
+    
+    printf("\nA soma dos elementos da diagonal principal e: %.2f\n", soma_diagonal);
+    
+    return 0;
+}
+```
+
+
+### Exercício 3: Soma de Duas Matrizes
+Faça um programa que leia duas matrizes 2x3 de inteiros, `A` e `B`. Crie uma terceira matriz, `C`, que será a soma de `A` e `B` (ou seja, `C[i][j] = A[i][j] + B[i][j]`). Imprima a matriz `C`.
+
+### Exercício 3: Soma de Duas Matrizes
+```c
+#include <stdio.h>
+
+#define LIN 2
+#define COL 3
+
+int main() {
+    int A[LIN][COL], B[LIN][COL], C[LIN][COL];
+    int i, j;
+
+    printf("Digite os valores da Matriz A:\n");
+    for (i = 0; i < LIN; i++) {
+        for (j = 0; j < COL; j++) {
+            scanf("%d", &A[i][j]);
+        }
+    }
+
+    printf("Digite os valores da Matriz B:\n");
+    for (i = 0; i < LIN; i++) {
+        for (j = 0; j < COL; j++) {
+            scanf("%d", &B[i][j]);
+        }
+    }
+    
+    // Calcula a soma das matrizes
+    for (i = 0; i < LIN; i++) {
+        for (j = 0; j < COL; j++) {
+            C[i][j] = A[i][j] + B[i][j];
+        }
+    }
+    
+    printf("\nMatriz C (Soma de A e B):\n");
+    for (i = 0; i < LIN; i++) {
+        for (j = 0; j < COL; j++) {
+            printf("%d\t", C[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+```
+
+### Exercício 4: Encontrar o Maior Valor e sua Posição
+Crie um programa que leia uma matriz 5x5. Encontre o maior valor presente na matriz e, em seguida, mostre a linha e a coluna onde ele se encontra.
+
+### Exercício 4: Encontrar o Maior Valor e sua Posição
+```c
+#include <stdio.h>
+
+#define ORDEM 5
+
+int main() {
+    int matriz[ORDEM][ORDEM];
+    int i, j;
+    int maior_valor, linha_maior, coluna_maior;
+
+    printf("Digite os valores para a matriz %dx%d:\n", ORDEM, ORDEM);
+    for (i = 0; i < ORDEM; i++) {
+        for (j = 0; j < COL; j++) {
+            scanf("%d", &matriz[i][j]);
+        }
+    }
+
+    // Inicializa com o primeiro elemento
+    maior_valor = matriz[0][0];
+    linha_maior = 0;
+    coluna_maior = 0;
+    
+    // Procura pelo maior valor
+    for (i = 0; i < ORDEM; i++) {
+        for (j = 0; j < ORDEM; j++) {
+            if (matriz[i][j] > maior_valor) {
+                maior_valor = matriz[i][j];
+                linha_maior = i;
+                coluna_maior = j;
+            }
+        }
+    }
+    
+    printf("\nO maior valor encontrado foi %d.\n", maior_valor);
+    printf("Ele esta na linha %d e coluna %d.\n", linha_maior, coluna_maior);
+
+    return 0;
+}
+```
+
+### Exercício 5: Matriz Transposta
+Desenvolva um programa que leia uma matriz 3x4. Crie e imprima a matriz transposta (uma matriz 4x3 onde as linhas da original se tornam as colunas da nova).
+
+### Exercício 5: Matriz Transposta
+```c
+#include <stdio.h>
+
+#define LIN_A 3
+#define COL_A 4
+
+int main() {
+    int A[LIN_A][COL_A];
+    int B[COL_A][LIN_A]; // Matriz transposta
+    int i, j;
+
+    printf("Digite os valores da matriz %dx%d:\n", LIN_A, COL_A);
+    for (i = 0; i < LIN_A; i++) {
+        for (j = 0; j < COL_A; j++) {
+            scanf("%d", &A[i][j]);
+        }
+    }
+
+    // Gera a matriz transposta
+    for (i = 0; i < LIN_A; i++) {
+        for (j = 0; j < COL_A; j++) {
+            B[j][i] = A[i][j];
+        }
+    }
+    
+    printf("\nMatriz Transposta (%dx%d):\n", COL_A, LIN_A);
+    for (i = 0; i < COL_A; i++) {
+        for (j = 0; j < LIN_A; j++) {
+            printf("%d\t", B[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+```
+
+### Exercício 6: Contar Valores Acima de um Limite
+Escreva um programa que leia uma matriz 4x4. Depois, peça ao usuário para digitar um número `X`. O programa deve contar e exibir quantos valores na matriz são maiores que `X`.
+
+### Exercício 6: Contar Valores Acima de um Limite
+```c
+#include <stdio.h>
+
+#define ORDEM 4
+
+int main() {
+    int matriz[ORDEM][ORDEM];
+    int i, j, x, contador = 0;
+
+    printf("Digite os valores da matriz %dx%d:\n", ORDEM, ORDEM);
+    for (i = 0; i < ORDEM; i++) {
+        for (j = 0; j < ORDEM; j++) {
+            scanf("%d", &matriz[i][j]);
+        }
+    }
+    
+    printf("\nDigite um valor limite X: ");
+    scanf("%d", &x);
+
+    // Conta os valores maiores que X
+    for (i = 0; i < ORDEM; i++) {
+        for (j = 0; j < ORDEM; j++) {
+            if (matriz[i][j] > x) {
+                contador++;
+            }
+        }
+    }
+    
+    printf("\nA matriz possui %d valores maiores que %d.\n", contador, x);
+    
+    return 0;
+}
+```
+
+### Exercício 7: Verificar se uma Matriz é Simétrica
+Uma matriz quadrada é dita simétrica se ela for igual à sua transposta (ou seja, `M[i][j] == M[j][i]` para todos os `i` e `j`). Crie um programa que leia uma matriz 3x3 e verifique se ela é simétrica, imprimindo "Sim" ou "Não".
+
+### Exercício 7: Verificar se uma Matriz é Simétrica
+```c
+#include <stdio.h>
+
+#define ORDEM 3
+
+int main() {
+    int matriz[ORDEM][ORDEM];
+    int i, j, eh_simetrica = 1; // Flag, assume que é simétrica
+
+    printf("Digite os valores da matriz %dx%d:\n", ORDEM, ORDEM);
+    for (i = 0; i < ORDEM; i++) {
+        for (j = 0; j < ORDEM; j++) {
+            scanf("%d", &matriz[i][j]);
+        }
+    }
+
+    // Verifica a simetria
+    for (i = 0; i < ORDEM; i++) {
+        for (j = 0; j < ORDEM; j++) {
+            if (matriz[i][j] != matriz[j][i]) {
+                eh_simetrica = 0; // Encontrou uma diferença, não é simétrica
+                break; // Sai do laço interno
+            }
+        }
+        if (!eh_simetrica) {
+            break; // Sai do laço externo também
+        }
+    }
+    
+    if (eh_simetrica) {
+        printf("\nA matriz e simetrica.\n");
+    } else {
+        printf("\nA matriz nao e simetrica.\n");
+    }
+
+    return 0;
+}
+```
+
+### Exercício 8: Soma das Linhas e Colunas
+Faça um programa que leia uma matriz 3x3. Crie dois vetores: um para armazenar a soma de cada linha e outro para armazenar a soma de cada coluna. Imprima os dois vetores.
+
+### Exercício 8: Soma das Linhas e Colunas
+```c
+#include <stdio.h>
+
+#define ORDEM 3
+
+int main() {
+    int matriz[ORDEM][ORDEM];
+    int soma_linhas[ORDEM] = {0};
+    int soma_colunas[ORDEM] = {0};
+    int i, j;
+
+    printf("Digite os valores da matriz %dx%d:\n", ORDEM, ORDEM);
+    for (i = 0; i < ORDEM; i++) {
+        for (j = 0; j < ORDEM; j++) {
+            scanf("%d", &matriz[i][j]);
+            soma_linhas[i] += matriz[i][j];
+            soma_colunas[j] += matriz[i][j];
+        }
+    }
+    
+    printf("\nSoma das linhas:\n");
+    for (i = 0; i < ORDEM; i++) {
+        printf("Linha %d: %d\n", i, soma_linhas[i]);
+    }
+    
+    printf("\nSoma das colunas:\n");
+    for (j = 0; j < ORDEM; j++) {
+        printf("Coluna %d: %d\n", j, soma_colunas[j]);
+    }
+
+    return 0;
+}
+```
+
+### Exercício 9: "Jogo da Velha" - Verificação de Estado
+Crie um programa que leia uma matriz 3x3 que representa um tabuleiro de Jogo da Velha. Os valores podem ser 1 (para o jogador 'X'), -1 (para o jogador 'O') ou 0 (para espaços vazios). O programa deve verificar e informar o estado do jogo: se o jogador 'X' venceu, se o jogador 'O' venceu, se houve empate ou se o jogo ainda não terminou.
+
+### Exercício 9: "Jogo da Velha" - Verificação de Estado
+```c
+#include <stdio.h>
+
+int main() {
+    int tab[3][3], i, j;
+    int vencedor = 0; // 0=ninguém, 1=X, -1=O
+    int espacos_vazios = 0;
+
+    printf("Digite o tabuleiro (1 para X, -1 para O, 0 para vazio):\n");
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++) {
+            scanf("%d", &tab[i][j]);
+        }
+    }
+
+    // Verifica linhas e colunas
+    for (i = 0; i < 3; i++) {
+        if (tab[i][0] + tab[i][1] + tab[i][2] == 3) vencedor = 1; // Linha X
+        if (tab[i][0] + tab[i][1] + tab[i][2] == -3) vencedor = -1; // Linha O
+        if (tab[0][i] + tab[1][i] + tab[2][i] == 3) vencedor = 1; // Coluna X
+        if (tab[0][i] + tab[1][i] + tab[2][i] == -3) vencedor = -1; // Coluna O
+    }
+    
+    // Verifica diagonais
+    if (tab[0][0] + tab[1][1] + tab[2][2] == 3) vencedor = 1;
+    if (tab[0][0] + tab[1][1] + tab[2][2] == -3) vencedor = -1;
+    if (tab[0][2] + tab[1][1] + tab[2][0] == 3) vencedor = 1;
+    if (tab[0][2] + tab[1][1] + tab[2][0] == -3) vencedor = -1;
+
+    if (vencedor == 1) {
+        printf("Jogador 'X' venceu!\n");
+    } else if (vencedor == -1) {
+        printf("Jogador 'O' venceu!\n");
+    } else {
+        // Se não há vencedor, verifica se há empate ou se o jogo continua
+        for (i = 0; i < 3; i++) {
+            for (j = 0; j < 3; j++) {
+                if (tab[i][j] == 0) espacos_vazios++;
+            }
+        }
+        if (espacos_vazios == 0) {
+            printf("Empate!\n");
+        } else {
+            printf("O jogo ainda nao terminou.\n");
+        }
+    }
+
+    return 0;
+}
+```
+
+### Exercício 10: Multiplicação de Matrizes
+Este é um clássico. Crie um programa que leia duas matrizes, `A` (2x3) e `B` (3x2), e calcule a matriz produto `C` (que será 2x2). Imprima a matriz resultante.
+*Lembrete: O elemento `C[i][j]` é a soma dos produtos dos elementos da linha `i` de `A` pelos elementos da coluna `j` de `B`.*
+
+### Exercício 10: Multiplicação de Matrizes
+```c
+#include <stdio.h>
+
+// Dimensões: A(m x n), B(n x p) -> C(m x p)
+#define M 2 // Linhas de A e C
+#define N 3 // Colunas de A e Linhas de B
+#define P 2 // Colunas de B e C
+
+int main() {
+    int A[M][N], B[N][P], C[M][P];
+    int i, j, k;
+
+    printf("Digite os valores da Matriz A (%dx%d):\n", M, N);
+    for (i = 0; i < M; i++) {
+        for (j = 0; j < N; j++) {
+            scanf("%d", &A[i][j]);
+        }
+    }
+
+    printf("Digite os valores da Matriz B (%dx%d):\n", N, P);
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < P; j++) {
+            scanf("%d", &B[i][j]);
+        }
+    }
+
+    // Calcula a matriz produto C
+    for (i = 0; i < M; i++) {
+        for (j = 0; j < P; j++) {
+            C[i][j] = 0; // Inicializa o elemento da matriz produto
+            for (k = 0; k < N; k++) {
+                C[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+    
+    printf("\nMatriz Produto C (%dx%d):\n", M, P);
+    for (i = 0; i < M; i++) {
+        for (j = 0; j < P; j++) {
+            printf("%d\t", C[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+```
+
+---
+
+## Exercícios focados em Strings
+
+### Exercício 1: Contagem de Caracteres
+Escreva uma função que receba uma string como parâmetro e retorne o número de caracteres que ela contém. **Desafio:** não utilize a função `strlen()` da biblioteca `<string.h>`. Você deve percorrer o vetor de caracteres até encontrar o caractere nulo (`\0`).
+
+### Exercício 2: Comparação de Strings
+Crie um programa que leia duas strings do teclado. Usando a função `strcmp()`, determine e informe se as strings são iguais. Se não forem, informe qual delas vem primeiro na ordem alfabética.
+
+### Exercício 3: Concatenar Duas Strings
+Faça um programa que leia duas strings e, em seguida, crie uma terceira string que seja a concatenação das duas primeiras. Por exemplo, se as strings lidas forem "bom" e "dia", a nova string deverá ser "bomdia". **Desafio:** implemente a lógica de concatenação manualmente, sem usar a função `strcat()`.
+
+### Exercício 4: Inverter uma String
+Desenvolva um programa que leia uma string e a inverta. Por exemplo, se a string for "programar", o programa deve gerar a string "ramargorp". Você pode criar uma nova string para armazenar o resultado invertido.
+
+### Exercício 5: Contar Vogais e Consoantes
+Escreva um programa que leia uma string e conte quantas vogais e quantas consoantes (letras do alfabeto que não são vogais) ela possui. Imprima os dois totais.
+
+### Exercício 6: Converter para Maiúsculas
+Crie um programa que leia uma string e a converta inteiramente para letras maiúsculas. Utilize a função `toupper()` da biblioteca `<ctype.h>`. Imprima a string resultante.
+
+### Exercício 7: Verificar se é um Palíndromo
+Um palíndromo é uma palavra ou frase que se lê da mesma forma de trás para frente (desconsiderando espaços e acentos). Crie um programa que leia uma string e verifique se ela é um palíndromo. Exemplos: "arara", "ovo", "radar".
+
+### Exercício 8: Remover Espaços Repetidos
+Faça um programa que leia uma frase e crie uma nova string removendo os espaços em branco extras entre as palavras. Por exemplo, se a entrada for "Eu   gosto   de   programar", a saída deve ser "Eu gosto de programar".
+
+### Exercício 9: Contar Palavras
+Escreva um programa que leia uma frase e conte quantas palavras ela contém. Considere que as palavras são separadas por um ou mais espaços em branco.
+
+### Exercício 10: Substituir um Caractere
+Crie um programa que leia uma string, um caractere a ser procurado e um caractere a ser inserido no lugar do primeiro. O programa deve substituir todas as ocorrências do caractere procurado pelo novo caractere. Exemplo: na string "banana", substituir 'a' por 'o' resultaria em "bonono".
