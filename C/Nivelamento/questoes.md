@@ -3084,4 +3084,308 @@ int main() {
 
 ---
 
-## Exercícios focados em Strings
+## Exercícios focados em Ponteiros
+
+### Exercício 1: Básico de Ponteiros
+Declare uma variável do tipo `int`. Em seguida, declare um ponteiro para `int`. Atribua o endereço da variável ao ponteiro. Imprima na tela:
+a) O valor da variável.
+b) O endereço da variável.
+c) O valor armazenado no ponteiro (que deve ser o endereço da variável).
+d) O valor da variável acessado através do ponteiro (usando o operador de dereferenciação `*`).
+
+### Exercício 1: Básico de Ponteiros
+```c
+#include <stdio.h>
+
+int main() {
+    int variavel = 42;
+    int *ponteiro;
+
+    // Atribui o endereço da variável ao ponteiro
+    ponteiro = &variavel;
+
+    printf("a) Valor da variavel: %d\n", variavel);
+    printf("b) Endereco da variavel: %p\n", &variavel);
+    printf("c) Valor armazenado no ponteiro: %p\n", ponteiro);
+    printf("d) Valor acessado pelo ponteiro: %d\n", *ponteiro);
+
+    return 0;
+}
+```
+
+### Exercício 2: Alterando Variáveis com Ponteiros
+Escreva um programa que declare uma variável `int` com um valor inicial. Crie um ponteiro que aponte para essa variável. Usando apenas o ponteiro, altere o valor da variável original. Imprima o valor da variável antes e depois da alteração para confirmar que funcionou.
+
+### Exercício 2: Alterando Variáveis com Ponteiros
+```c
+#include <stdio.h>
+
+int main() {
+    int numero = 10;
+    int *ptr_numero;
+
+    ptr_numero = &numero;
+
+    printf("Valor da variavel antes da alteracao: %d\n", numero);
+
+    // Altera o valor da variável 'numero' usando o ponteiro
+    *ptr_numero = 25;
+
+    printf("Valor da variavel depois da alteracao: %d\n", numero);
+
+    return 0;
+}
+```
+
+### Exercício 3: Trocando Valores com Função e Ponteiros (Swap)
+Crie uma função chamada `troca` que receba como parâmetros dois ponteiros para inteiros. A função deve trocar os valores das variáveis para as quais os ponteiros apontam. Na sua função `main`, declare duas variáveis, chame a função `troca` passando os seus endereços e, por fim, imprima os valores para verificar a troca.
+
+### Exercício 3: Trocando Valores com Função e Ponteiros (Swap)
+```c
+#include <stdio.h>
+
+void troca(int *ptr_a, int *ptr_b) {
+    int temp = *ptr_a; // Armazena o valor de 'a'
+    *ptr_a = *ptr_b;   // 'a' recebe o valor de 'b'
+    *ptr_b = temp;     // 'b' recebe o valor armazenado de 'a'
+}
+
+int main() {
+    int x = 100;
+    int y = 200;
+
+    printf("Valores antes da troca: x = %d, y = %d\n", x, y);
+
+    // Passa os endereços de x e y para a função
+    troca(&x, &y);
+
+    printf("Valores depois da troca: x = %d, y = %d\n", x, y);
+
+    return 0;
+}
+```
+
+### Exercício 4: Ponteiros como Parâmetros de Saída
+Escreva uma função que receba dois números inteiros e dois ponteiros para `int`. A função deve calcular a soma e a subtração dos dois números e armazenar os resultados nos endereços de memória apontados pelos ponteiros. Na `main`, chame a função e imprima os resultados da soma e da subtração.
+
+### Exercício 4: Ponteiros como Parâmetros de Saída
+```c
+#include <stdio.h>
+
+void calcular(int num1, int num2, int *resultado_soma, int *resultado_sub) {
+    *resultado_soma = num1 + num2;
+    *resultado_sub = num1 - num2;
+}
+
+int main() {
+    int a = 20;
+    int b = 8;
+    int soma, subtracao;
+
+    // Passa os endereços de 'soma' e 'subtracao' para a função
+    calcular(a, b, &soma, &subtracao);
+
+    printf("A soma de %d e %d e: %d\n", a, b, soma);
+    printf("A subtracao de %d e %d e: %d\n", a, b, subtracao);
+
+    return 0;
+}
+```
+
+### Exercício 5: Percorrendo um Vetor com Ponteiros
+Declare um vetor de 5 números inteiros. Crie um ponteiro que aponte para o primeiro elemento do vetor. Usando aritmética de ponteiros (incrementando o ponteiro), percorra o vetor e imprima cada um de seus elementos, sem usar o operador de colchetes `[]`.
+
+### Exercício 5: Percorrendo um Vetor com Ponteiros
+```c
+#include <stdio.h>
+
+#define TAMANHO 5
+
+int main() {
+    int vetor[TAMANHO] = {10, 20, 30, 40, 50};
+    int *ptr_vetor;
+    int i;
+
+    // O ponteiro aponta para o início do vetor
+    ptr_vetor = vetor;
+
+    printf("Imprimindo o vetor usando ponteiro:\n");
+    for (i = 0; i < TAMANHO; i++) {
+        // Imprime o valor para o qual o ponteiro aponta e depois incrementa o ponteiro
+        printf("%d ", *ptr_vetor);
+        ptr_vetor++;
+    }
+    printf("\n");
+
+    return 0;
+}
+```
+
+### Exercício 6: Ponteiros e Strings
+Crie uma função que receba uma string (um ponteiro para `char`) e conte o número de vogais nela. Use um ponteiro para percorrer a string.
+
+### Exercício 6: Ponteiros e Strings
+```c
+#include <stdio.h>
+#include <ctype.h> // Para a função tolower()
+
+int contar_vogais(char *str) {
+    int contador = 0;
+    while (*str != '\0') { // Enquanto não chegar ao fim da string
+        char c = tolower(*str); // Converte para minúscula
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+            contador++;
+        }
+        str++; // Move o ponteiro para o próximo caractere
+    }
+    return contador;
+}
+
+int main() {
+    char minha_string[] = "Linguagem C e Ponteiros";
+    int num_vogais = contar_vogais(minha_string);
+    printf("A string \"%s\" tem %d vogais.\n", minha_string, num_vogais);
+    return 0;
+}
+```
+
+### Exercício 7: Alocação Dinâmica para um Vetor
+Escreva um programa que pergunte ao usuário o tamanho de um vetor. Em seguida, use `malloc` para alocar dinamicamente um vetor de `float` com o tamanho informado. Peça ao usuário para preencher o vetor, calcule a média dos valores e, por fim, libere a memória alocada com `free`.
+
+### Exercício 7: Alocação Dinâmica para um Vetor
+```c
+#include <stdio.h>
+#include <stdlib.h> // Para malloc() e free()
+
+int main() {
+    int tamanho;
+    float *vetor;
+    float soma = 0.0, media;
+    int i;
+
+    printf("Digite o tamanho do vetor: ");
+    scanf("%d", &tamanho);
+
+    // Aloca memória para o vetor de floats
+    vetor = (float*) malloc(tamanho * sizeof(float));
+
+    // Verifica se a alocação foi bem-sucedida
+    if (vetor == NULL) {
+        printf("Erro na alocacao de memoria!\n");
+        return 1; // Termina o programa com erro
+    }
+
+    printf("Digite os %d valores do vetor:\n", tamanho);
+    for (i = 0; i < tamanho; i++) {
+        scanf("%f", &vetor[i]);
+        soma += vetor[i];
+    }
+
+    media = soma / tamanho;
+    printf("A media dos valores e: %.2f\n", media);
+
+    // Libera a memória que foi alocada
+    free(vetor);
+    vetor = NULL; // Boa prática: anular o ponteiro após liberar
+
+    return 0;
+}
+```
+
+### Exercício 8: Encontrando um Endereço
+Crie uma função que receba um vetor de inteiros, seu tamanho e um valor a ser procurado. A função deve retornar um *ponteiro* para a primeira ocorrência do valor no vetor. Se o valor não for encontrado, a função deve retornar `NULL`. Na `main`, teste a função e, se o retorno não for `NULL`, imprima o valor encontrado usando o ponteiro retornado.
+
+
+### Exercício 8: Encontrando um Endereço
+```c
+#include <stdio.h>
+
+#define TAMANHO 8
+
+int* encontrar_valor(int *vetor, int tamanho, int valor_procurado) {
+    int i;
+    for (i = 0; i < tamanho; i++) {
+        if (vetor[i] == valor_procurado) {
+            return &vetor[i]; // Retorna o endereço do elemento encontrado
+        }
+    }
+    return NULL; // Retorna NULL se não encontrar
+}
+
+int main() {
+    int numeros[TAMANHO] = {2, 4, 6, 8, 10, 12, 14, 16};
+    int valor_para_buscar = 10;
+    int *ponteiro_resultado;
+
+    ponteiro_resultado = encontrar_valor(numeros, TAMANHO, valor_para_buscar);
+
+    if (ponteiro_resultado != NULL) {
+        printf("Valor %d encontrado no endereco %p.\n", valor_para_buscar, ponteiro_resultado);
+        printf("O valor encontrado e: %d\n", *ponteiro_resultado);
+    } else {
+        printf("Valor %d nao encontrado no vetor.\n", valor_para_buscar);
+    }
+
+    return 0;
+}
+```
+
+### Exercício 9: Ponteiro para Ponteiro (Indireção Dupla)
+Declare uma variável, um ponteiro para essa variável e um ponteiro para o ponteiro. Atribua os endereços corretamente. Use o ponteiro para ponteiro para alterar o valor da variável original e imprima o resultado para confirmar a alteração.
+
+### Exercício 9: Ponteiro para Ponteiro (Indireção Dupla)
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 99;
+    int *ptr = &x;
+    int **pptr = &ptr;
+
+    printf("Valor original de x: %d\n", x);
+    
+    // Alterando o valor de x usando o ponteiro para ponteiro
+    **pptr = 555;
+    
+    printf("Novo valor de x: %d\n", x);
+    printf("Valor de x acessado via *ptr: %d\n", *ptr);
+    printf("Valor de x acessado via **pptr: %d\n", **pptr);
+    
+    return 0;
+}
+```
+
+### Exercício 10: Vetor de Ponteiros para Strings
+Crie um vetor de ponteiros para `char` (um vetor de strings). Inicialize-o com os nomes de 5 frutas. Crie uma função que receba este vetor de ponteiros e seu tamanho, e imprima todas as strings.
+
+### Exercício 10: Vetor de Ponteiros para Strings
+```c
+#include <stdio.h>
+
+#define NUM_FRUTAS 5
+
+void imprimir_strings(const char *vetor_de_ponteiros[], int tamanho) {
+    int i;
+    printf("Lista de Frutas:\n");
+    for (i = 0; i < tamanho; i++) {
+        printf("- %s\n", vetor_de_ponteiros[i]);
+    }
+}
+
+int main() {
+    // Cada elemento do vetor é um ponteiro que aponta para o início de uma string literal
+    const char *frutas[NUM_FRUTAS] = {
+        "Maca",
+        "Banana",
+        "Uva",
+        "Pera",
+        "Laranja"
+    };
+
+    imprimir_strings(frutas, NUM_FRUTAS);
+
+    return 0;
+}
+```
+
+## Exercícios focados em Funções
