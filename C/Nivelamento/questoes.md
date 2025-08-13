@@ -1214,3 +1214,361 @@ int main() {
 ---
 
 ## Exercícios focados em Modularização (funções e procedimentos)
+### Exercício 1: Função de Saudação
+Crie um procedimento (uma função `void`) chamado `saudacao` que não recebe nenhum parâmetro e simplesmente imprime "Bem-vindo ao programa!" na tela. Chame este procedimento a partir da sua função `main`.
+
+### Exercício 1: Função de Saudação
+```c
+#include <stdio.h>
+
+// Procedimento (função void) para a saudação
+void saudacao() {
+    printf("Bem-vindo ao programa!\n");
+}
+
+int main() {
+    // Chama o procedimento de saudação
+    saudacao();
+    return 0;
+}
+```
+
+
+### Exercício 2: Função para Somar
+Escreva uma função chamada `somar` que recebe dois números inteiros como parâmetros e retorna a soma deles. Na função `main`, peça ao usuário para digitar dois números, chame a função `somar` e imprima o resultado.
+
+### Exercício 2: Função para Somar
+```c
+#include <stdio.h>
+
+// Função que recebe dois inteiros e retorna a soma
+int somar(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int num1, num2, resultado;
+
+    printf("Digite o primeiro numero: ");
+    scanf("%d", &num1);
+    printf("Digite o segundo numero: ");
+    scanf("%d", &num2);
+
+    // Chama a função 'somar' e armazena o retorno
+    resultado = somar(num1, num2);
+
+    printf("A soma de %d e %d e: %d\n", num1, num2, resultado);
+
+    return 0;
+}
+```
+
+### Exercício 3: Procedimento para Tabuada
+Crie um procedimento chamado `imprimirTabuada` que recebe um número inteiro como parâmetro e imprime a tabuada desse número (de 1 a 10). A função não deve retornar nenhum valor.
+
+### Exercício 3: Procedimento para Tabuada
+```c
+#include <stdio.h>
+
+// Procedimento que recebe um número e imprime sua tabuada
+void imprimirTabuada(int numero) {
+    printf("\nTabuada do %d:\n", numero);
+    for (int i = 1; i <= 10; i++) {
+        printf("%d x %d = %d\n", numero, i, numero * i);
+    }
+}
+
+int main() {
+    int n;
+    printf("Digite um numero para ver a sua tabuada: ");
+    scanf("%d", &n);
+    imprimirTabuada(n); // Chama o procedimento
+    return 0;
+}
+```
+
+### Exercício 4: Função para Verificar Paridade
+Desenvolva uma função chamada `ehPar` que recebe um número inteiro e retorna `1` se o número for par e `0` se for ímpar. Na `main`, use esta função dentro de um `if` para informar ao usuário se o número digitado é par ou ímpar.
+
+### Exercício 4: Função para Verificar Paridade
+```c
+#include <stdio.h>
+
+// Função que retorna 1 se for par, 0 se for ímpar
+int ehPar(int numero) {
+    if (numero % 2 == 0) {
+        return 1; // É par
+    } else {
+        return 0; // É ímpar
+    }
+    // Alternativa: return (numero % 2 == 0);
+}
+
+int main() {
+    int num;
+    printf("Digite um numero inteiro: ");
+    scanf("%d", &num);
+
+    if (ehPar(num)) { // A função retorna um valor que o if interpreta como verdadeiro (1) ou falso (0)
+        printf("O numero %d e par.\n", num);
+    } else {
+        printf("O numero %d e impar.\n", num);
+    }
+
+    return 0;
+}
+```
+
+### Exercício 5: Função para Calcular Fatorial
+Escreva uma função `fatorial` que recebe um número inteiro não negativo e retorna o seu fatorial. Lembre-se que o fatorial de 0 é 1.
+
+### Exercício 5: Função para Calcular Fatorial
+```c
+#include <stdio.h>
+
+// Função que calcula e retorna o fatorial de um número
+long long fatorial(int n) {
+    if (n < 0) {
+        return -1; // Retorna -1 para indicar um erro (fatorial de negativo não existe)
+    }
+    if (n == 0) {
+        return 1; // Fatorial de 0 é 1
+    }
+
+    long long resultado = 1;
+    for (int i = 1; i <= n; i++) {
+        resultado *= i;
+    }
+    return resultado;
+}
+
+int main() {
+    int numero;
+    printf("Digite um numero para calcular o fatorial: ");
+    scanf("%d", &numero);
+
+    long long resultado = fatorial(numero);
+
+    if (resultado == -1) {
+        printf("Nao e possivel calcular o fatorial de um numero negativo.\n");
+    } else {
+        printf("O fatorial de %d e: %lld\n", numero, resultado);
+    }
+
+    return 0;
+}
+```
+
+### Exercício 6: Função para Encontrar o Maior Valor
+Crie uma função chamada `maiorValor` que recebe três números do tipo `float` como parâmetros e retorna o maior entre eles.
+
+### Exercício 6: Função para Encontrar o Maior Valor
+```c
+#include <stdio.h>
+
+// Função que retorna o maior entre três números float
+float maiorValor(float a, float b, float c) {
+    if (a >= b && a >= c) {
+        return a;
+    } else if (b >= a && b >= c) {
+        return b;
+    } else {
+        return c;
+    }
+}
+
+int main() {
+    float n1, n2, n3, maior;
+    printf("Digite tres numeros separados por espaco: ");
+    scanf("%f %f %f", &n1, &n2, &n3);
+
+    maior = maiorValor(n1, n2, n3);
+
+    printf("O maior valor entre %.2f, %.2f e %.2f e: %.2f\n", n1, n2, n3, maior);
+
+    return 0;
+}
+```
+### Exercício 7: Procedimento com Parâmetros por Referência
+Faça um procedimento chamado `trocarValores` que recebe dois ponteiros para inteiros como parâmetros e troca os valores das variáveis para as quais eles apontam. Na `main`, declare duas variáveis, imprima seus valores, chame a função e imprima os valores novamente para mostrar que foram trocados.
+
+### Exercício 7: Procedimento com Parâmetros por Referência
+```c
+#include <stdio.h>
+
+// Procedimento que troca os valores de duas variáveis usando ponteiros
+void trocarValores(int *ptrA, int *ptrB) {
+    int temp = *ptrA; // Armazena o valor apontado por ptrA
+    *ptrA = *ptrB;    // O valor apontado por ptrA recebe o valor apontado por ptrB
+    *ptrB = temp;     // O valor apontado por ptrB recebe o valor de temp
+}
+
+int main() {
+    int x = 10;
+    int y = 20;
+
+    printf("Valores antes da troca: x = %d, y = %d\n", x, y);
+
+    trocarValores(&x, &y); // Passa os endereços de memória de x e y
+
+    printf("Valores depois da troca: x = %d, y = %d\n", x, y);
+
+    return 0;
+}
+```
+
+### Exercício 8: Função para Calcular Média
+Escreva uma função chamada `calcularMedia` que recebe um array (vetor) de `float` e o seu tamanho como parâmetros. A função deve retornar a média dos valores contidos no array.
+
+### Exercício 8: Função para Calcular Média
+```c
+#include <stdio.h>
+
+#define TAMANHO 5 // Define uma constante para o tamanho do vetor
+
+// Função que calcula a média de um vetor de floats
+float calcularMedia(float vetor[], int tamanho) {
+    if (tamanho <= 0) {
+        return 0; // Evita divisão por zero
+    }
+    float soma = 0;
+    for (int i = 0; i < tamanho; i++) {
+        soma += vetor[i];
+    }
+    return soma / tamanho;
+}
+
+int main() {
+    float notas[TAMANHO] = {7.5, 8.0, 6.5, 9.0, 7.0};
+    
+    printf("Notas: ");
+    for(int i = 0; i < TAMANHO; i++){
+        printf("%.1f ", notas[i]);
+    }
+    
+    float media = calcularMedia(notas, TAMANHO);
+    printf("\nA media das notas e: %.2f\n", media);
+
+    return 0;
+}
+```
+### Exercício 9: Calculadora com Funções
+Refatore o exercício da "Calculadora Simples" (dos exercícios de `switch-case`) para usar funções. Crie funções separadas para `somar`, `subtrair`, `multiplicar` e `dividir`. A função `main` será responsável por obter os dados do usuário e chamar a função apropriada com base na operação escolhida.
+
+### Exercício 9: Calculadora com Funções
+```c
+#include <stdio.h>
+
+// Funções para as operações
+float somar(float a, float b) { return a + b; }
+float subtrair(float a, float b) { return a - b; }
+float multiplicar(float a, float b) { return a * b; }
+float dividir(float a, float b) {
+    if (b != 0) {
+        return a / b;
+    } else {
+        printf("Erro: Divisao por zero!\n");
+        return 0; // Retorno de erro
+    }
+}
+
+int main() {
+    float num1, num2, resultado;
+    char op;
+
+    printf("Digite a operacao (ex: 5 * 3): ");
+    scanf("%f %c %f", &num1, &op, &num2);
+
+    switch (op) {
+        case '+':
+            resultado = somar(num1, num2);
+            printf("Resultado: %.2f\n", resultado);
+            break;
+        case '-':
+            resultado = subtrair(num1, num2);
+            printf("Resultado: %.2f\n", resultado);
+            break;
+        case '*':
+            resultado = multiplicar(num1, num2);
+            printf("Resultado: %.2f\n", resultado);
+            break;
+        case '/':
+            resultado = dividir(num1, num2);
+            if(num2 != 0) { // Só imprime se a divisão foi válida
+               printf("Resultado: %.2f\n", resultado);
+            }
+            break;
+        default:
+            printf("Operador invalido!\n");
+    }
+
+    return 0;
+}
+```
+
+### Exercício 10: Função de Validação
+Crie uma função chamada `lerNotaValida` que não recebe parâmetros, mas pede ao usuário para digitar uma nota entre 0 e 10. A função deve continuar pedindo a nota enquanto o valor digitado for inválido. Quando uma nota válida for inserida, a função deve retorná-la. Na `main`, chame esta função para ler uma nota e depois apenas a imprima.
+
+### Exercício 10: Função de Validação
+```c
+#include <stdio.h>
+
+// Função que lê e valida uma nota entre 0 e 10
+float lerNotaValida() {
+    float nota;
+    do {
+        printf("Digite uma nota (entre 0 e 10): ");
+        scanf("%f", &nota);
+        if (nota < 0 || nota > 10) {
+            printf("Valor invalido! Tente novamente.\n");
+        }
+    } while (nota < 0 || nota > 10);
+    return nota;
+}
+
+int main() {
+    printf("Lendo a primeira nota.\n");
+    float nota1 = lerNotaValida();
+
+    printf("\nLendo a segunda nota.\n");
+    float nota2 = lerNotaValida();
+
+    printf("\nAs notas validas digitadas foram: %.2f e %.2f\n", nota1, nota2);
+
+    return 0;
+}
+```
+
+---
+
+## Exercícios focados em Recursividade
+
+### Exercício 1: Fatorial Recursivo
+Crie uma função recursiva chamada `fatorial` que recebe um número inteiro não negativo `n` e retorna o seu fatorial. O caso base é quando `n` é 0, cujo fatorial é 1.
+
+### Exercício 2: Sequência de Fibonacci Recursiva
+Escreva uma função recursiva `fibonacci` que recebe um inteiro `n` e retorna o n-ésimo termo da sequência de Fibonacci. Os casos base são `fibonacci(0) = 0` e `fibonacci(1) = 1`. Para `n > 1`, `fibonacci(n) = fibonacci(n-1) + fibonacci(n-2)`.
+
+### Exercício 3: Soma de 1 a N
+Faça uma função recursiva `somaAteN` que recebe um inteiro positivo `n` e retorna a soma de todos os números de 1 até `n`. O caso base é quando `n` é 1, retornando 1.
+
+### Exercício 4: Potenciação Recursiva
+Desenvolva uma função recursiva `potencia` que recebe dois inteiros, `base` e `expoente`, e retorna o resultado de `base` elevado ao `expoente`. Considere que o expoente será sempre não negativo. O caso base é quando o `expoente` é 0, retornando 1.
+
+### Exercício 5: Inversão de String
+Crie um procedimento (função `void`) recursivo chamado `inverterString` que recebe uma string (ponteiro para `char`) como parâmetro e a imprime na ordem inversa. A ideia é imprimir o caractere atual *depois* da chamada recursiva para o restante da string.
+
+### Exercício 6: Soma dos Elementos de um Vetor
+Escreva uma função recursiva `somaVetor` que recebe um vetor (array) de inteiros e seu tamanho, e retorna a soma de todos os seus elementos. A cada chamada, a função pode somar o último elemento com o resultado da chamada recursiva para o restante do vetor (tamanho - 1).
+
+### Exercício 7: Máximo Divisor Comum (MDC)
+Implemente o Algoritmo de Euclides de forma recursiva para encontrar o Máximo Divisor Comum (MDC) entre dois números inteiros `a` e `b`. A regra é: `mdc(a, b)` é `a` se `b` for 0; caso contrário, `mdc(a, b)` é `mdc(b, a % b)`.
+
+### Exercício 8: Busca Binária Recursiva
+Escreva uma função de busca binária recursiva, `buscaBinariaRec`, que procura por um valor em um vetor **ordenado**. A função deve receber o vetor, os índices de início e fim da busca, e o valor a ser procurado. Ela deve retornar o índice do valor se encontrado, ou -1 caso contrário.
+
+### Exercício 9: Contagem de Dígitos de um Número
+Crie uma função recursiva `contarDigitos` que recebe um número inteiro e retorna a quantidade de dígitos que ele possui. Por exemplo, `contarDigitos(2548)` deve retornar 4. O caso base ocorre quando o número é menor que 10.
+
+### Exercício 10: Problema das Torres de Hanói
+Implemente uma solução recursiva para o clássico problema das Torres de Hanói. Crie um procedimento `torresDeHanoi` que recebe o número de discos e os pinos de origem, destino e auxiliar. O procedimento deve imprimir os passos necessários para mover os discos do pino de origem para o de destino.
