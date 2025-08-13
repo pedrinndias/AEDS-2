@@ -36,8 +36,8 @@
 
 ### C++
 
-* [Classe](#exercícios-focados-em-structs)
-* [Herança](#exercícios-focados-em-structs)
+* [Classe](#exercícios-focados-em-classe)
+* [Herança](#exercícios-focados-em-herança)
 
 ## Exercícios focados em declaração de variáveis e constantes em C
 
@@ -11572,3 +11572,394 @@ int main() {
 ```
 
 ## Exercícios focados em Herança
+
+### Exercício 1: Herança Simples
+Crie uma classe base chamada `Animal` com um método `public comer()` que exibe "Este animal esta comendo.". Em seguida, crie uma classe derivada chamada `Cachorro` que herda de `Animal`. A classe `Cachorro` deve ter um método `public latir()` que exibe "Au au!". Na `main`, crie um objeto da classe `Cachorro` e chame ambos os métodos `comer()` e `latir()`.
+
+### Exercício 1: Herança Simples
+```cpp
+#include <iostream>
+
+// Classe Base
+class Animal {
+public:
+    void comer() {
+        std::cout << "Este animal esta comendo." << std::endl;
+    }
+};
+
+// Classe Derivada
+class Cachorro : public Animal {
+public:
+    void latir() {
+        std::cout << "Au au!" << std::endl;
+    }
+};
+
+int main() {
+    Cachorro meuCachorro;
+    meuCachorro.comer(); // Método herdado da classe Animal
+    meuCachorro.latir(); // Método próprio da classe Cachorro
+    return 0;
+}
+```
+
+### Exercício 2: Membros `protected`
+Crie uma classe base `Veiculo` com um atributo `protected string marca`. Crie uma classe derivada `Carro` que herda de `Veiculo`. A classe `Carro` deve ter um atributo `private string modelo` e um construtor que inicialize tanto a `marca` (do `Veiculo`) quanto o `modelo`. Crie um método em `Carro` para exibir a marca e o modelo.
+
+### Exercício 2: Membros `protected`
+```cpp
+#include <iostream>
+#include <string>
+
+// Classe Base
+class Veiculo {
+protected:
+    std::string marca;
+
+public:
+    Veiculo(std::string m) : marca(m) {}
+};
+
+// Classe Derivada
+class Carro : public Veiculo {
+private:
+    std::string modelo;
+
+public:
+    // Construtor do Carro chama o construtor do Veiculo
+    Carro(std::string m, std::string mod) : Veiculo(m), modelo(mod) {}
+
+    void exibirInfo() {
+        // 'marca' é acessível aqui porque é 'protected' na classe base
+        std::cout << "Marca: " << marca << std::endl;
+        std::cout << "Modelo: " << modelo << std::endl;
+    }
+};
+
+int main() {
+    Carro meuCarro("Ford", "Focus");
+    meuCarro.exibirInfo();
+    return 0;
+}
+```
+
+
+### Exercício 3: Ordem dos Construtores e Destrutores
+Crie uma classe `Base` e uma classe `Derivada`. No construtor de cada classe, exiba uma mensagem (ex: "Construtor da Base chamado."). Faça o mesmo para os destrutores (ex: "Destrutor da Base chamado."). Na `main`, apenas crie um objeto da classe `Derivada` e observe a ordem em que os construtores e destrutores são chamados.
+
+### Exercício 3: Ordem dos Construtores e Destrutores
+```cpp
+#include <iostream>
+
+class Base {
+public:
+    Base() {
+        std::cout << "Construtor da Base chamado." << std::endl;
+    }
+    ~Base() {
+        std::cout << "Destrutor da Base chamado." << std::endl;
+    }
+};
+
+class Derivada : public Base {
+public:
+    Derivada() {
+        std::cout << "Construtor da Derivada chamado." << std::endl;
+    }
+    ~Derivada() {
+        std::cout << "Destrutor da Derivada chamado." << std::endl;
+    }
+};
+
+int main() {
+    std::cout << "Criando objeto da classe Derivada..." << std::endl;
+    Derivada d;
+    std::cout << "O objeto sera destruido ao final de main()." << std::endl;
+    // Ordem esperada: Construtor Base -> Construtor Derivada -> Destrutor Derivada -> Destrutor Base
+    return 0;
+}
+```
+
+### Exercício 4: Chamando o Construtor da Classe Base
+Crie uma classe `Pessoa` com um construtor que aceita um `string nome`. Crie uma classe `Estudante` que herda de `Pessoa` e adiciona um atributo `int matricula`. O construtor de `Estudante` deve aceitar um nome e uma matrícula, e ele deve chamar o construtor da classe base `Pessoa` para inicializar o nome, usando a lista de inicialização de membros.
+
+### Exercício 4: Chamando o Construtor da Classe Base
+```cpp
+#include <iostream>
+#include <string>
+
+class Pessoa {
+protected:
+    std::string nome;
+public:
+    Pessoa(std::string n) : nome(n) {}
+    
+    std::string getNome() const {
+        return nome;
+    }
+};
+
+class Estudante : public Pessoa {
+private:
+    int matricula;
+public:
+    // Chama o construtor de Pessoa na lista de inicialização
+    Estudante(std::string n, int m) : Pessoa(n), matricula(m) {}
+    
+    int getMatricula() const {
+        return matricula;
+    }
+};
+
+int main() {
+    Estudante e("Joana", 12345);
+    std::cout << "Nome do estudante: " << e.getNome() << std::endl;
+    std::cout << "Matricula: " << e.getMatricula() << std::endl;
+    return 0;
+}
+```
+
+### Exercício 5: Sobrescrita de Métodos (Method Overriding)
+Crie uma classe `Funcionario` com um método `calcularSalario()` que retorna um valor fixo (ex: 1500.0). Crie uma classe `Gerente` que herda de `Funcionario` e sobrescreve o método `calcularSalario()` para retornar um valor maior, adicionando um bônus (ex: 1500.0 + 500.0). Na `main`, crie um objeto de cada tipo e chame `calcularSalario()` em cada um para ver os resultados diferentes.
+
+### Exercício 5: Sobrescrita de Métodos (Method Overriding)
+```cpp
+#include <iostream>
+
+class Funcionario {
+public:
+    double calcularSalario() {
+        return 1500.0;
+    }
+};
+
+class Gerente : public Funcionario {
+public:
+    // Sobrescreve o método da classe base
+    double calcularSalario() {
+        // Poderia ser Funcionario::calcularSalario() + 500.0;
+        return 2000.0; 
+    }
+};
+
+int main() {
+    Funcionario f;
+    Gerente g;
+
+    std::cout << "Salario do Funcionario: R$" << f.calcularSalario() << std::endl;
+    std::cout << "Salario do Gerente: R$" << g.calcularSalario() << std::endl;
+    return 0;
+}
+```
+
+### Exercício 6: Funções Virtuais e Polimorfismo
+Modifique o exercício 5. Na classe `Funcionario`, declare o método `calcularSalario()` como `virtual`. Na `main`, crie um ponteiro do tipo `Funcionario*`. Faça este ponteiro apontar para um objeto `Funcionario` e chame o método. Depois, faça o mesmo ponteiro apontar para um objeto `Gerente` e chame o método novamente. Observe como o método correto é chamado em cada caso.
+
+
+### Exercício 6: Funções Virtuais e Polimorfismo
+```cpp
+#include <iostream>
+
+class Funcionario {
+public:
+    // Método declarado como virtual
+    virtual double calcularSalario() {
+        return 1500.0;
+    }
+    // É uma boa prática ter um destrutor virtual na classe base
+    virtual ~Funcionario() {}
+};
+
+class Gerente : public Funcionario {
+public:
+    // A palavra-chave 'override' garante que estamos sobrescrevendo um método virtual
+    double calcularSalario() override {
+        return 2000.0;
+    }
+};
+
+int main() {
+    Funcionario f;
+    Gerente g;
+    Funcionario* ptr; // Ponteiro da classe base
+
+    ptr = &f;
+    std::cout << "Salario (ponteiro para Funcionario): R$" << ptr->calcularSalario() << std::endl;
+
+    ptr = &g;
+    // Graças à função virtual, o método de Gerente é chamado
+    std::cout << "Salario (ponteiro para Gerente): R$" << ptr->calcularSalario() << std::endl;
+
+    return 0;
+}
+```
+
+### Exercício 7: Hierarquia Polimórfica
+Crie uma classe base `Forma` com um método `virtual double area()`. Crie três classes derivadas: `Retangulo`, `Circulo` e `Triangulo`. Cada uma deve sobrescrever o método `area()` para calcular a área da forma geométrica correspondente. Na `main`, crie um `std::vector` de ponteiros `Forma*` e adicione objetos das três classes derivadas a ele. Percorra o vetor e, para cada forma, imprima sua área calculada.
+**Importante:** Lembre-se de declarar o destrutor da classe base `Forma` como `virtual`.
+
+### Exercício 7: Hierarquia Polimórfica
+```cpp
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+// Classe Base
+class Forma {
+public:
+    virtual double area() const { return 0; } // método virtual
+    virtual ~Forma() { std::cout << "Destrutor de Forma\n"; } // destrutor virtual
+};
+
+// Classes Derivadas
+class Retangulo : public Forma {
+private:
+    double largura, altura;
+public:
+    Retangulo(double l, double a) : largura(l), altura(a) {}
+    double area() const override { return largura * altura; }
+    ~Retangulo() { std::cout << "Destrutor de Retangulo\n"; }
+};
+
+class Circulo : public Forma {
+private:
+    double raio;
+public:
+    Circulo(double r) : raio(r) {}
+    double area() const override { return M_PI * raio * raio; }
+    ~Circulo() { std::cout << "Destrutor de Circulo\n"; }
+};
+
+int main() {
+    std::vector<Forma*> formas;
+    formas.push_back(new Retangulo(10, 5));
+    formas.push_back(new Circulo(7));
+
+    for (const auto& forma : formas) {
+        std::cout << "Area: " << forma->area() << std::endl;
+    }
+
+    // Libera a memória
+    for (const auto& forma : formas) {
+        delete forma;
+    }
+
+    return 0;
+}
+```
+
+### Exercício 8: Classes Abstratas e Funções Virtuais Puras
+Transforme a classe `Forma` do exercício anterior em uma classe abstrata. Para isso, torne o método `area()` uma função virtual pura (ex: `virtual double area() = 0;`). Tente instanciar um objeto da classe `Forma` na `main` e observe que o compilador irá gerar um erro. O restante do programa (usar as classes derivadas) deve continuar funcionando.
+
+### Exercício 8: Classes Abstratas e Funções Virtuais Puras
+```cpp
+#include <iostream>
+#include <cmath>
+
+// Classe Abstrata
+class Forma {
+public:
+    // Função virtual pura torna a classe abstrata
+    virtual double area() const = 0; 
+    virtual ~Forma() {}
+};
+
+class Circulo : public Forma {
+private:
+    double raio;
+public:
+    Circulo(double r) : raio(r) {}
+    // A classe derivada é obrigada a implementar o método puro
+    double area() const override { return M_PI * raio * raio; }
+};
+
+int main() {
+    // Forma f; // ERRO DE COMPILAÇÃO! Não se pode instanciar uma classe abstrata.
+    
+    Forma* ptrForma = new Circulo(10.0);
+    std::cout << "Area do circulo: " << ptrForma->area() << std::endl;
+    
+    delete ptrForma;
+    return 0;
+}
+```
+
+### Exercício 9: Herança Múltipla
+Crie uma classe `Impressora` com um método `imprimir(string doc)`. Crie uma classe `Scanner` com um método `digitalizar(string doc)`. Crie uma terceira classe, `Multifuncional`, que herda publicamente de `Impressora` e `Scanner`. Na `main`, crie um objeto `Multifuncional` e mostre que ele é capaz de chamar tanto o método `imprimir()` quanto o `digitalizar()`.
+
+### Exercício 9: Herança Múltipla
+```cpp
+#include <iostream>
+#include <string>
+
+class Impressora {
+public:
+    void imprimir(std::string doc) {
+        std::cout << "Imprimindo: " << doc << std::endl;
+    }
+};
+
+class Scanner {
+public:
+    void digitalizar(std::string doc) {
+        std::cout << "Digitalizando: " << doc << std::endl;
+    }
+};
+
+// Herda de ambas as classes
+class Multifuncional : public Impressora, public Scanner {};
+
+int main() {
+    Multifuncional m;
+    m.imprimir("Relatorio.pdf");     // Método herdado de Impressora
+    m.digitalizar("Documento.jpg"); // Método herdado de Scanner
+    return 0;
+}
+```
+
+### Exercício 10: Herança `protected`
+Crie uma classe `Dispositivo` com um método `public void ligar()` e um método `protected void reiniciar()`. Crie uma classe `Computador` que herda de forma `protected` de `Dispositivo`.
+* Dentro de um método da classe `Computador`, mostre que é possível chamar tanto `ligar()` quanto `reiniciar()`.
+* Na `main`, crie um objeto `Computador` e mostre que você **não pode** chamar o método `ligar()` diretamente, pois ele se tornou `protected` na classe `Computador`.
+
+
+### Exercício 10: Herança `protected`
+```cpp
+#include <iostream>
+
+class Dispositivo {
+public:
+    void ligar() {
+        std::cout << "Dispositivo ligado.\n";
+    }
+protected:
+    void reiniciar() {
+        std::cout << "Dispositivo reiniciando.\n";
+    }
+};
+
+// Com a herança protected, membros public e protected da base
+// se tornam protected na classe derivada.
+class Computador : protected Dispositivo {
+public:
+    void usarComputador() {
+        std::cout << "Usando o computador...\n";
+        ligar();     // OK: 'ligar' é protected aqui dentro, então é acessível.
+        reiniciar(); // OK: 'reiniciar' continua protected e acessível.
+    }
+};
+
+int main() {
+    Computador pc;
+    pc.usarComputador();
+    
+    // pc.ligar(); // ERRO DE COMPILAÇÃO!
+    // 'ligar' se tornou um membro protected de Computador,
+    // então não pode ser acessado de fora da classe ou de suas derivadas.
+
+    return 0;
+}
+```
+
+---
