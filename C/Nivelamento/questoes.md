@@ -597,3 +597,313 @@ int main() {
 
 ## Exercícios focados em Estruturas condicionais (if-else / operador ternario / switch case)
 
+### Exercício 1: Verificador de Número (if-else)
+Escreva um programa que peça ao usuário para inserir um número inteiro. O programa deve então verificar e informar se o número é positivo, negativo ou zero.
+
+### Exercício 1: Verificador de Número (if-else)
+```c
+#include <stdio.h>
+
+int main() {
+    int numero;
+
+    printf("Digite um numero inteiro: ");
+    scanf("%d", &numero);
+
+    if (numero > 0) {
+        printf("O numero %d e positivo.\n", numero);
+    } else if (numero < 0) {
+        printf("O numero %d e negativo.\n", numero);
+    } else {
+        printf("O numero e zero.\n");
+    }
+
+    return 0;
+}
+```
+
+### Exercício 2: Elegibilidade para Votação (if-else)
+Crie um programa que solicite a idade de uma pessoa e determine se ela está apta a votar. No Brasil, o voto é obrigatório para maiores de 18 anos e facultativo para pessoas entre 16 e 18 anos e maiores de 70 anos. Considere essas regras.
+
+### Exercício 2: Elegibilidade para Votação (if-else)
+```c
+#include <stdio.h>
+
+int main() {
+    int idade;
+
+    printf("Digite a sua idade: ");
+    scanf("%d", &idade);
+
+    if (idade >= 18 && idade <= 70) {
+        printf("Com %d anos, o voto e obrigatorio.\n", idade);
+    } else if ((idade >= 16 && idade < 18) || idade > 70) {
+        printf("Com %d anos, o voto e facultativo.\n", idade);
+    } else {
+        printf("Com %d anos, voce nao pode votar.\n", idade);
+    }
+
+    return 0;
+}
+```
+
+### Exercício 3: O Maior de Três (if-else aninhado)
+Desenvolva um programa que leia três números inteiros e use estruturas `if-else` aninhadas para encontrar e imprimir o maior dos três.
+
+### Exercício 3: O Maior de Três (if-else aninhado)
+```c
+#include <stdio.h>
+
+int main() {
+    int n1, n2, n3;
+
+    printf("Digite tres numeros inteiros separados por espaco: ");
+    scanf("%d %d %d", &n1, &n2, &n3);
+
+    if (n1 >= n2) {
+        if (n1 >= n3) {
+            printf("O maior numero e: %d\n", n1);
+        } else {
+            printf("O maior numero e: %d\n", n3);
+        }
+    } else {
+        if (n2 >= n3) {
+            printf("O maior numero e: %d\n", n2);
+        } else {
+            printf("O maior numero e: %d\n", n3);
+        }
+    }
+
+    return 0;
+}
+```
+
+### Exercício 4: Par ou Ímpar (Operador Ternário)
+Escreva um programa que receba um número inteiro e, utilizando o operador ternário, mostre na tela se o número é par ou ímpar.
+
+
+### Exercício 4: Par ou Ímpar (Operador Ternário)
+```c
+#include <stdio.h>
+
+int main() {
+    int numero;
+
+    printf("Digite um numero inteiro: ");
+    scanf("%d", &numero);
+
+    printf("O numero %d e %s.\n", numero, (numero % 2 == 0) ? "Par" : "Impar");
+
+    return 0;
+}
+```
+
+
+
+
+### Exercício 5: Calculadora de Desconto (Operador Ternário)
+Crie um programa para uma loja que calcula um desconto. Peça o valor total da compra. Se o valor for maior que R$100,00, aplique um desconto de 10%. Caso contrário, não há desconto. Use o operador ternário para calcular e exibir o valor final.
+
+### Exercício 5: Calculadora de Desconto (Operador Ternário)
+```c
+#include <stdio.h>
+
+int main() {
+    float valorCompra, valorFinal;
+
+    printf("Digite o valor total da compra: R$ ");
+    scanf("%f", &valorCompra);
+
+    valorFinal = (valorCompra > 100.0) ? (valorCompra * 0.90) : valorCompra;
+
+    printf("O valor final com desconto e: R$ %.2f\n", valorFinal);
+
+    return 0;
+}
+```
+
+### Exercício 6: Dia da Semana (switch-case)
+Faça um programa que leia um número inteiro de 1 a 7 e imprima o dia da semana correspondente, onde 1 é Domingo, 2 é Segunda-feira, e assim por diante. Se o usuário digitar um número fora desse intervalo, o programa deve informar "Dia inválido".
+
+### Exercício 6: Dia da Semana (switch-case)
+```c
+#include <stdio.h>
+
+int main() {
+    int dia;
+
+    printf("Digite um numero de 1 a 7: ");
+    scanf("%d", &dia);
+
+    switch (dia) {
+        case 1:
+            printf("Domingo\n");
+            break;
+        case 2:
+            printf("Segunda-feira\n");
+            break;
+        case 3:
+            printf("Terca-feira\n");
+            break;
+        case 4:
+            printf("Quarta-feira\n");
+            break;
+        case 5:
+            printf("Quinta-feira\n");
+            break;
+        case 6:
+            printf("Sexta-feira\n");
+            break;
+        case 7:
+            printf("Sabado\n");
+            break;
+        default:
+            printf("Dia invalido.\n");
+            break;
+    }
+
+    return 0;
+}
+```
+
+### Exercício 7: Calculadora Simples (switch-case)
+Desenvolva uma calculadora simples que leia dois números e um operador (+, -, \*, /). O programa deve usar uma estrutura `switch-case` para realizar a operação desejada e imprimir o resultado. Lembre-se de tratar a divisão por zero.
+
+### Exercício 7: Calculadora Simples (switch-case)
+```c
+#include <stdio.h>
+
+int main() {
+    char operador;
+    float num1, num2;
+
+    printf("Digite o primeiro numero: ");
+    scanf("%f", &num1);
+
+    printf("Digite o operador (+, -, *, /): ");
+    scanf(" %c", &operador); // Espaço antes de %c para consumir a nova linha
+
+    printf("Digite o segundo numero: ");
+    scanf("%f", &num2);
+
+    switch (operador) {
+        case '+':
+            printf("%.2f + %.2f = %.2f\n", num1, num2, num1 + num2);
+            break;
+        case '-':
+            printf("%.2f - %.2f = %.2f\n", num1, num2, num1 - num2);
+            break;
+        case '*':
+            printf("%.2f * %.2f = %.2f\n", num1, num2, num1 * num2);
+            break;
+        case '/':
+            if (num2 != 0) {
+                printf("%.2f / %.2f = %.2f\n", num1, num2, num1 / num2);
+            } else {
+                printf("Erro! Divisao por zero nao e permitida.\n");
+            }
+            break;
+        default:
+            printf("Operador invalido.\n");
+            break;
+    }
+
+    return 0;
+}
+```
+
+
+### Exercício 8: Ano Bissexto (Combinação de if-else)
+Escreva um programa que determine se um ano inserido pelo usuário é bissexto. Um ano é bissexto se for divisível por 4, mas não por 100, a menos que também seja divisível por 400.
+
+### Exercício 8: Ano Bissexto (Combinação de if-else)
+```c
+#include <stdio.h>
+
+int main() {
+    int ano;
+
+    printf("Digite um ano: ");
+    scanf("%d", &ano);
+
+    if ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0)) {
+        printf("O ano %d e bissexto.\n", ano);
+    } else {
+        printf("O ano %d nao e bissexto.\n", ano);
+    }
+
+    return 0;
+}
+```
+
+### Exercício 9: Conceito de Notas (switch-case)
+Crie um programa que receba uma nota de um aluno (A, B, C, D ou F) e, usando `switch-case`, imprima uma mensagem correspondente: A - Excelente, B - Ótimo, C - Bom, D - Regular, F - Reprovado.
+
+### Exercício 9: Conceito de Notas (switch-case)
+```c
+#include <stdio.h>
+#include <ctype.h> // Para a função toupper
+
+int main() {
+    char nota;
+
+    printf("Digite o conceito do aluno (A, B, C, D ou F): ");
+    scanf(" %c", &nota);
+
+    switch (toupper(nota)) { // Converte a nota para maiúscula
+        case 'A':
+            printf("Excelente\n");
+            break;
+        case 'B':
+            printf("Otimo\n");
+            break;
+        case 'C':
+            printf("Bom\n");
+            break;
+        case 'D':
+            printf("Regular\n");
+            break;
+        case 'F':
+            printf("Reprovado\n");
+            break;
+        default:
+            printf("Conceito invalido.\n");
+            break;
+    }
+
+    return 0;
+}
+```
+
+### Exercício 10: Faixa Etária (if-else-if)
+Faça um programa que peça a idade de uma pessoa e use uma estrutura `if-else-if` para classificá-la em uma das seguintes categorias:
+* 0-12 anos: Criança
+* 13-17 anos: Adolescente
+* 18-59 anos: Adulto
+* 60 anos ou mais: Idoso
+
+### Exercício 10: Faixa Etária (if-else-if)
+```c
+#include <stdio.h>
+
+int main() {
+    int idade;
+
+    printf("Digite a idade: ");
+    scanf("%d", &idade);
+
+    if (idade >= 0 && idade <= 12) {
+        printf("Categoria: Crianca\n");
+    } else if (idade >= 13 && idade <= 17) {
+        printf("Categoria: Adolescente\n");
+    } else if (idade >= 18 && idade <= 59) {
+        printf("Categoria: Adulto\n");
+    } else if (idade >= 60) {
+        printf("Categoria: Idoso\n");
+    } else {
+        printf("Idade invalida.\n");
+    }
+
+    return 0;
+}
+```
