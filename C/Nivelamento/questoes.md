@@ -2,6 +2,8 @@
 
 ## Sumário
 
+### C
+
 * [Declaração de variáveis e constantes](#exercícios-focados-em-declaração-de-variáveis-e-constantes-em-c)
 
 * [Estrutura de repetição](#exercícios-focados-em-estrutura-de-repetição-while--do-while--for)
@@ -29,6 +31,13 @@
 * [Arquivos](#exercícios-focados-em-recursividade)
 
 * [Structs](#exercícios-focados-em-structs)
+
+---
+
+### C++
+
+* [Classe](#exercícios-focados-em-structs)
+* [Herança](#exercícios-focados-em-structs)
 
 ## Exercícios focados em declaração de variáveis e constantes em C
 
