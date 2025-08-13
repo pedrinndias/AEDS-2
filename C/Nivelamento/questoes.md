@@ -913,22 +913,158 @@ int main() {
 ### Exercício 1: Contagem Crescente (For)
 Escreva um programa que use um laço `for` para imprimir os números de 1 a 10, um em cada linha.
 
+### Exercício 1: Contagem Crescente (For)
+```c
+#include <stdio.h>
+
+int main() {
+    int i;
+    printf("Contando de 1 a 10:\n");
+    for (i = 1; i <= 10; i++) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+```
 
 ### Exercício 2: Tabuada (For)
 Peça ao usuário para inserir um número inteiro. Em seguida, use um laço `for` para calcular e exibir a tabuada desse número, do 1 ao 10.
 
+### Exercício 2: Tabuada (For)
+```c
+#include <stdio.h>
+
+int main() {
+    int numero, i;
+
+    printf("Digite um numero para ver sua tabuada: ");
+    scanf("%d", &numero);
+
+    printf("\nTabuada do %d:\n", numero);
+    for (i = 1; i <= 10; i++) {
+        printf("%d x %d = %d\n", numero, i, numero * i);
+    }
+
+    return 0;
+}
+```
+
 ### Exercício 3: Soma de Pares (For)
 Crie um programa que calcule e mostre a soma de todos os números pares de 1 a 100.
+
+### Exercício 3: Soma de Pares (For)
+```c
+#include <stdio.h>
+
+int main() {
+    int i;
+    int soma = 0;
+
+    for (i = 1; i <= 100; i++) {
+        if (i % 2 == 0) {
+            soma += i; // ou soma = soma + i;
+        }
+    }
+
+    printf("A soma de todos os numeros pares de 1 a 100 e: %d\n", soma);
+
+    return 0;
+}
+```
 
 ### Exercício 4: Validação de Senha (While)
 Desenvolva um programa que peça ao usuário para digitar uma senha. O programa deve continuar pedindo a senha enquanto o usuário não digitar a senha correta ("1234"). Quando a senha correta for digitada, exiba a mensagem "Acesso Permitido".
 
+### Exercício 4: Validação de Senha (While)
+```c
+#include <stdio.h>
+#include <string.h> // Necessário para a função strcmp
+
+int main() {
+    char senha_digitada[20];
+    const char *senha_correta = "1234";
+
+    printf("Digite a senha: ");
+    scanf("%s", senha_digitada);
+
+    // strcmp retorna 0 se as strings forem iguais
+    while (strcmp(senha_digitada, senha_correta) != 0) {
+        printf("Senha incorreta. Tente novamente: ");
+        scanf("%s", senha_digitada);
+    }
+
+    printf("Acesso Permitido.\n");
+
+    return 0;
+}
+```
+
 ### Exercício 5: Média de Notas (While)
 Escreva um programa que leia as notas de um número indeterminado de alunos. O programa deve parar de ler notas quando o usuário digitar um valor negativo. Ao final, o programa deve calcular e exibir a média das notas inseridas.
+
+### Exercício 5: Média de Notas (While)
+```c
+#include <stdio.h>
+
+int main() {
+    float nota = 0, soma = 0;
+    int contador = 0;
+
+    printf("Digite as notas dos alunos (digite um numero negativo para parar):\n");
+
+    while (1) { // Laço infinito que será quebrado internamente
+        printf("Nota %d: ", contador + 1);
+        scanf("%f", &nota);
+
+        if (nota < 0) {
+            break; // Sai do laço se a nota for negativa
+        }
+
+        soma += nota;
+        contador++;
+    }
+
+    if (contador > 0) {
+        float media = soma / contador;
+        printf("\nForam inseridas %d notas.\n", contador);
+        printf("A media das notas e: %.2f\n", media);
+    } else {
+        printf("\nNenhuma nota foi inserida.\n");
+    }
+
+    return 0;
+}
+```
 
 ### Exercício 6: Fatorial (While)
 Faça um programa que peça um número inteiro não negativo ao usuário e calcule o seu fatorial. Lembre-se que o fatorial de 0 é 1.
 *Exemplo: 5! = 5 \* 4 \* 3 \* 2 \* 1 = 120*
+
+### Exercício 6: Fatorial (While)
+```c
+#include <stdio.h>
+
+int main() {
+    int numero;
+    long long fatorial = 1; // Usar long long para fatoriais maiores
+
+    printf("Digite um numero inteiro nao negativo: ");
+    scanf("%d", &numero);
+
+    if (numero < 0) {
+        printf("Erro! Fatorial nao e definido para numeros negativos.\n");
+    } else {
+        int temp = numero;
+        while (temp > 1) {
+            fatorial *= temp;
+            temp--;
+        }
+        printf("O fatorial de %d e: %lld\n", numero, fatorial);
+    }
+
+    return 0;
+}
+```
 
 ### Exercício 7: Menu de Opções (Do-While)
 Crie um programa que exiba um menu com as seguintes opções:
@@ -938,11 +1074,139 @@ Crie um programa que exiba um menu com as seguintes opções:
 
 O programa deve permitir que o usuário escolha uma opção. Se a opção for 1 ou 2, ele deve pedir dois números, realizar a operação e mostrar o resultado. O programa deve continuar executando até que o usuário escolha a opção 3 (Sair). Garanta que o menu seja exibido pelo menos uma vez.
 
+### Exercício 7: Menu de Opções (Do-While)
+```c
+#include <stdio.h>
+
+int main() {
+    int opcao;
+    float num1, num2;
+
+    do {
+        // Exibição do menu
+        printf("\n----- MENU -----\n");
+        printf("1. Somar\n");
+        printf("2. Subtrair\n");
+        printf("3. Sair\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                printf("Digite dois numeros para somar: ");
+                scanf("%f %f", &num1, &num2);
+                printf("Resultado: %.2f\n", num1 + num2);
+                break;
+            case 2:
+                printf("Digite dois numeros para subtrair: ");
+                scanf("%f %f", &num1, &num2);
+                printf("Resultado: %.2f\n", num1 - num2);
+                break;
+            case 3:
+                printf("Saindo do programa...\n");
+                break;
+            default:
+                printf("Opcao invalida! Tente novamente.\n");
+                break;
+        }
+    } while (opcao != 3);
+
+    return 0;
+}
+```
+
 ### Exercício 8: Adivinhe o Número (Do-While)
 Desenvolva um jogo simples onde o programa "pensa" em um número secreto (por exemplo, 42). O programa deve pedir ao usuário para adivinhar o número. Use um laço `do-while` para continuar pedindo um palpite até que o usuário acerte. A cada palpite errado, informe se o número secreto é maior ou menor.
+
+### Exercício 8: Adivinhe o Número (Do-While)
+```c
+#include <stdio.h>
+
+int main() {
+    int numero_secreto = 42;
+    int palpite;
+
+    printf("--- Jogo de Adivinhacao ---\n");
+    printf("Tente adivinhar o numero secreto!\n");
+
+    do {
+        printf("Digite seu palpite: ");
+        scanf("%d", &palpite);
+
+        if (palpite < numero_secreto) {
+            printf("Muito baixo! Tente um numero maior.\n");
+        } else if (palpite > numero_secreto) {
+            printf("Muito alto! Tente um numero menor.\n");
+        }
+
+    } while (palpite != numero_secreto);
+
+    printf("Parabens! Voce acertou o numero secreto (%d)!\n", numero_secreto);
+
+    return 0;
+}
+```
 
 ### Exercício 9: Sequência de Fibonacci (For)
 Escreva um programa que peça ao usuário um número N e gere os N primeiros termos da sequência de Fibonacci. A sequência começa com 0 e 1, e cada termo subsequente é a soma dos dois anteriores (0, 1, 1, 2, 3, 5, 8, ...).
 
+### Exercício 9: Sequência de Fibonacci (For)
+```c
+#include <stdio.h>
+
+int main() {
+    int n, i;
+    int t1 = 0, t2 = 1, proximo_termo;
+
+    printf("Quantos termos da sequencia de Fibonacci voce quer ver? ");
+    scanf("%d", &n);
+
+    printf("Os primeiros %d termos de Fibonacci sao:\n", n);
+
+    for (i = 1; i <= n; i++) {
+        printf("%d, ", t1);
+        proximo_termo = t1 + t2;
+        t1 = t2;
+        t2 = proximo_termo;
+    }
+    printf("...\n");
+
+    return 0;
+}
+```
+
 ### Exercício 10: Contagem de Dígitos (While)
 Crie um programa que peça ao usuário para inserir um número inteiro e, em seguida, conte e exiba quantos dígitos esse número possui. Por exemplo, o número 2548 tem 4 dígitos. (Dica: use divisões inteiras por 10).
+
+### Exercício 10: Contagem de Dígitos (While)
+```c
+#include <stdio.h>
+
+int main() {
+    int numero;
+    int contador = 0;
+
+    printf("Digite um numero inteiro: ");
+    scanf("%d", &numero);
+
+    // Caso especial para o número 0
+    if (numero == 0) {
+        contador = 1;
+    } else {
+        int temp = numero;
+        // Torna o número positivo se for negativo para a contagem funcionar
+        if (temp < 0) {
+            temp = -temp;
+        }
+        
+        while (temp != 0) {
+            temp = temp / 10; // Divisão inteira remove o último dígito
+            contador++;
+        }
+    }
+
+    printf("O numero %d possui %d digitos.\n", numero, contador);
+
+    return 0;
+}
+```
