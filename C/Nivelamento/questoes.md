@@ -4,8 +4,31 @@
 
 * [Declaração de variáveis e constantes](#exercícios-focados-em-declaração-de-variáveis-e-constantes-em-c)
 
+* [Estrutura de repetição](#exercícios-focados-em-estrutura-de-repetição-while--do-while--for)
 
+* [Estrutura de condição](#exercícios-focados-em-estruturas-condicionais-if-else--operador-ternario--switch-case)
 
+* [Funções matemáticas](#exercícios-focados-em-funções-matemáticas-utilizando-a-biblioteca-mathh--em-c)
+
+* [Modularização](#exercícios-focados-em-modularização-funções-e-procedimentos)
+
+* [Recursividade](#exercícios-focados-em-recursividade)
+
+* [Vetores](#exercícios-focados-em-recursividade)
+
+* [Matrizes](#exercícios-focados-em-recursividade)
+
+* [Strings](#exercícios-focados-em-recursividade)
+
+* [Ponteiros](#exercícios-focados-em-recursividade)
+
+* [Funções](#exercícios-focados-em-recursividade)
+
+* [Alocação Dinâmica de Memória](#exercícios-focados-em-recursividade)
+
+* [Arquivos](#exercícios-focados-em-recursividade)
+
+* [Structs](#exercícios-focados-em-recursividade)
 
 ## Exercícios focados em declaração de variáveis e constantes em C
 
