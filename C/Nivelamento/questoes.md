@@ -3783,3 +3783,474 @@ int main() {
 ```
 
 ## Exercícios focados em Alocação Dinâmica de Memória
+
+### Exercício 1: Alocando um Vetor Simples (`malloc`)
+Escreva um programa que pergunte ao usuário o número de elementos que ele deseja em um vetor de inteiros. Use `malloc` para alocar dinamicamente a quantidade de memória necessária. Preencha o vetor com valores (por exemplo, o índice de cada posição) e, em seguida, imprima o vetor. Não se esqueça de liberar a memória com `free` no final.
+
+### Exercício 1: Alocando um Vetor Simples (`malloc`)
+```c
+#include <stdio.h>
+#include <stdlib.h> // Necessário para malloc() e free()
+
+int main() {
+    int tamanho;
+    int *vetor;
+    int i;
+
+    printf("Digite o tamanho do vetor: ");
+    scanf("%d", &tamanho);
+
+    // Aloca memória para 'tamanho' inteiros
+    vetor = (int*) malloc(tamanho * sizeof(int));
+
+    // Verifica se a alocação de memória falhou
+    if (vetor == NULL) {
+        printf("Erro na alocacao de memoria!\n");
+        return 1; // Encerra o programa com erro
+    }
+
+    // Preenche e imprime o vetor
+    printf("Preenchendo e imprimindo o vetor:\n");
+    for (i = 0; i < tamanho; i++) {
+        vetor[i] = i * i; // Preenche com o quadrado do índice
+        printf("vetor[%d] = %d\n", i, vetor[i]);
+    }
+
+    // Libera a memória alocada
+    free(vetor);
+    vetor = NULL; // Boa prática: anular ponteiro após free
+
+    return 0;
+}
+```
+
+### Exercício 2: Inicialização com `calloc`
+Refaça o exercício anterior, mas desta vez utilize `calloc` para alocar a memória. Após a alocação e antes de preencher o vetor com seus próprios valores, imprima o conteúdo do vetor para verificar que `calloc` inicializou todos os elementos com zero. Depois, prossiga para preencher, imprimir e liberar a memória.
+
+### Exercício 2: Inicialização com `calloc`
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int tamanho;
+    int *vetor;
+    int i;
+
+    printf("Digite o tamanho do vetor: ");
+    scanf("%d", &tamanho);
+
+    // Aloca e zera a memória para 'tamanho' inteiros
+    vetor = (int*) calloc(tamanho, sizeof(int));
+
+    if (vetor == NULL) {
+        printf("Erro na alocacao de memoria!\n");
+        return 1;
+    }
+
+    printf("Vetor apos calloc (inicializado com zeros):\n");
+    for (i = 0; i < tamanho; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    printf("\nPreenchendo o vetor com novos valores:\n");
+    for (i = 0; i < tamanho; i++) {
+        vetor[i] = i + 1;
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    free(vetor);
+    vetor = NULL;
+
+    return 0;
+}
+```
+
+### Exercício 3: Concatenando Strings Dinamicamente
+Crie um programa que leia duas strings do usuário. Calcule o tamanho necessário para armazenar a concatenação das duas. Aloque dinamicamente um novo espaço de memória com esse tamanho (usando `malloc`) e copie o conteúdo das duas strings para este novo espaço, criando a string concatenada. Imprima o resultado e libere a memória.
+
+### Exercício 3: Concatenando Strings Dinamicamente
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    char str1[100], str2[100];
+    char *resultado;
+    
+    printf("Digite a primeira string: ");
+    fgets(str1, 100, stdin);
+    str1[strcspn(str1, "\n")] = 0; // Remove o \n
+
+    printf("Digite a segunda string: ");
+    fgets(str2, 100, stdin);
+    str2[strcspn(str2, "\n")] = 0; // Remove o \n
+
+    // Aloca memória para a nova string (tamanho das duas + 1 para o '\0')
+    resultado = (char*) malloc(strlen(str1) + strlen(str2) + 1);
+
+    if (resultado == NULL) {
+        printf("Erro de alocacao!\n");
+        return 1;
+    }
+
+    // Copia a primeira string e concatena a segunda
+    strcpy(resultado, str1);
+    strcat(resultado, str2);
+
+    printf("String concatenada: %s\n", resultado);
+
+    free(resultado);
+    resultado = NULL;
+
+    return 0;
+}
+```
+
+### Exercício 4: Redimensionando um Vetor (`realloc`)
+Comece alocando um vetor para 5 inteiros usando `malloc` e preencha-o. Em seguida, peça ao usuário um novo tamanho para o vetor (maior que 5). Use `realloc` para redimensionar o vetor para o novo tamanho. Peça ao usuário para preencher as novas posições. Imprima o vetor completo e, por fim, libere a memória.
+
+### Exercício 4: Redimensionando um Vetor (`realloc`)
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int i;
+    int *vetor = (int*) malloc(5 * sizeof(int));
+    if (vetor == NULL) return 1;
+
+    printf("Vetor inicial (tamanho 5):\n");
+    for (i = 0; i < 5; i++) {
+        vetor[i] = i * 10;
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    int novo_tamanho;
+    printf("\nDigite o novo tamanho do vetor: ");
+    scanf("%d", &novo_tamanho);
+    
+    // Redimensiona o vetor
+    int *temp = (int*) realloc(vetor, novo_tamanho * sizeof(int));
+    
+    // Verifica se realloc funcionou
+    if (temp == NULL) {
+        printf("Erro ao redimensionar o vetor!\n");
+        free(vetor); // Libera a memória original
+        return 1;
+    }
+    vetor = temp;
+
+    // Preenche as novas posições (se o vetor aumentou)
+    if (novo_tamanho > 5) {
+        printf("Preenchendo as novas posicoes:\n");
+        for (i = 5; i < novo_tamanho; i++) {
+            vetor[i] = i * 100;
+        }
+    }
+
+    printf("Vetor final (tamanho %d):\n", novo_tamanho);
+    for (i = 0; i < novo_tamanho; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    free(vetor);
+    vetor = NULL;
+
+    return 0;
+}
+```
+
+
+### Exercício 5: Matriz Dinâmica (Vetor de Ponteiros)
+Faça um programa que pergunte ao usuário o número de linhas e colunas de uma matriz de `float`. Aloque a matriz dinamicamente. Para isso, você precisará de um ponteiro para ponteiro (`float **matriz`). Primeiro, aloque um vetor de ponteiros (as linhas). Depois, em um laço, aloque um vetor de `float` para cada linha. Preencha e imprima a matriz. Lembre-se de liberar a memória na ordem inversa (cada linha primeiro, depois o vetor de ponteiros).
+
+### Exercício 5: Matriz Dinâmica (Vetor de Ponteiros)
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int linhas, colunas;
+    float **matriz;
+    int i, j;
+
+    printf("Digite o numero de linhas: ");
+    scanf("%d", &linhas);
+    printf("Digite o numero de colunas: ");
+    scanf("%d", &colunas);
+
+    // Aloca o vetor de ponteiros (as linhas)
+    matriz = (float**) malloc(linhas * sizeof(float*));
+    if (matriz == NULL) return 1;
+
+    // Aloca cada linha (vetor de floats)
+    for (i = 0; i < linhas; i++) {
+        matriz[i] = (float*) malloc(colunas * sizeof(float));
+        if (matriz[i] == NULL) return 1;
+    }
+
+    // Preenche e imprime a matriz
+    for (i = 0; i < linhas; i++) {
+        for (j = 0; j < colunas; j++) {
+            matriz[i][j] = (i * colunas) + j + 1.0;
+            printf("%.1f\t", matriz[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Libera a memória (ordem inversa da alocação)
+    for (i = 0; i < linhas; i++) {
+        free(matriz[i]);
+    }
+    free(matriz);
+    matriz = NULL;
+
+    return 0;
+}
+```
+
+### Exercício 6: Lendo um Número Indeterminado de Dados
+Escreva um programa que leia uma sequência de números inteiros até que o usuário digite `-1`. Como você não sabe quantos números serão digitados, comece com um vetor pequeno (ex: tamanho 10) alocado dinamicamente. Se o vetor encher, use `realloc` para dobrar sua capacidade. Ao final, imprima todos os números digitados e a quantidade total. Libere a memória.
+
+### Exercício 6: Lendo um Número Indeterminado de Dados
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int capacidade = 10;
+    int tamanho = 0;
+    int *vetor = (int*) malloc(capacidade * sizeof(int));
+    if (vetor == NULL) return 1;
+    
+    int numero;
+    printf("Digite numeros inteiros (-1 para parar):\n");
+    
+    while (1) {
+        scanf("%d", &numero);
+        if (numero == -1) {
+            break;
+        }
+
+        // Se o vetor está cheio, dobra a capacidade
+        if (tamanho == capacidade) {
+            capacidade *= 2;
+            int *temp = realloc(vetor, capacidade * sizeof(int));
+            if (temp == NULL) {
+                printf("Erro ao realocar!\n");
+                free(vetor);
+                return 1;
+            }
+            vetor = temp;
+        }
+
+        vetor[tamanho] = numero;
+        tamanho++;
+    }
+
+    printf("\nVoce digitou %d numeros:\n", tamanho);
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    free(vetor);
+    vetor = NULL;
+
+    return 0;
+}
+```
+
+### Exercício 7: Cópia Dinâmica de um Vetor
+Crie uma função `int* copiaVetor(int *vetor_original, int tamanho)`. Esta função deve receber um vetor e seu tamanho, alocar dinamicamente um novo vetor do mesmo tamanho, copiar todos os elementos do original para o novo e retornar o ponteiro para o novo vetor. Na `main`, teste a função e não se esqueça de usar `free` no vetor retornado.
+
+### Exercício 7: Cópia Dinâmica de um Vetor
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h> // Para memcpy
+
+int* copiaVetor(int *vetor_original, int tamanho) {
+    if (vetor_original == NULL || tamanho <= 0) {
+        return NULL;
+    }
+    
+    // Aloca memória para a cópia
+    int *copia = (int*) malloc(tamanho * sizeof(int));
+    if (copia == NULL) {
+        return NULL;
+    }
+
+    // Copia o conteúdo da memória do original para a cópia
+    memcpy(copia, vetor_original, tamanho * sizeof(int));
+
+    return copia;
+}
+
+int main() {
+    int original[] = {10, 20, 30, 40, 50};
+    int tamanho = 5;
+    
+    int *vetor_copiado = copiaVetor(original, tamanho);
+
+    if (vetor_copiado != NULL) {
+        printf("Vetor copiado: ");
+        for (int i = 0; i < tamanho; i++) {
+            printf("%d ", vetor_copiado[i]);
+        }
+        printf("\n");
+
+        free(vetor_copiado);
+        vetor_copiado = NULL;
+    }
+
+    return 0;
+}
+```
+
+### Exercício 8: Alocação de `struct`
+Defina uma `struct` chamada `Produto` que contenha um `char nome[50]`, um `int codigo` e um `float preco`. Crie um programa que aloque dinamicamente a memória para **um** `Produto`. Preencha os dados da `struct` usando o ponteiro e depois imprima esses dados. Libere a memória.
+
+### Exercício 8: Alocação de `struct`
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    char nome[50];
+    int codigo;
+    float preco;
+} Produto;
+
+int main() {
+    // Aloca memória para UMA struct Produto
+    Produto *p = (Produto*) malloc(sizeof(Produto));
+    if (p == NULL) return 1;
+
+    printf("Digite o nome do produto: ");
+    fgets(p->nome, 50, stdin);
+    p->nome[strcspn(p->nome, "\n")] = 0;
+
+    printf("Digite o codigo do produto: ");
+    scanf("%d", &p->codigo);
+
+    printf("Digite o preco do produto: ");
+    scanf("%f", &p->preco);
+
+    printf("\n--- Produto Cadastrado ---\n");
+    printf("Nome: %s\n", p->nome);
+    printf("Codigo: %d\n", p->codigo);
+    printf("Preco: R$ %.2f\n", p->preco);
+    
+    free(p);
+    p = NULL;
+
+    return 0;
+}
+```
+
+### Exercício 9: Vetor Dinâmico de `structs`
+Usando a mesma `struct Produto` do exercício anterior, peça ao usuário para informar quantos produtos ele quer cadastrar. Aloque dinamicamente um vetor de `struct Produto` com o tamanho informado. Peça para o usuário preencher os dados de todos os produtos. Ao final, imprima os dados de todos os produtos cadastrados e libere a memória.
+
+### Exercício 9: Vetor Dinâmico de `structs`
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    char nome[50];
+    int codigo;
+} Produto;
+
+int main() {
+    int n, i;
+    printf("Quantos produtos deseja cadastrar? ");
+    scanf("%d", &n);
+
+    // Aloca um vetor de 'n' structs Produto
+    Produto *catalogo = (Produto*) malloc(n * sizeof(Produto));
+    if (catalogo == NULL) return 1;
+
+    for (i = 0; i < n; i++) {
+        printf("\n--- Produto %d ---\n", i + 1);
+        printf("Nome: ");
+        scanf(" %[^\n]", catalogo[i].nome); // Lê string com espaços
+        printf("Codigo: ");
+        scanf("%d", &catalogo[i].codigo);
+    }
+    
+    printf("\n--- Catalogo de Produtos ---\n");
+    for (i = 0; i < n; i++) {
+        printf("Produto %d: %s (Codigo: %d)\n", i + 1, catalogo[i].nome, catalogo[i].codigo);
+    }
+
+    free(catalogo);
+    catalogo = NULL;
+
+    return 0;
+}
+```
+
+### Exercício 10: Juntando dois vetores ordenados
+Escreva uma função que receba dois vetores de inteiros já ordenados (`v1` e `v2`) e seus respectivos tamanhos. A função deve alocar dinamicamente um terceiro vetor com tamanho suficiente para conter todos os elementos de `v1` e `v2`. Em seguida, ela deve preencher este novo vetor com os elementos de `v1` e `v2` de forma que o novo vetor também fique ordenado. Retorne o ponteiro para o novo vetor. Libere a memória na `main`.
+
+### Exercício 10: Juntando dois vetores ordenados
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int* juntarVetoresOrdenados(int *v1, int tam1, int *v2, int tam2) {
+    int *resultado = (int*) malloc((tam1 + tam2) * sizeof(int));
+    if (resultado == NULL) return NULL;
+
+    int i = 0, j = 0, k = 0;
+
+    // Mescla os dois vetores enquanto ambos tiverem elementos
+    while (i < tam1 && j < tam2) {
+        if (v1[i] < v2[j]) {
+            resultado[k++] = v1[i++];
+        } else {
+            resultado[k++] = v2[j++];
+        }
+    }
+
+    // Copia os elementos restantes de v1, se houver
+    while (i < tam1) {
+        resultado[k++] = v1[i++];
+    }
+
+    // Copia os elementos restantes de v2, se houver
+    while (j < tam2) {
+        resultado[k++] = v2[j++];
+    }
+
+    return resultado;
+}
+
+int main() {
+    int v1[] = {1, 3, 5, 7};
+    int v2[] = {2, 4, 6, 8, 10};
+    int tam1 = 4, tam2 = 5;
+
+    int *vetor_final = juntarVetoresOrdenados(v1, tam1, v2, tam2);
+
+    if (vetor_final != NULL) {
+        printf("Vetor final ordenado: ");
+        for (int i = 0; i < (tam1 + tam2); i++) {
+            printf("%d ", vetor_final[i]);
+        }
+        printf("\n");
+        free(vetor_final);
+    }
+
+    return 0;
+}
+```
+
+## Exercícios focados em Alocação Dinâmica de Memória
