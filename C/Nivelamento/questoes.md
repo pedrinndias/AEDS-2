@@ -1875,5 +1875,372 @@ int main() {
     return 0;
 }
 ```
+---
 
 ## Exercícios focados em Vetores
+
+### Exercício 1: Ler e Imprimir um Vetor
+Crie um programa que declare um vetor de 5 posições do tipo `int`. Peça ao usuário para digitar os 5 valores e, em seguida, imprima todos os elementos do vetor na tela.
+
+### Exercício 1: Ler e Imprimir um Vetor
+```c
+#include <stdio.h>
+
+#define TAMANHO 5
+
+int main() {
+    int vetor[TAMANHO];
+    int i;
+
+    // Leitura dos valores do vetor
+    printf("Digite %d valores inteiros:\n", TAMANHO);
+    for (i = 0; i < TAMANHO; i++) {
+        printf("Elemento %d: ", i);
+        scanf("%d", &vetor[i]);
+    }
+
+    // Impressão dos valores do vetor
+    printf("\nElementos do vetor:\n");
+    for (i = 0; i < TAMANHO; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+```
+
+### Exercício 2: Encontrar o Maior e o Menor Elemento
+Escreva um programa que leia 10 números inteiros, armazene-os em um vetor e, ao final, imprima qual é o maior e o menor valor contido no vetor.
+
+### Exercício 2: Encontrar o Maior e o Menor Elemento
+```c
+#include <stdio.h>
+
+#define TAMANHO 10
+
+int main() {
+    int vetor[TAMANHO];
+    int i, maior, menor;
+
+    printf("Digite %d numeros inteiros:\n", TAMANHO);
+    for (i = 0; i < TAMANHO; i++) {
+        scanf("%d", &vetor[i]);
+    }
+
+    // Inicializa maior e menor com o primeiro elemento
+    maior = vetor[0];
+    menor = vetor[0];
+
+    // Percorre o vetor a partir do segundo elemento para encontrar o maior e o menor
+    for (i = 1; i < TAMANHO; i++) {
+        if (vetor[i] > maior) {
+            maior = vetor[i];
+        }
+        if (vetor[i] < menor) {
+            menor = vetor[i];
+        }
+    }
+
+    printf("\nMaior elemento: %d\n", maior);
+    printf("Menor elemento: %d\n", menor);
+
+    return 0;
+}
+```
+
+### Exercício 3: Média dos Elementos e Contagem
+Faça um programa que preencha um vetor com 8 números reais. Em seguida, calcule e mostre a média de todos os elementos. Por fim, indique quantos elementos do vetor estão acima da média calculada.
+
+### Exercício 3: Média dos Elementos e Contagem
+```c
+#include <stdio.h>
+
+#define TAMANHO 8
+
+int main() {
+    float vetor[TAMANHO];
+    float soma = 0.0, media;
+    int i, acima_da_media = 0;
+
+    printf("Digite %d numeros reais:\n", TAMANHO);
+    for (i = 0; i < TAMANHO; i++) {
+        scanf("%f", &vetor[i]);
+        soma += vetor[i];
+    }
+
+    media = soma / TAMANHO;
+
+    // Conta quantos elementos estão acima da média
+    for (i = 0; i < TAMANHO; i++) {
+        if (vetor[i] > media) {
+            acima_da_media++;
+        }
+    }
+
+    printf("\nMedia dos elementos: %.2f\n", media);
+    printf("Quantidade de elementos acima da media: %d\n", acima_da_media);
+
+    return 0;
+}
+```
+
+### Exercício 4: Inverter um Vetor
+Crie um programa que leia 10 elementos para um vetor `A`. Em seguida, crie um segundo vetor, `B`, que deverá conter os mesmos elementos de `A`, mas na ordem inversa. Exiba o vetor `B`.
+
+### Exercício 4: Inverter um Vetor
+```c
+#include <stdio.h>
+
+#define TAMANHO 10
+
+int main() {
+    int vetorA[TAMANHO], vetorB[TAMANHO];
+    int i;
+
+    printf("Digite os %d elementos do vetor A:\n", TAMANHO);
+    for (i = 0; i < TAMANHO; i++) {
+        scanf("%d", &vetorA[i]);
+    }
+
+    // Inverte o vetor A para o vetor B
+    for (i = 0; i < TAMANHO; i++) {
+        vetorB[i] = vetorA[TAMANHO - 1 - i];
+    }
+
+    printf("\nVetor B (inverso de A):\n");
+    for (i = 0; i < TAMANHO; i++) {
+        printf("%d ", vetorB[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+```
+
+### Exercício 5: Contar Números Pares
+Escreva um programa que leia um vetor de 10 posições e conte quantos números pares ele possui. Imprima o resultado da contagem.
+
+### Exercício 5: Contar Números Pares
+```c
+#include <stdio.h>
+
+#define TAMANHO 10
+
+int main() {
+    int vetor[TAMANHO];
+    int i, contador_pares = 0;
+
+    printf("Digite %d numeros inteiros:\n", TAMANHO);
+    for (i = 0; i < TAMANHO; i++) {
+        scanf("%d", &vetor[i]);
+    }
+
+    // Conta os números pares
+    for (i = 0; i < TAMANHO; i++) {
+        if (vetor[i] % 2 == 0) {
+            contador_pares++;
+        }
+    }
+
+    printf("\nO vetor possui %d numeros pares.\n", contador_pares);
+
+    return 0;
+}
+```
+
+### Exercício 6: Somar Dois Vetores
+Crie um programa que leia dois vetores de 5 posições cada. Em seguida, crie um terceiro vetor, `C`, cujo valor de cada posição será a soma dos elementos correspondentes nos vetores `A` e `B`. (Ex: `C[0] = A[0] + B[0]`). Mostre o vetor `C`.
+
+### Exercício 6: Somar Dois Vetores
+```c
+#include <stdio.h>
+
+#define TAMANHO 5
+
+int main() {
+    int vetorA[TAMANHO], vetorB[TAMANHO], vetorC[TAMANHO];
+    int i;
+
+    printf("Digite os elementos do Vetor A:\n");
+    for (i = 0; i < TAMANHO; i++) scanf("%d", &vetorA[i]);
+
+    printf("Digite os elementos do Vetor B:\n");
+    for (i = 0; i < TAMANHO; i++) scanf("%d", &vetorB[i]);
+
+    // Soma os vetores A e B para C
+    for (i = 0; i < TAMANHO; i++) {
+        vetorC[i] = vetorA[i] + vetorB[i];
+    }
+
+    printf("\nVetor C (soma de A e B):\n");
+    for (i = 0; i < TAMANHO; i++) {
+        printf("%d ", vetorC[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+```
+
+### Exercício 7: Busca por um Elemento
+Faça um programa que preencha um vetor com 10 números. Depois, peça para o usuário digitar um número. O programa deve fazer uma busca por esse número no vetor e informar se ele foi encontrado e, caso afirmativo, em qual posição (índice).
+
+### Exercício 7: Busca por um Elemento
+```c
+#include <stdio.h>
+
+#define TAMANHO 10
+
+int main() {
+    int vetor[TAMANHO];
+    int i, valor_busca, posicao = -1;
+
+    printf("Digite %d numeros para preencher o vetor:\n", TAMANHO);
+    for (i = 0; i < TAMANHO; i++) {
+        scanf("%d", &vetor[i]);
+    }
+
+    printf("\nDigite o valor a ser buscado: ");
+    scanf("%d", &valor_busca);
+
+    // Realiza a busca linear
+    for (i = 0; i < TAMANHO; i++) {
+        if (vetor[i] == valor_busca) {
+            posicao = i;
+            break; // Para a busca assim que encontra o primeiro
+        }
+    }
+
+    if (posicao != -1) {
+        printf("Valor %d encontrado na posicao (indice) %d.\n", valor_busca, posicao);
+    } else {
+        printf("Valor %d nao encontrado no vetor.\n", valor_busca);
+    }
+
+    return 0;
+}
+```
+
+### Exercício 8: Eliminar Elementos Repetidos
+Desenvolva um programa que leia um vetor de 15 posições. Em seguida, crie um novo vetor que contenha apenas os elementos do vetor original que não se repetem. Exiba o novo vetor.
+(Dica: para cada elemento, verifique se ele já foi inserido no novo vetor).
+
+### Exercício 8: Eliminar Elementos Repetidos
+```c
+#include <stdio.h>
+
+#define TAMANHO_ORIGINAL 15
+
+int main() {
+    int vetor_original[TAMANHO_ORIGINAL];
+    int vetor_sem_repeticao[TAMANHO_ORIGINAL];
+    int i, j, tamanho_novo = 0;
+    int ja_existe;
+
+    printf("Digite %d numeros para o vetor:\n", TAMANHO_ORIGINAL);
+    for (i = 0; i < TAMANHO_ORIGINAL; i++) {
+        scanf("%d", &vetor_original[i]);
+    }
+
+    for (i = 0; i < TAMANHO_ORIGINAL; i++) {
+        ja_existe = 0;
+        // Verifica se o elemento já está no vetor sem repetição
+        for (j = 0; j < tamanho_novo; j++) {
+            if (vetor_original[i] == vetor_sem_repeticao[j]) {
+                ja_existe = 1;
+                break;
+            }
+        }
+        // Se não existe, adiciona
+        if (!ja_existe) {
+            vetor_sem_repeticao[tamanho_novo] = vetor_original[i];
+            tamanho_novo++;
+        }
+    }
+
+    printf("\nVetor sem elementos repetidos:\n");
+    for (i = 0; i < tamanho_novo; i++) {
+        printf("%d ", vetor_sem_repeticao[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+```
+
+### Exercício 9: Produto Escalar
+Crie um programa que leia dois vetores de 10 posições cada. Calcule e mostre o produto escalar dos dois vetores, que é a soma do produto dos elementos correspondentes de cada vetor ( `(A[0]*B[0]) + (A[1]*B[1]) + ...` ).
+
+### Exercício 9: Produto Escalar
+```c
+#include <stdio.h>
+
+#define TAMANHO 10
+
+int main() {
+    int vetorA[TAMANHO], vetorB[TAMANHO];
+    long long produto_escalar = 0;
+    int i;
+
+    printf("Digite os %d elementos do Vetor A:\n", TAMANHO);
+    for (i = 0; i < TAMANHO; i++) scanf("%d", &vetorA[i]);
+
+    printf("Digite os %d elementos do Vetor B:\n", TAMANHO);
+    for (i = 0; i < TAMANHO; i++) scanf("%d", &vetorB[i]);
+    
+    // Calcula o produto escalar
+    for (i = 0; i < TAMANHO; i++) {
+        produto_escalar += (long long)vetorA[i] * vetorB[i];
+    }
+    
+    printf("\nO produto escalar dos vetores e: %lld\n", produto_escalar);
+
+    return 0;
+}
+```
+
+### Exercício 10: Ordenação Simples (Bubble Sort)
+Implemente o algoritmo de ordenação "Bubble Sort" para ordenar um vetor de 10 números inteiros em ordem crescente. Ao final, imprima o vetor ordenado.
+(O Bubble Sort funciona comparando pares de elementos adjacentes e trocando-os de lugar se estiverem na ordem errada, repetindo o processo até que o vetor esteja ordenado).
+
+### Exercício 10: Ordenação Simples (Bubble Sort)
+```c
+#include <stdio.h>
+
+#define TAMANHO 10
+
+int main() {
+    int vetor[TAMANHO];
+    int i, j, temp;
+
+    printf("Digite %d numeros inteiros para ordenar:\n", TAMANHO);
+    for (i = 0; i < TAMANHO; i++) {
+        scanf("%d", &vetor[i]);
+    }
+
+    // Algoritmo Bubble Sort
+    for (i = 0; i < TAMANHO - 1; i++) {
+        for (j = 0; j < TAMANHO - 1 - i; j++) {
+            // Compara elementos adjacentes
+            if (vetor[j] > vetor[j + 1]) {
+                // Troca os elementos de lugar
+                temp = vetor[j];
+                vetor[j] = vetor[j + 1];
+                vetor[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("\nVetor ordenado em ordem crescente:\n");
+    for (i = 0; i < TAMANHO; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+```
+---
+
+## Exercícios focados em Matrizes
