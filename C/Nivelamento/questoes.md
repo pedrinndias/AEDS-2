@@ -1571,29 +1571,309 @@ int main() {
 ### Exercício 1: Fatorial Recursivo
 Crie uma função recursiva chamada `fatorial` que recebe um número inteiro não negativo `n` e retorna o seu fatorial. O caso base é quando `n` é 0, cujo fatorial é 1.
 
+```c
+#include <stdio.h>
+
+long long fatorial(int n) {
+    // Caso base: fatorial de 0 é 1
+    if (n == 0) {
+        return 1;
+    }
+    // Passo recursivo: n * (n-1)!
+    else {
+        return n * fatorial(n - 1);
+    }
+}
+
+int main() {
+    int numero = 5;
+    printf("O fatorial de %d e: %lld\n", numero, fatorial(numero));
+    
+    numero = 10;
+    printf("O fatorial de %d e: %lld\n", numero, fatorial(numero));
+    return 0;
+}
+```
+
 ### Exercício 2: Sequência de Fibonacci Recursiva
 Escreva uma função recursiva `fibonacci` que recebe um inteiro `n` e retorna o n-ésimo termo da sequência de Fibonacci. Os casos base são `fibonacci(0) = 0` e `fibonacci(1) = 1`. Para `n > 1`, `fibonacci(n) = fibonacci(n-1) + fibonacci(n-2)`.
+
+### Exercício 2: Sequência de Fibonacci Recursiva
+```c
+#include <stdio.h>
+
+int fibonacci(int n) {
+    // Casos base
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    // Passo recursivo
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+int main() {
+    int termo = 10;
+    printf("O %d-esimo termo da sequencia de Fibonacci e: %d\n", termo, fibonacci(termo));
+    
+    printf("Os 10 primeiros termos: ");
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", fibonacci(i));
+    }
+    printf("\n");
+    return 0;
+}
+```
 
 ### Exercício 3: Soma de 1 a N
 Faça uma função recursiva `somaAteN` que recebe um inteiro positivo `n` e retorna a soma de todos os números de 1 até `n`. O caso base é quando `n` é 1, retornando 1.
 
+### Exercício 3: Soma de 1 a N
+```c
+#include <stdio.h>
+
+int somaAteN(int n) {
+    // Caso base
+    if (n == 1) {
+        return 1;
+    }
+    // Passo recursivo
+    else {
+        return n + somaAteN(n - 1);
+    }
+}
+
+int main() {
+    int numero = 10;
+    printf("A soma dos numeros de 1 a %d e: %d\n", numero, somaAteN(numero));
+    
+    numero = 100;
+    printf("A soma dos numeros de 1 a %d e: %d\n", numero, somaAteN(numero));
+    return 0;
+}
+```
+
 ### Exercício 4: Potenciação Recursiva
 Desenvolva uma função recursiva `potencia` que recebe dois inteiros, `base` e `expoente`, e retorna o resultado de `base` elevado ao `expoente`. Considere que o expoente será sempre não negativo. O caso base é quando o `expoente` é 0, retornando 1.
+
+### Exercício 4: Potenciação Recursiva
+```c
+#include <stdio.h>
+
+long long potencia(int base, int expoente) {
+    // Caso base
+    if (expoente == 0) {
+        return 1;
+    }
+    // Passo recursivo
+    else {
+        return base * potencia(base, expoente - 1);
+    }
+}
+
+int main() {
+    int base = 2;
+    int expoente = 10;
+    printf("%d elevado a %d e: %lld\n", base, expoente, potencia(base, expoente));
+    
+    base = 5;
+    expoente = 3;
+    printf("%d elevado a %d e: %lld\n", base, expoente, potencia(base, expoente));
+    return 0;
+}
+```
 
 ### Exercício 5: Inversão de String
 Crie um procedimento (função `void`) recursivo chamado `inverterString` que recebe uma string (ponteiro para `char`) como parâmetro e a imprime na ordem inversa. A ideia é imprimir o caractere atual *depois* da chamada recursiva para o restante da string.
 
+### Exercício 5: Inversão de String
+```c
+#include <stdio.h>
+
+void inverterString(char *str) {
+    // Caso base: se o caractere atual for o terminador nulo
+    if (*str == '\0') {
+        return;
+    }
+    
+    // Passo recursivo: chama a função para o resto da string
+    inverterString(str + 1);
+    
+    // Imprime o caractere atual (na volta da recursão)
+    printf("%c", *str);
+}
+
+int main() {
+    char minhaString[] = "recursividade";
+    printf("String original: %s\n", minhaString);
+    printf("String invertida: ");
+    inverterString(minhaString);
+    printf("\n");
+    return 0;
+}
+```
+
 ### Exercício 6: Soma dos Elementos de um Vetor
 Escreva uma função recursiva `somaVetor` que recebe um vetor (array) de inteiros e seu tamanho, e retorna a soma de todos os seus elementos. A cada chamada, a função pode somar o último elemento com o resultado da chamada recursiva para o restante do vetor (tamanho - 1).
+
+### Exercício 6: Soma dos Elementos de um Vetor
+```c
+#include <stdio.h>
+
+int somaVetor(int vetor[], int tamanho) {
+    // Caso base: se o vetor estiver vazio, a soma é 0
+    if (tamanho <= 0) {
+        return 0;
+    }
+    // Passo recursivo: soma o último elemento com a soma do resto do vetor
+    return vetor[tamanho - 1] + somaVetor(vetor, tamanho - 1);
+}
+
+int main() {
+    int meuVetor[] = {10, 20, 30, 40, 50};
+    int tamanho = sizeof(meuVetor) / sizeof(meuVetor[0]);
+    
+    printf("A soma dos elementos do vetor e: %d\n", somaVetor(meuVetor, tamanho));
+    return 0;
+}
+```
 
 ### Exercício 7: Máximo Divisor Comum (MDC)
 Implemente o Algoritmo de Euclides de forma recursiva para encontrar o Máximo Divisor Comum (MDC) entre dois números inteiros `a` e `b`. A regra é: `mdc(a, b)` é `a` se `b` for 0; caso contrário, `mdc(a, b)` é `mdc(b, a % b)`.
 
+### Exercício 7: Máximo Divisor Comum (MDC)
+```c
+#include <stdio.h>
+
+int mdc(int a, int b) {
+    // Caso base: se b for 0, o mdc é a
+    if (b == 0) {
+        return a;
+    }
+    // Passo recursivo
+    else {
+        return mdc(b, a % b);
+    }
+}
+
+int main() {
+    int num1 = 48, num2 = 18;
+    printf("O MDC de %d e %d e: %d\n", num1, num2, mdc(num1, num2));
+    
+    num1 = 101, num2 = 103; // Primos entre si
+    printf("O MDC de %d e %d e: %d\n", num1, num2, mdc(num1, num2));
+    return 0;
+}
+```
+
 ### Exercício 8: Busca Binária Recursiva
 Escreva uma função de busca binária recursiva, `buscaBinariaRec`, que procura por um valor em um vetor **ordenado**. A função deve receber o vetor, os índices de início e fim da busca, e o valor a ser procurado. Ela deve retornar o índice do valor se encontrado, ou -1 caso contrário.
+
+### Exercício 8: Busca Binária Recursiva
+```c
+#include <stdio.h>
+
+// Função de busca binária recursiva
+int buscaBinariaRec(int vetor[], int inicio, int fim, int valor) {
+    // Caso base: se o início ultrapassar o fim, o elemento não está no vetor
+    if (inicio > fim) {
+        return -1;
+    }
+    
+    int meio = inicio + (fim - inicio) / 2; // Evita overflow para índices grandes
+
+    // Caso base: o elemento foi encontrado no meio
+    if (vetor[meio] == valor) {
+        return meio;
+    }
+    
+    // Passo recursivo: busca na metade apropriada
+    if (vetor[meio] > valor) {
+        return buscaBinariaRec(vetor, inicio, meio - 1, valor); // Busca na metade esquerda
+    } else {
+        return buscaBinariaRec(vetor, meio + 1, fim, valor);  // Busca na metade direita
+    }
+}
+
+int main() {
+    int vetorOrdenado[] = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
+    int tamanho = sizeof(vetorOrdenado) / sizeof(vetorOrdenado[0]);
+    int valorProcurado = 23;
+    
+    int indice = buscaBinariaRec(vetorOrdenado, 0, tamanho - 1, valorProcurado);
+    
+    if (indice != -1) {
+        printf("Valor %d encontrado no indice %d.\n", valorProcurado, indice);
+    } else {
+        printf("Valor %d nao encontrado no vetor.\n", valorProcurado);
+    }
+    return 0;
+}
+```
 
 ### Exercício 9: Contagem de Dígitos de um Número
 Crie uma função recursiva `contarDigitos` que recebe um número inteiro e retorna a quantidade de dígitos que ele possui. Por exemplo, `contarDigitos(2548)` deve retornar 4. O caso base ocorre quando o número é menor que 10.
 
+### Exercício 9: Contagem de Dígitos de um Número
+```c
+#include <stdio.h>
+
+int contarDigitos(int n) {
+    // Torna o número positivo se for negativo, sem alterar o 0
+    if (n < 0) n = -n;
+
+    // Caso base: se o número tem apenas um dígito
+    if (n < 10) {
+        return 1;
+    }
+    
+    // Passo recursivo: 1 + a contagem de dígitos do número dividido por 10
+    return 1 + contarDigitos(n / 10);
+}
+
+int main() {
+    int numero = 2548;
+    printf("O numero %d tem %d digitos.\n", numero, contarDigitos(numero));
+    
+    numero = -98765;
+    printf("O numero %d tem %d digitos.\n", numero, contarDigitos(numero));
+    
+    numero = 0;
+    printf("O numero %d tem %d digitos.\n", numero, contarDigitos(numero));
+    return 0;
+}
+```
+
 ### Exercício 10: Problema das Torres de Hanói
 Implemente uma solução recursiva para o clássico problema das Torres de Hanói. Crie um procedimento `torresDeHanoi` que recebe o número de discos e os pinos de origem, destino e auxiliar. O procedimento deve imprimir os passos necessários para mover os discos do pino de origem para o de destino.
+
+### Exercício 10: Problema das Torres de Hanói
+```c
+#include <stdio.h>
+
+void torresDeHanoi(int n, char origem, char destino, char auxiliar) {
+    // Caso base: se houver apenas um disco, mova-o diretamente
+    if (n == 1) {
+        printf("Mover disco 1 de %c para %c\n", origem, destino);
+        return;
+    }
+    
+    // Passo recursivo 1: mover n-1 discos da origem para o pino auxiliar
+    torresDeHanoi(n - 1, origem, auxiliar, destino);
+    
+    // Mover o disco n (o maior) da origem para o destino
+    printf("Mover disco %d de %c para %c\n", n, origem, destino);
+    
+    // Passo recursivo 2: mover n-1 discos do pino auxiliar para o destino
+    torresDeHanoi(n - 1, auxiliar, destino, origem);
+}
+
+int main() {
+    int numeroDeDiscos = 3;
+    printf("Solucao para Torres de Hanoi com %d discos:\n", numeroDeDiscos);
+    // Pinos são A (Origem), C (Destino), B (Auxiliar)
+    torresDeHanoi(numeroDeDiscos, 'A', 'C', 'B');
+    return 0;
+}
+```
+
+## Exercícios focados em Vetores
