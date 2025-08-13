@@ -1210,3 +1210,7 @@ int main() {
     return 0;
 }
 ```
+
+---
+
+## Exercícios focados em Modularização (funções e procedimentos)
