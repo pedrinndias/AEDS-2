@@ -14,21 +14,21 @@
 
 * [Recursividade](#exercícios-focados-em-recursividade)
 
-* [Vetores](#exercícios-focados-em-recursividade)
+* [Vetores](#exercícios-focados-em-vetores)
 
-* [Matrizes](#exercícios-focados-em-recursividade)
+* [Matrizes](#exercícios-focados-em-matrizes)
 
-* [Strings](#exercícios-focados-em-recursividade)
+* [Strings](#exercícios-focados-em-strings)
 
-* [Ponteiros](#exercícios-focados-em-recursividade)
+* [Ponteiros](#exercícios-focados-em-ponteiros)
 
-* [Funções](#exercícios-focados-em-recursividade)
+* [Funções](#exercícios-focados-em-funções)
 
-* [Alocação Dinâmica de Memória](#exercícios-focados-em-recursividade)
+* [Alocação Dinâmica de Memória](#exercícios-focados-em-alocação-dinâmica-de-memória)
 
 * [Arquivos](#exercícios-focados-em-recursividade)
 
-* [Structs](#exercícios-focados-em-recursividade)
+* [Structs](#exercícios-focados-em-structs)
 
 ## Exercícios focados em declaração de variáveis e constantes em C
 
@@ -4684,3 +4684,376 @@ int main() {
 ```
 
 ## Exercícios focados em Structs
+
+### Exercício 1: Cadastro Básico de um Ponto
+Defina uma `struct` chamada `Ponto` que contenha dois membros: `int x` e `int y`. Na função `main`, declare uma variável do tipo `Ponto`, peça ao usuário para digitar as coordenadas `x` e `y`, armazene-as na `struct` e, em seguida, imprima as coordenadas do ponto.
+
+### Exercício 1: Cadastro Básico de um Ponto
+```c
+#include <stdio.h>
+
+// Definição da struct Ponto
+struct Ponto {
+    int x;
+    int y;
+};
+
+int main() {
+    // Declaração de uma variável do tipo Ponto
+    struct Ponto p1;
+
+    printf("Digite a coordenada x do ponto: ");
+    scanf("%d", &p1.x);
+
+    printf("Digite a coordenada y do ponto: ");
+    scanf("%d", &p1.y);
+
+    printf("\nAs coordenadas do ponto sao: (%d, %d)\n", p1.x, p1.y);
+
+    return 0;
+}
+```
+
+
+### Exercício 2: Função para Imprimir uma `struct`
+Usando a `struct Ponto` do exercício anterior, crie uma função `void imprimirPonto(struct Ponto p)` que receba uma `struct Ponto` como parâmetro (passagem por valor) e imprima suas coordenadas no formato `(x, y)`.
+
+### Exercício 2: Função para Imprimir uma `struct`
+```c
+#include <stdio.h>
+
+struct Ponto {
+    int x;
+    int y;
+};
+
+// Função que recebe a struct por valor
+void imprimirPonto(struct Ponto p) {
+    printf("Coordenadas: (%d, %d)\n", p.x, p.y);
+}
+
+int main() {
+    struct Ponto meuPonto = {10, 20}; // Inicialização direta
+    
+    imprimirPonto(meuPonto);
+
+    return 0;
+}
+```
+
+### Exercício 3: Alterando uma `struct` com Ponteiros
+Crie uma função `void moverPonto(struct Ponto *p, int deltaX, int deltaY)`. A função deve receber um *ponteiro* para uma `struct Ponto` e alterar seus valores `x` e `y`, somando `deltaX` e `deltaY` a eles. Na `main`, declare um ponto, imprima suas coordenadas, chame a função e imprima as novas coordenadas.
+
+### Exercício 3: Alterando uma `struct` com Ponteiros
+```c
+#include <stdio.h>
+
+struct Ponto {
+    int x;
+    int y;
+};
+
+// Recebe um ponteiro para a struct
+void moverPonto(struct Ponto *p, int deltaX, int deltaY) {
+    // Usa o operador '->' para acessar membros através de um ponteiro
+    p->x += deltaX;
+    p->y += deltaY;
+}
+
+int main() {
+    struct Ponto p1 = {5, 10};
+
+    printf("Coordenadas originais: (%d, %d)\n", p1.x, p1.y);
+
+    // Passa o endereço da struct para a função
+    moverPonto(&p1, 3, -2);
+
+    printf("Novas coordenadas: (%d, %d)\n", p1.x, p1.y);
+
+    return 0;
+}
+```
+
+### Exercício 4: Vetor de `structs` (Cadastro de Retângulos)
+Defina uma `struct` chamada `Retangulo` com os membros `base` (float) e `altura` (float). Declare um vetor de 3 `Retangulo`. Peça ao usuário os dados para cada um dos 3 retângulos e armazene-os no vetor.
+
+### Exercício 4: Vetor de `structs` (Cadastro de Retângulos)
+```c
+#include <stdio.h>
+
+struct Retangulo {
+    float base;
+    float altura;
+};
+
+int main() {
+    struct Retangulo retangulos[3];
+    int i;
+
+    // Preenche o vetor de structs
+    for (i = 0; i < 3; i++) {
+        printf("\n--- Retangulo %d ---\n", i + 1);
+        printf("Digite a base: ");
+        scanf("%f", &retangulos[i].base);
+        printf("Digite a altura: ");
+        scanf("%f", &retangulos[i].altura);
+    }
+    
+    printf("\n--- Dados dos Retangulos ---\n");
+    for (i = 0; i < 3; i++) {
+        printf("Retangulo %d: Base=%.2f, Altura=%.2f\n", 
+               i + 1, retangulos[i].base, retangulos[i].altura);
+    }
+
+    return 0;
+}
+```
+
+### Exercício 5: Função que Calcula a Área
+Usando o vetor de `structs` do exercício anterior, crie uma função `float calcularArea(struct Retangulo r)` que retorna a área de um retângulo. Na `main`, use um laço para percorrer o vetor de retângulos e, para cada um, chame a função e imprima a área correspondente.
+
+### Exercício 5: Função que Calcula a Área
+```c
+#include <stdio.h>
+
+struct Retangulo {
+    float base;
+    float altura;
+};
+
+float calcularArea(struct Retangulo r) {
+    return r.base * r.altura;
+}
+
+int main() {
+    struct Retangulo retangulos[3] = {{5.0, 3.0}, {10.0, 2.0}, {4.5, 4.5}};
+    int i;
+
+    for (i = 0; i < 3; i++) {
+        float area = calcularArea(retangulos[i]);
+        printf("A area do retangulo %d (base %.2f, altura %.2f) e: %.2f\n", 
+               i + 1, retangulos[i].base, retangulos[i].altura, area);
+    }
+
+    return 0;
+}
+```
+
+### Exercício 6: `structs` Aninhadas (Funcionário e Data)
+Defina uma `struct Data` com `dia`, `mes` e `ano`. Em seguida, defina uma `struct Funcionario` com `nome` (string), `salario` (float) e `data_admissao` (do tipo `struct Data`). Crie uma variável `Funcionario`, preencha todos os seus dados (incluindo os da data aninhada) e imprima-os na tela.
+
+### Exercício 6: `structs` Aninhadas (Funcionário e Data)
+```c
+#include <stdio.h>
+
+struct Data {
+    int dia;
+    int mes;
+    int ano;
+};
+
+struct Funcionario {
+    char nome[50];
+    float salario;
+    struct Data data_admissao;
+};
+
+int main() {
+    struct Funcionario f1;
+
+    printf("Digite o nome do funcionario: ");
+    scanf(" %[^\n]", f1.nome);
+    printf("Digite o salario: ");
+    scanf("%f", &f1.salario);
+    printf("Digite o dia de admissao: ");
+    scanf("%d", &f1.data_admissao.dia);
+    printf("Digite o mes de admissao: ");
+    scanf("%d", &f1.data_admissao.mes);
+    printf("Digite o ano de admissao: ");
+    scanf("%d", &f1.data_admissao.ano);
+
+    printf("\n--- Dados do Funcionario ---\n");
+    printf("Nome: %s\n", f1.nome);
+    printf("Salario: R$ %.2f\n", f1.salario);
+    printf("Data de Admissao: %02d/%02d/%d\n", 
+           f1.data_admissao.dia, f1.data_admissao.mes, f1.data_admissao.ano);
+
+    return 0;
+}
+```
+
+### Exercício 7: Alocação Dinâmica de uma `struct`
+Defina uma `struct Carro` com `marca` (string), `modelo` (string) e `ano` (int). No programa, aloque dinamicamente memória para **uma** `struct Carro` usando `malloc`. Preencha os dados (usando o operador `->`) e depois os imprima. Não se esqueça de liberar a memória com `free`.
+
+### Exercício 7: Alocação Dinâmica de uma `struct`
+```c
+#include <stdio.h>
+#include <stdlib.h> // Para malloc e free
+
+struct Carro {
+    char marca[50];
+    char modelo[50];
+    int ano;
+};
+
+int main() {
+    // Aloca memória para UMA struct Carro e retorna um ponteiro
+    struct Carro *meuCarro = (struct Carro*) malloc(sizeof(struct Carro));
+
+    if (meuCarro == NULL) {
+        printf("Erro de alocacao de memoria!\n");
+        return 1;
+    }
+
+    printf("Digite a marca do carro: ");
+    scanf(" %[^\n]", meuCarro->marca);
+    printf("Digite o modelo: ");
+    scanf(" %[^\n]", meuCarro->modelo);
+    printf("Digite o ano: ");
+    scanf("%d", &meuCarro->ano);
+
+    printf("\n--- Carro Alocado Dinamicamente ---\n");
+    printf("Marca: %s, Modelo: %s, Ano: %d\n", meuCarro->marca, meuCarro->modelo, meuCarro->ano);
+
+    // Libera a memória alocada
+    free(meuCarro);
+    meuCarro = NULL;
+
+    return 0;
+}
+```
+
+### Exercício 8: Vetor Dinâmico de `structs`
+Usando a `struct Carro`, pergunte ao usuário quantos carros ele deseja cadastrar. Aloque dinamicamente um vetor de `struct Carro` do tamanho informado. Peça ao usuário os dados de cada carro e, ao final, imprima uma lista com todos os carros cadastrados. Libere a memória no final.
+
+### Exercício 8: Vetor Dinâmico de `structs`
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Carro {
+    char modelo[50];
+    int ano;
+};
+
+int main() {
+    int n, i;
+    printf("Quantos carros deseja cadastrar? ");
+    scanf("%d", &n);
+
+    // Aloca um vetor de 'n' structs
+    struct Carro *garagem = (struct Carro*) malloc(n * sizeof(struct Carro));
+    if (garagem == NULL) return 1;
+
+    for (i = 0; i < n; i++) {
+        printf("\n--- Carro %d ---\n", i + 1);
+        printf("Modelo: ");
+        scanf(" %[^\n]", (garagem + i)->modelo); // Aritmética de ponteiros
+        printf("Ano: ");
+        scanf("%d", &garagem[i].ano);            // Acesso como vetor
+    }
+    
+    printf("\n--- Garagem ---\n");
+    for (i = 0; i < n; i++) {
+        printf("Carro %d: %s (%d)\n", i + 1, garagem[i].modelo, garagem[i].ano);
+    }
+
+    free(garagem);
+    garagem = NULL;
+
+    return 0;
+}
+```
+
+### Exercício 9: Encontrando o Mais Velho
+Crie uma `struct Pessoa` com `nome` (string) e `idade` (int). Escreva uma função que receba um vetor de `struct Pessoa` e seu tamanho, e retorne um *ponteiro* para a `struct` da pessoa mais velha no vetor. Se o vetor estiver vazio, retorne `NULL`.
+
+### Exercício 9: Encontrando o Mais Velho
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Pessoa {
+    char nome[50];
+    int idade;
+};
+
+struct Pessoa* encontrarMaisVelha(struct Pessoa *pessoas, int tamanho) {
+    if (tamanho <= 0) {
+        return NULL; // Retorna nulo se o vetor for vazio
+    }
+    
+    struct Pessoa *mais_velha = &pessoas[0]; // Ponteiro para o primeiro
+    int i;
+
+    for (i = 1; i < tamanho; i++) {
+        if (pessoas[i].idade > mais_velha->idade) {
+            mais_velha = &pessoas[i]; // Atualiza o ponteiro
+        }
+    }
+    return mais_velha;
+}
+
+int main() {
+    struct Pessoa turma[] = {{"Ana", 20}, {"Bia", 22}, {"Carlos", 19}, {"Daniel", 25}};
+    int tamanho = 4;
+    
+    struct Pessoa *ptr_mais_velha = encontrarMaisVelha(turma, tamanho);
+    
+    if (ptr_mais_velha != NULL) {
+        printf("A pessoa mais velha e: %s, com %d anos.\n", 
+               ptr_mais_velha->nome, ptr_mais_velha->idade);
+    }
+    
+    return 0;
+}
+```
+
+### Exercício 10: Comparando `structs`
+Usando a `struct Data` do exercício 6, crie uma função `int compararDatas(struct Data d1, struct Data d2)`. A função deve retornar:
+* `-1` se a data `d1` for anterior à `d2`.
+* `0` se as datas forem iguais.
+* `1` se a data `d1` for posterior à `d2`.
+
+Teste a função com diferentes datas.
+
+### Exercício 10: Comparando `structs`
+```c
+#include <stdio.h>
+
+struct Data {
+    int dia;
+    int mes;
+    int ano;
+};
+
+int compararDatas(struct Data d1, struct Data d2) {
+    // Compara o ano
+    if (d1.ano < d2.ano) return -1;
+    if (d1.ano > d2.ano) return 1;
+
+    // Se os anos são iguais, compara o mês
+    if (d1.mes < d2.mes) return -1;
+    if (d1.mes > d2.mes) return 1;
+    
+    // Se os meses são iguais, compara o dia
+    if (d1.dia < d2.dia) return -1;
+    if (d1.dia > d2.dia) return 1;
+    
+    // Se tudo for igual
+    return 0;
+}
+
+int main() {
+    struct Data hoje = {13, 8, 2025};
+    struct Data ontem = {12, 8, 2025};
+    struct Data futuro = {1, 1, 2026};
+    
+    printf("Comparando hoje com ontem: %d (Esperado: 1)\n", compararDatas(hoje, ontem));
+    printf("Comparando ontem com hoje: %d (Esperado: -1)\n", compararDatas(ontem, hoje));
+    printf("Comparando hoje com hoje: %d (Esperado: 0)\n", compararDatas(hoje, hoje));
+    printf("Comparando hoje com futuro: %d (Esperado: -1)\n", compararDatas(hoje, futuro));
+    
+    return 0;
+}
+```
