@@ -4264,16 +4264,153 @@ int main() {
 ### Exercício 1: Escrevendo em um Arquivo de Texto
 Crie um programa que peça ao usuário para digitar uma frase. Em seguida, o programa deve abrir um arquivo chamado `frase.txt` em modo de escrita (`"w"`) e salvar a frase digitada pelo usuário dentro dele. Feche o arquivo e verifique se o conteúdo foi salvo corretamente.
 
+### Exercício 1: Escrevendo em um Arquivo de Texto
+```c
+#include <stdio.h>
+#include <stdlib.h> // Para exit()
 
+int main() {
+    FILE *arquivo;
+    char frase[100];
+
+    // Abre o arquivo em modo de escrita ("w")
+    arquivo = fopen("frase.txt", "w");
+
+    // Verifica se o arquivo foi aberto com sucesso
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo!\n");
+        exit(1);
+    }
+
+    printf("Digite uma frase para salvar no arquivo: ");
+    fgets(frase, 100, stdin);
+
+    // Salva a string no arquivo
+    fprintf(arquivo, "%s", frase);
+    // Alternativa: fputs(frase, arquivo);
+
+    // Fecha o arquivo
+    fclose(arquivo);
+
+    printf("Frase salva com sucesso no arquivo 'frase.txt'.\n");
+
+    return 0;
+}
+```
 
 ### Exercício 2: Lendo de um Arquivo de Texto
 Escreva um programa que abra o arquivo `frase.txt` criado no exercício anterior em modo de leitura (`"r"`). Leia o conteúdo do arquivo e exiba-o na tela do console. O programa deve também tratar o caso em que o arquivo não existe.
 
+### Exercício 2: Lendo de um Arquivo de Texto
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    FILE *arquivo;
+    char linha[100];
+
+    // Abre o arquivo em modo de leitura ("r")
+    arquivo = fopen("frase.txt", "r");
+
+    if (arquivo == NULL) {
+        printf("Erro! Nao foi possivel abrir o arquivo 'frase.txt'.\n");
+        exit(1);
+    }
+
+    printf("\nConteudo do arquivo:\n");
+    // Lê e imprime o conteúdo do arquivo linha por linha
+    while (fgets(linha, 100, arquivo) != NULL) {
+        printf("%s", linha);
+    }
+
+    fclose(arquivo);
+
+    return 0;
+}
+```
+
 ### Exercício 3: Contando Linhas de um Arquivo
 Faça um programa que abra um arquivo de texto qualquer e conte quantas linhas ele possui. Para fazer isso, leia o arquivo caractere por caractere (com `fgetc`) e incremente um contador toda vez que encontrar um caractere de nova linha (`\n`).
 
+### Exercício 3: Contando Linhas de um Arquivo
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    FILE *arquivo;
+    char nome_arquivo[50];
+    int contador_linhas = 0;
+    char caractere;
+
+    printf("Digite o nome do arquivo de texto: ");
+    scanf("%s", nome_arquivo);
+
+    arquivo = fopen(nome_arquivo, "r");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo %s.\n", nome_arquivo);
+        exit(1);
+    }
+
+    // Lê caractere por caractere até o final do arquivo (EOF)
+    while ((caractere = fgetc(arquivo)) != EOF) {
+        if (caractere == '\n') {
+            contador_linhas++;
+        }
+    }
+    
+    // Adiciona 1 se o arquivo não estiver vazio (para contar a última linha se não terminar com \n)
+    // fseek volta o cursor ao início para verificar se o arquivo tem algum conteúdo.
+    fseek(arquivo, 0, SEEK_END);
+    if (ftell(arquivo) > 0) {
+        contador_linhas++;
+    }
+
+
+    fclose(arquivo);
+
+    printf("O arquivo '%s' possui %d linhas.\n", nome_arquivo, contador_linhas);
+
+    return 0;
+}
+```
+
 ### Exercício 4: Adicionando Conteúdo a um Arquivo (Append)
 Desenvolva um programa que funcione como um diário simples. Peça ao usuário para digitar uma entrada para o diário. O programa deve abrir um arquivo `diario.txt` em modo de adição (`"a"`) e adicionar a nova entrada no final do arquivo, sem apagar o conteúdo anterior.
+
+### Exercício 4: Adicionando Conteúdo a um Arquivo (Append)
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h> // Para registrar data e hora
+
+int main() {
+    FILE *arquivo;
+    char entrada[256];
+    
+    // Abre em modo de adição ("a")
+    arquivo = fopen("diario.txt", "a");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o diario!\n");
+        exit(1);
+    }
+
+    printf("Digite sua entrada para o diario de hoje:\n");
+    fgets(entrada, 256, stdin);
+
+    // Adiciona a nova entrada no final do arquivo
+    fprintf(arquivo, "\n---\n%s", entrada);
+
+    fclose(arquivo);
+
+    printf("Entrada adicionada ao diario com sucesso!\n");
+
+    return 0;
+}
+```
 
 ### Exercício 5: Salvando Dados Formatados
 Crie um programa que receba de vários usuários o nome, a idade e a altura. Para cada usuário, salve esses dados em um arquivo chamado `pessoas.txt`, com cada informação em uma linha separada. Ex:
@@ -4284,17 +4421,266 @@ Joao
 25
 1.80
 
+### Exercício 5: Salvando Dados Formatados
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    FILE *arquivo;
+    char nome[50];
+    int idade;
+    float altura;
+    char continuar;
+
+    // Usar "a" (append) para não apagar dados existentes
+    arquivo = fopen("pessoas.txt", "a");
+    if (arquivo == NULL) exit(1);
+
+    do {
+        printf("\nDigite o nome: ");
+        scanf(" %[^\n]", nome); // Lê string com espaços
+        printf("Digite a idade: ");
+        scanf("%d", &idade);
+        printf("Digite a altura (ex: 1.75): ");
+        scanf("%f", &altura);
+
+        fprintf(arquivo, "%s\n%d\n%f\n", nome, idade, altura);
+
+        printf("\nDeseja adicionar outra pessoa? (s/n): ");
+        scanf(" %c", &continuar);
+
+    } while (continuar == 's' || continuar == 'S');
+
+    fclose(arquivo);
+    printf("Dados salvos em 'pessoas.txt'.\n");
+
+    return 0;
+}
+```
+
 ### Exercício 6: Lendo Dados Formatados e Calculando a Média
 Escreva um programa que leia o arquivo `pessoas.txt` do exercício anterior. Para cada pessoa, leia o nome, a idade e a altura. Ao final, calcule e exiba a idade média e a altura média de todas as pessoas listadas no arquivo.
+
+### Exercício 6: Lendo Dados Formatados e Calculando a Média
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    FILE *arquivo;
+    char nome[50];
+    int idade, contador_pessoas = 0;
+    float altura;
+    float soma_idades = 0, soma_alturas = 0;
+
+    arquivo = fopen("pessoas.txt", "r");
+    if (arquivo == NULL) {
+        printf("Erro: arquivo 'pessoas.txt' nao encontrado.\n");
+        exit(1);
+    }
+
+    // fscanf retorna o número de itens lidos com sucesso
+    while (fscanf(arquivo, " %[^\n]\n%d\n%f\n", nome, &idade, &altura) == 3) {
+        printf("Lido: Nome=%s, Idade=%d, Altura=%.2f\n", nome, idade, altura);
+        soma_idades += idade;
+        soma_alturas += altura;
+        contador_pessoas++;
+    }
+
+    fclose(arquivo);
+
+    if (contador_pessoas > 0) {
+        printf("\n--- Estatisticas ---\n");
+        printf("Numero de pessoas: %d\n", contador_pessoas);
+        printf("Idade media: %.1f anos\n", soma_idades / contador_pessoas);
+        printf("Altura media: %.2f m\n", soma_alturas / contador_pessoas);
+    } else {
+        printf("Nenhum dado encontrado no arquivo.\n");
+    }
+
+    return 0;
+}
+```
 
 ### Exercício 7: Gravando uma `struct` em Arquivo Binário
 Defina uma `struct Aluno` com os campos `nome` (string), `matricula` (int) e `nota` (float). Crie um programa que leia os dados de um aluno, armazene-os em uma variável do tipo `struct Aluno` e, em seguida, grave essa `struct` em um arquivo binário chamado `aluno.bin` usando `fwrite`.
 
+### Exercício 7: Gravando uma `struct` em Arquivo Binário
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char nome[50];
+    int matricula;
+    float nota;
+} Aluno;
+
+int main() {
+    FILE *arquivo;
+    Aluno aluno1;
+
+    // Coleta os dados
+    strcpy(aluno1.nome, "Joao Silva");
+    aluno1.matricula = 12345;
+    aluno1.nota = 8.7;
+
+    // Abre em modo de escrita binária ("wb")
+    arquivo = fopen("aluno.bin", "wb");
+    if (arquivo == NULL) exit(1);
+
+    // Escreve a struct inteira de uma vez no arquivo
+    fwrite(&aluno1, sizeof(Aluno), 1, arquivo);
+
+    fclose(arquivo);
+    printf("Struct Aluno gravada com sucesso em 'aluno.bin'.\n");
+
+    return 0;
+}
+```
+
 ### Exercício 8: Lendo uma `struct` de um Arquivo Binário
 Faça um programa que leia a `struct Aluno` do arquivo `aluno.bin` criado no exercício anterior. Use `fread` para carregar os dados do arquivo para uma variável `struct`. Exiba os dados do aluno na tela para confirmar que a leitura foi bem-sucedida.
+
+### Exercício 8: Lendo uma `struct` de um Arquivo Binário
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    char nome[50];
+    int matricula;
+    float nota;
+} Aluno;
+
+int main() {
+    FILE *arquivo;
+    Aluno aluno_lido;
+
+    // Abre em modo de leitura binária ("rb")
+    arquivo = fopen("aluno.bin", "rb");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir 'aluno.bin'.\n");
+        exit(1);
+    }
+
+    // Lê a struct do arquivo para a variável
+    if (fread(&aluno_lido, sizeof(Aluno), 1, arquivo) == 1) {
+        printf("--- Dados do Aluno Lido ---\n");
+        printf("Nome: %s\n", aluno_lido.nome);
+        printf("Matricula: %d\n", aluno_lido.matricula);
+        printf("Nota: %.1f\n", aluno_lido.nota);
+    } else {
+        printf("Erro ao ler a struct do arquivo.\n");
+    }
+
+    fclose(arquivo);
+
+    return 0;
+}
+```
 
 ### Exercício 9: Acessando um Registro Específico com `fseek`
 Modifique o exercício 7 para permitir cadastrar vários alunos (adicionando-os ao final do arquivo `aluno.bin` em modo `"ab"`). Depois, crie um novo programa que peça ao usuário o número do registro que ele deseja ler (ex: o 2º aluno). Use `fseek` para posicionar o "cursor" do arquivo diretamente nesse registro, leia-o com `fread` e exiba seus dados.
 
+### Exercício 9: Acessando um Registro Específico com `fseek`
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    char nome[50];
+    int matricula;
+    float nota;
+} Aluno;
+
+int main() {
+    FILE *arquivo;
+    Aluno aluno_temp;
+    int num_registro;
+
+    // Supondo que o arquivo "aluno.bin" já existe com alguns registros.
+    // Para testar, você pode rodar o ex. 7 várias vezes modificando os dados,
+    // ou criar um programa para adicionar vários alunos em modo "ab".
+    
+    arquivo = fopen("aluno.bin", "rb");
+    if (arquivo == NULL) exit(1);
+    
+    printf("Digite o numero do registro a ser lido (ex: 1, 2, 3...): ");
+    scanf("%d", &num_registro);
+    
+    // Posiciona o cursor no início do registro desejado
+    if (fseek(arquivo, (num_registro - 1) * sizeof(Aluno), SEEK_SET) != 0) {
+        printf("Erro ao posicionar no registro %d.\n", num_registro);
+        fclose(arquivo);
+        exit(1);
+    }
+
+    // Lê o registro da posição atual
+    if (fread(&aluno_temp, sizeof(Aluno), 1, arquivo) == 1) {
+        printf("\n--- Registro %d ---\n", num_registro);
+        printf("Nome: %s\n", aluno_temp.nome);
+        printf("Matricula: %d\n", aluno_temp.matricula);
+        printf("Nota: %.1f\n", aluno_temp.nota);
+    } else {
+        printf("Nao foi possivel ler o registro %d. Ele existe?\n", num_registro);
+    }
+    
+    fclose(arquivo);
+    return 0;
+}
+```
+
 ### Exercício 10: Copiando o Conteúdo de um Arquivo
 Escreva um programa que faça uma cópia de um arquivo. O programa deve pedir ao usuário o nome do arquivo de origem e o nome do arquivo de destino. Ele deve ler o conteúdo do arquivo de origem e escrevê-lo no arquivo de destino. Faça a cópia em modo binário para garantir que funcione para qualquer tipo de arquivo (texto, imagem, etc.).
+
+
+### Exercício 10: Copiando o Conteúdo de um Arquivo
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+#define TAMANHO_BUFFER 512
+
+int main() {
+    char nome_origem[100], nome_destino[100];
+    FILE *arq_origem, *arq_destino;
+    unsigned char buffer[TAMANHO_BUFFER];
+    size_t bytes_lidos;
+
+    printf("Digite o nome do arquivo de origem: ");
+    scanf("%s", nome_origem);
+    printf("Digite o nome do arquivo de destino: ");
+    scanf("%s", nome_destino);
+
+    // Abre os arquivos em modo binário
+    arq_origem = fopen(nome_origem, "rb");
+    if (arq_origem == NULL) {
+        printf("Erro ao abrir arquivo de origem!\n");
+        exit(1);
+    }
+    
+    arq_destino = fopen(nome_destino, "wb");
+    if (arq_destino == NULL) {
+        printf("Erro ao criar arquivo de destino!\n");
+        fclose(arq_origem);
+        exit(1);
+    }
+
+    // Lê do origem e escreve no destino em blocos (chunks)
+    while ((bytes_lidos = fread(buffer, 1, TAMANHO_BUFFER, arq_origem)) > 0) {
+        fwrite(buffer, 1, bytes_lidos, arq_destino);
+    }
+
+    printf("Arquivo copiado com sucesso!\n");
+
+    fclose(arq_origem);
+    fclose(arq_destino);
+
+    return 0;
+}
+```
+
+## Exercícios focados em Structs
