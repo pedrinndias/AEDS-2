@@ -262,3 +262,338 @@ int main() {
 }
 
 ```
+
+---
+
+## Exercícios focados em Funções matemáticas utilizando a biblioteca math.h  em C
+
+### **Exercícios de Programação em C com `math.h`**
+
+#### **Exercício 1: Calculadora de Raiz Quadrada**
+Crie um programa que peça ao usuário para inserir um número. Use a função `sqrt()` da biblioteca `math.h` para calcular e exibir a raiz quadrada desse número.
+
+**Função principal:** `sqrt()`
+#include <stdio.h>
+#include <math.h>
+
+``` C
+int main() {
+    double numero, resultado;
+
+    printf("Digite um numero para calcular a raiz quadrada: ");
+    scanf("%lf", &numero);
+
+    if (numero >= 0) {
+        resultado = sqrt(numero);
+        printf("A raiz quadrada de %.2lf e %.2lf\n", numero, resultado);
+    } else {
+        printf("Nao e possivel calcular a raiz quadrada de um numero negativo.\n");
+    }
+
+    return 0;
+}
+
+```
+
+#### **Exercício 2: Potenciação**
+Escreva um programa que receba dois números do usuário: a base e o expoente. Utilize a função `pow()` para calcular a potência e mostre o resultado.
+
+**Função principal:** `pow()`
+
+``` C
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double base, expoente, resultado;
+
+    printf("Digite o valor da base: ");
+    scanf("%lf", &base);
+
+    printf("Digite o valor do expoente: ");
+    scanf("%lf", &expoente);
+
+    resultado = pow(base, expoente);
+
+    printf("%.2lf elevado a %.2lf e igual a %.2lf\n", base, expoente, resultado);
+
+    return 0;
+}
+
+```
+
+
+#### **Exercício 3: Calculadora de Hipotenusa**
+Desenvolva um programa que receba o comprimento de dois catetos de um triângulo retângulo. Calcule e exiba o comprimento da hipotenusa utilizando a função `hypot()`.
+
+**Função principal:** `hypot()`
+
+``` C
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double cateto1, cateto2, hipotenusa;
+
+    printf("Digite o comprimento do primeiro cateto: ");
+    scanf("%lf", &cateto1);
+
+    printf("Digite o comprimento do segundo cateto: ");
+    scanf("%lf", &cateto2);
+
+    hipotenusa = hypot(cateto1, cateto2);
+
+    printf("A hipotenusa do triangulo com catetos %.2lf e %.2lf e %.2lf\n", cateto1, cateto2, hipotenusa);
+
+    return 0;
+}
+
+```
+
+#### **Exercício 4: Arredondamento de Números**
+Faça um programa que solicite um número decimal (float) ao usuário. Em seguida, mostre o número arredondado para cima usando a função `ceil()` e para baixo usando a função `floor()`.
+
+**Funções principais:** `ceil()`, `floor()`
+
+``` C
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double numero, arredondado_cima, arredondado_baixo;
+
+    printf("Digite um numero decimal (ex: 5.7): ");
+    scanf("%lf", &numero);
+
+    arredondado_cima = ceil(numero);
+    arredondado_baixo = floor(numero);
+
+    printf("Numero original: %.2lf\n", numero);
+    printf("Arredondado para cima (ceil): %.2lf\n", arredondado_cima);
+    printf("Arredondado para baixo (floor): %.2lf\n", arredondado_baixo);
+
+    return 0;
+}
+
+```
+
+#### **Exercício 5: Funções Trigonométricas Básicas**
+Crie um programa que peça um ângulo em radianos ao usuário. Calcule e exiba o seno, o cosseno e a tangente desse ângulo utilizando as funções `sin()`, `cos()` e `tan()`.
+
+**Funções principais:** `sin()`, `cos()`, `tan()`
+**Dica:** Lembre-se que as funções trigonométricas em `math.h` trabalham com radianos.
+
+``` C
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double angulo_radianos, seno, cosseno, tangente;
+
+    printf("Digite um angulo em radianos: ");
+    scanf("%lf", &angulo_radianos);
+
+    seno = sin(angulo_radianos);
+    cosseno = cos(angulo_radianos);
+    tangente = tan(angulo_radianos);
+
+    printf("Para o angulo %.4lf radianos:\n", angulo_radianos);
+    printf("Seno: %.4lf\n", seno);
+    printf("Cosseno: %.4lf\n", cosseno);
+    printf("Tangente: %.4lf\n", tangente);
+
+    return 0;
+}
+
+``` 
+
+#### **Exercício 6: Conversor de Coordenadas**
+Escreva um programa que converta coordenadas polares (raio `r` e ângulo `theta` em radianos) para coordenadas cartesianas (`x`, `y`). As fórmulas são:
+* `x = r * cos(theta)`
+* `y = r * sin(theta)`
+
+Peça ao usuário o raio e o ângulo e, em seguida, exiba as coordenadas `x` e `y` resultantes.
+
+**Funções principais:** `cos()`, `sin()`
+
+``` C
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double r, theta, x, y;
+
+    printf("--- Conversor de Coordenadas Polares para Cartesianas ---\n");
+    printf("Digite o raio (r): ");
+    scanf("%lf", &r);
+
+    printf("Digite o angulo theta em radianos: ");
+    scanf("%lf", &theta);
+
+    x = r * cos(theta);
+    y = r * sin(theta);
+
+    printf("As coordenadas cartesianas (x, y) sao: (%.2lf, %.2lf)\n", x, y);
+
+    return 0;
+}
+
+```
+
+
+#### **Exercício 7: Logaritmos**
+Faça um programa que peça um número positivo ao usuário. Calcule e mostre:
+1.  O logaritmo natural (base *e*) do número, usando `log()`.
+2.  O logaritmo base 10 do número, usando `log10()`.
+
+**Funções principais:** `log()`, `log10()`
+
+``` C
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double numero, log_natural, log_base10;
+
+    printf("Digite um numero positivo: ");
+    scanf("%lf", &numero);
+
+    if (numero > 0) {
+        log_natural = log(numero);
+        log_base10 = log10(numero);
+
+        printf("Para o numero %.2lf:\n", numero);
+        printf("Logaritmo Natural (base e): %.4lf\n", log_natural);
+        printf("Logaritmo Base 10: %.4lf\n", log_base10);
+    } else {
+        printf("O logaritmo so e definido para numeros positivos.\n");
+    }
+
+    return 0;
+}
+
+```
+
+#### **Exercício 8: Distância Euclidiana**
+Crie um programa que receba as coordenadas (`x1`, `y1`) e (`x2`, `y2`) de dois pontos no plano cartesiano. Calcule e exiba a distância euclidiana entre eles. A fórmula da distância é:
+`d = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2))`
+
+**Funções principais:** `sqrt()`, `pow()`
+
+``` C
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double x1, y1, x2, y2, distancia;
+
+    printf("Digite as coordenadas do primeiro ponto (x1 y1): ");
+    scanf("%lf %lf", &x1, &y1);
+
+    printf("Digite as coordenadas do segundo ponto (x2 y2): ");
+    scanf("%lf %lf", &x2, &y2);
+
+    distancia = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+
+    printf("A distancia euclidiana entre os pontos (%.2lf, %.2lf) e (%.2lf, %.2lf) e %.2lf\n", x1, y1, x2, y2, distancia);
+
+    return 0;
+}
+
+```
+
+#### **Exercício 9: Cálculo de Juros Compostos**
+Desenvolva uma calculadora de juros compostos. O programa deve pedir ao usuário:
+* O capital inicial (P)
+* A taxa de juros anual (r)
+* O número de vezes que o juro é capitalizado por ano (n)
+* O número de anos (t)
+
+Use a fórmula `A = P * pow((1 + r/n), n*t)` para calcular o montante final (A).
+
+**Função principal:** `pow()`
+
+``` C
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double capital_inicial, taxa_juros_anual, montante_final, tempo_anos;
+    int n_capitalizacoes;
+
+    printf("Digite o capital inicial (P): ");
+    scanf("%lf", &capital_inicial);
+
+    printf("Digite a taxa de juros anual (r) (ex: 0.05 para 5%%): ");
+    scanf("%lf", &taxa_juros_anual);
+
+    printf("Digite o numero de vezes que o juro e capitalizado por ano (n): ");
+    scanf("%d", &n_capitalizacoes);
+
+    printf("Digite o numero de anos (t): ");
+    scanf("%lf", &tempo_anos);
+
+    montante_final = capital_inicial * pow((1 + taxa_juros_anual / n_capitalizacoes), n_capitalizacoes * tempo_anos);
+
+    printf("O montante final apos %.1lf anos sera de: R$ %.2lf\n", tempo_anos, montante_final);
+
+    return 0;
+}
+
+```
+
+#### **Exercício 10: Bhaskara**
+Escreva um programa que calcule as raízes de uma equação de segundo grau (`ax² + bx + c = 0`). Peça ao usuário os coeficientes `a`, `b` e `c`.
+1.  Calcule o delta: `Δ = b² - 4ac`.
+2.  Se o delta for negativo, informe que não há raízes reais.
+3.  Se o delta for zero, calcule e mostre a única raiz.
+4.  Se o delta for positivo, calcule e mostre as duas raízes distintas.
+
+`x = (-b ± sqrt(Δ)) / (2a)`
+
+**Funções principais:** `sqrt()`, `pow()` (para `b²`)
+
+``` C
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double a, b, c, delta, x1, x2;
+
+    printf("Calculadora de equacao de segundo grau (ax^2 + bx + c = 0)\n");
+    printf("Digite o coeficiente 'a': ");
+    scanf("%lf", &a);
+    printf("Digite o coeficiente 'b': ");
+    scanf("%lf", &b);
+    printf("Digite o coeficiente 'c': ");
+    scanf("%lf", &c);
+
+    if (a == 0) {
+        printf("Nao e uma equacao de segundo grau.\n");
+        return 1;
+    }
+
+    delta = pow(b, 2) - 4 * a * c;
+
+    if (delta < 0) {
+        printf("A equacao nao possui raizes reais (delta = %.2lf).\n", delta);
+    } else if (delta == 0) {
+        x1 = -b / (2 * a);
+        printf("A equacao possui uma raiz real: x = %.2lf\n", x1);
+    } else {
+        x1 = (-b + sqrt(delta)) / (2 * a);
+        x2 = (-b - sqrt(delta)) / (2 * a);
+        printf("A equacao possui duas raizes reais:\n");
+        printf("x1 = %.2lf\n", x1);
+        printf("x2 = %.2lf\n", x2);
+    }
+
+    return 0;
+}
+
+```
+
+---
+
+## Exercícios focados em Estruturas condicionais (if-else / operador ternario / switch case)
+
