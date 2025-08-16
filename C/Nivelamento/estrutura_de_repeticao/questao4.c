@@ -1,19 +1,19 @@
-// Desenvolva um programa que peça ao usuário para digitar uma senha. O programa deve continuar pedindo a senha enquanto o usuário não digitar a senha correta ("1234"). Quando a senha correta for digitada, exiba a mensagem "Acesso Permitido".
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
+#include <string.h>
 
-int main(){
-    char senha[20];
-    const char *SENHA_CORRETA="1234";
+int main() {
+    char senha_digitada[20];
+    const char *senha_correta = "1234";
 
-    printf("Digite uma senha: ");
-        scanf("%d", &senha);
+    printf("Digite a senha: ");
+    scanf("%s", senha_digitada);
 
-    while(strcmp(senha, SENHA_CORRETA)!=0){
-        printf("Digite uma senha: ");
-        scanf("%d", &senha);
+    while (strcmp(senha_digitada, senha_correta) != 0) {
+        printf("Senha incorreta. Tente novamente: ");
+        scanf("%s", senha_digitada);
     }
-    
+
+    printf("Acesso Permitido.\n");
 
     return 0;
 }
