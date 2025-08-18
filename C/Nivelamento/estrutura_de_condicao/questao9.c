@@ -59,7 +59,7 @@ int main(){
         switch(num){
             case 1:
                 for(int i = 0; i < Nalunos; i++) {
-                        printf("%s\n", aluno[i].MensagemNota);
+                        printf("%s:%s\n ", aluno[i].nome, aluno[i].MensagemNota);
                 }
 
                 break;
@@ -70,7 +70,7 @@ int main(){
 
 
 
-    }while(num==2);
+    }while(num!=2);
 
 
 return 0;
