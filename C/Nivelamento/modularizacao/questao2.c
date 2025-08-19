@@ -1,0 +1,2 @@
+//Escreva uma função chamada somar que recebe dois números inteiros como parâmetros e retorna a soma deles. 
+//Na função main, peça ao usuário para digitar dois números, chame a função somar e imprima o resultado.
