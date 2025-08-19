@@ -10,11 +10,16 @@
 int main(){
     float ang;
     int raio;
-    printf("Escreva uma cordenada polar (raio r e angulo theta em radianos): ");
-    scanf("%d%f", &raio, &ang);
-    int x=(raio*cos(ang));
-    int y=(raio*sin(ang));
+    printf("Escreva uma cordenada polar (raio r ): ");
+    scanf("%d", &raio);
 
-    printf("");
+    printf("Escreva uma cordenada polar (angulo theta em radianos): ");
+    scanf("%f", &ang);
+    float x=(raio*cos(ang));
+    float y=(raio*sin(ang));
+
+    printf("Cordenada X: %d, Codenada Y: %.2f", x, y);
+
+    return 0;
 }
 
