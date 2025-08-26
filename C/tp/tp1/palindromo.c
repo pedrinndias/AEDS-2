@@ -4,13 +4,13 @@
 #define MAX 300
 //procedimento recursivo que atraves de aritimetica ponteiro percorre a string e confere se o 
 // caractere da esquerda e proporcionamente igual ao caractere da direita
-void ehPalindromo(char *str,int tamanho,int index){
-    if (index>tamanho/2){
+void ehPalindromo(char *str,int tam,int index){
+    if (index>tam/2){
         printf("SIM\n");
         return;
     } else{
-        if (*(str+index)== *(str + tamanho - index)){
-            return ehPalindromo(str,tamanho,index+1);
+        if (*(str+index)== *(str + tam - index)){
+            return ehPalindromo(str,tam ,index+1);
         } 
         printf("NAO\n");
         return;
@@ -20,11 +20,16 @@ void ehPalindromo(char *str,int tamanho,int index){
 int main (){
     char *str=(char *)malloc(MAX*sizeof(char));
     if(str==NULL){
+        printf("falha ao alocar memoria");
+        return 1;
+    }
+    if(str==NULL){
         return 1;
     }
       while(scanf(" %[^\n]", str)&&strcmp(str,"FIM") != 0){
         str[strcspn(str,"\n")]='\0';
         ehPalindromo(str,strlen(str)-1,0);
     }
+    free(str);
     return 0;
 }
