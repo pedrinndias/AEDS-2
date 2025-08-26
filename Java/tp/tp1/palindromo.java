@@ -1,7 +1,4 @@
-package Java.tp.tp1;
-
 import java.util.Scanner;
-
 public class palindromo {
     // Método para ler a entrada e imprimir a saída
     public static void main(String[] args) {
@@ -21,7 +18,6 @@ public class palindromo {
         }
         sc.close();
     }
-
     /**
      * @param s A string a ser verificada.
      * @return true se a string for um palíndromo, false caso contrário.
@@ -29,7 +25,6 @@ public class palindromo {
     public static boolean isPalindromo(String s) {
         String apenasLetras = "";
         int i = 0;
-        
         // Constrói uma nova string contendo apenas as letras
         for (i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
@@ -42,10 +37,8 @@ public class palindromo {
                 apenasLetras += c;
             }
         }
-        
         int j = apenasLetras.length() - 1;
         i = 0;
-        
         // Compara os caracteres da string de fora para dentro
         while (i < j) {
             if (apenasLetras.charAt(i) != apenasLetras.charAt(j)) {
@@ -54,7 +47,6 @@ public class palindromo {
             i++;
             j--;
         }
-        
         return true;
     }
 }
