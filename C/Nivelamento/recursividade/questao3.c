@@ -11,5 +11,6 @@ int somaAteN(int num){
 }
 int main(){
     int num;
-    printf("Escreva ")
+    printf("Escreva ");
+    return 0;
 }
