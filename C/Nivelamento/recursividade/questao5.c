@@ -9,7 +9,7 @@ void inverterString(char *str){
         return;
     }
     inverterString(str+1);//percorre ate chegar no '\0'
-    printf("%c", *str)
+    printf("%c", *str);
 
 }
 int main(){
