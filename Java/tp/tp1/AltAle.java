@@ -26,7 +26,6 @@ class ManipuladorDeString {
     }
 }
 //  Classe principal que executa o programa.
-//  O nome do arquivo deve ser AltAle.java
 public class AltAle {
     public static void main(String[] args) {
         Scanner leitor = new Scanner(System.in);
