@@ -11,6 +11,8 @@ int somaAteN(int num){
 }
 int main(){
     int num;
-    printf("Escreva ");
+    printf("Escreva um numero: ");
+    scanf("%d", &num);
+    printf("Somatorio do numero 1 a N: %d", somaAteN(num));
     return 0;
 }
