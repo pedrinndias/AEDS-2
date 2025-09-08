@@ -31,7 +31,8 @@ erDiagram
 
     %% Definição dos Relacionamentos
     Pessoa ||--o{ Animal : "possui"
-    Pessoa <|-- Medico_Veterinario : "é um(a)"
+    Pessoa }|--|| Medico_Veterinario : "é um(a)"
     Medico_Veterinario ||--o{ Vacinacao : "aplica"
     Animal ||--o{ Vacinacao : "recebe"
+
     ```
