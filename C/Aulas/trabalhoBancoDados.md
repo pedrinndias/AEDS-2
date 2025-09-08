@@ -40,7 +40,6 @@ erDiagram
     ANIMAL }o--o{ PROPRIEDADE : "pertence a"
     MEDICO_VETERINARIO }o--o{ VACINACAO : "aplica"
     ANIMAL }o--o{ VACINACAO : "recebe"
-
 ```
 ---
 
