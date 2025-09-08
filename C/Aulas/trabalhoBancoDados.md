@@ -1,3 +1,4 @@
+```mermaid
 erDiagram
     Pessoa {
         VARCHAR(11) CPF PK "Chave Primária"
@@ -29,7 +30,8 @@ erDiagram
     }
 
     %% Definição dos Relacionamentos
-    Pessoa ||--o{ Animal : "possui"}
+    Pessoa ||--o{ Animal : "possui"
     Pessoa <|-- Medico_Veterinario : "é um(a)"
-    Medico_Veterinario ||--o{ Vacinacao : "aplica"}
-    Animal ||--o{ Vacinacao : "recebe"}
+    Medico_Veterinario ||--o{ Vacinacao : "aplica"
+    Animal ||--o{ Vacinacao : "recebe"
+    ```
