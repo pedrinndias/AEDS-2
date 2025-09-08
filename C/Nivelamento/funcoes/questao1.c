@@ -8,7 +8,7 @@ int somarVetor(int *vetor, int tamanho){
     if(tamanho==0){
         return 0;
     }else{
-        return vetor + somaVetor(vetor++,tamanho--);
+        return *vetor+somarVetor(vetor+1,tamanho-1);
     }
 }
 int main(){
@@ -24,4 +24,7 @@ int main(){
         printf("Preencha o vetor[%d]: ", i);
         scanf("%d", &vetor[i]);
     }
+    printf("A soma de todos os valores do vetor eh: %d", somarVetor(vetor,tamanho));
+    free(vetor);
+    return 0;
 }
