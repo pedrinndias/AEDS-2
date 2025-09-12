@@ -1,78 +1,128 @@
+import java.util.Scanner;
+import java.util.ArrayList;
 public class Banco {
     public static void main(String[] args) {
-        int aux,aux1;
+        ArrayList<ContaBanco> contas = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        int opcao;
+
         do {
-            System.out.println("***Banco***");
-            System.out.println("1- Abrir conta");
-            System.out.println("2- Acessar conta banco");
-            System.out.println("3- Fechar conta");
-            System.out.println("4- Sair");
-            // Ler aux
-            switch(aux){
+            System.out.println("\n========= BANCO DIGITAL =========");
+            System.out.println("1- Abrir uma nova conta");
+            System.out.println("2- Acessar uma conta existente");
+            System.out.println("3- Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+
+            switch(opcao){
                 case 1:
-                    ContaBanco p1 = new ContaBanco;
-                    //Abrir conta; Preciso pensar como criar uma conta sem saber o nome da variavel ContaBanco e poder criar N contas bancos
-                    p1.abrirConta();
-                    do{
-                        System.out.println("***Operações***");
-                        System.out.println("1- Ver saldo da conta");
-                        System.out.println("2- Ver tipo da conta");
-                        System.out.println("3- Ver dono da conta");
-                        System.out.println("4- Ver status da conta");
-                        System.out.println("5- Depositar");
-                        System.out.println("6- Sacar");
-                        System.out.println("7- Pagar mensal");
-                        System.out.println("8- Sair");
-                        //ler valor
-                        switch(){
-                            case 1:
-                                System.out.println("Saldo: R$" + p1.getSaldo());
-                                break;
-                            case 2:
-                                System.out.println("Tipo de Conta: " + p1.getTipo());
-                                break;
-                            case 3:
-                                System.out.println("Dono da conta: " + p1.getDono());
-                                break;
-                            case 4:
-                                System.out.println("Status da conta: " + p1.getStatus());
-                                break;
-                            case 5:
-                                p1.depositar()
-                                break;
-                            case 6:
-                                p1.sacar();
-                                break;
-
-                            case 7:
-                                p1.pagarMensal();
-                                break;
-                            case 8:
-                                System.out.println("Saindo...");
-                                break;
-                        }
-                    }While(aux1!=8);
-
+                    ContaBanco contaRecemCriada = criarNovaConta(scanner);
+                    contas.add(contaRecemCriada);
+                    System.out.println("------------------------------------");
+                    System.out.println("Conta para " + contaRecemCriada.getDono() + " criada com sucesso!");
+                    System.out.println("------------------------------------");
                     break;
                 case 2:
-                    if(  ){ //procurar variavel em ContasBanco
-                    }else{
-                        System.out.println("Nenhuma conta de banco aberta para poder acessar!");
-                    }
-                    //preciso pensar em como acessar conta banco de quem,  melhor utilizar numConta
+                    acessarConta(contas, scanner);
                     break;
-            }
+
                 case 3:
-                    if(  ){ //procurar variavel em ContasBanco
-            }else{
-                System.out.println("Nenhuma conta de banco aberta para poder fechar!");
-            }
+                    System.out.println("Obrigado por usar nosso banco!");
                     break;
-                case 4:
+
+                default:
+                    System.out.println("Opção inválida!");
                     break;
             }
-        }While(aux!=3);
+        }while(opcao!=3);
         System.out.println("Saindo...");
-        return 0;
+        scanner.close();
     }
+
+    // MÉTODO "FÁBRICA" DE CONTAS
+    public static ContaBanco criarNovaConta(Scanner scanner) {
+        System.out.println("\n--- Abertura de Nova Conta ---");
+
+        System.out.print("Digite o número da conta: ");
+        int numero = scanner.nextInt();
+
+        System.out.print("Escolha o tipo (1- Poupança / 2- Corrente): ");
+        int tipoOpcao = scanner.nextInt();
+        while (tipoOpcao != 1 && tipoOpcao != 2) {
+            System.out.print("Opção inválida. Digite 1 para Poupança ou 2 para Corrente: ");
+            tipoOpcao = scanner.nextInt();
+        }
+        scanner.nextLine(); // Limpa o buffer do scanner
+
+        String tipoConta = (tipoOpcao == 1) ? "CP" : "CC";
+
+        System.out.print("Digite o nome do titular: ");
+        String dono = scanner.nextLine();
+
+        ContaBanco novaConta = new ContaBanco();
+        // AQUI ACONTECE A INTERAÇÃO:
+        // O Banco (gerente) está passando as informações para o objeto ContaBanco.
+        novaConta.abrirConta(tipoConta, dono, numero);
+
+        return novaConta;
+    }
+
+    // MÉTODO PARA ACESSAR UMA CONTA EXISTENTE
+    public static void acessarConta(ArrayList<ContaBanco> listaDeContas, Scanner scanner) {
+        if (listaDeContas.isEmpty()) {
+            System.out.println("Nenhuma conta foi criada ainda!");
+            return;
+        }
+
+        System.out.print("Digite o número da conta que deseja acessar: ");
+        int numProcurado = scanner.nextInt();
+        ContaBanco contaEncontrada = null;
+
+        for (ContaBanco conta : listaDeContas) {
+            if (conta.getNumConta() == numProcurado) {
+                contaEncontrada = conta;
+                break;
+            }
+        }
+
+        if (contaEncontrada != null) {
+            int opcaoConta;
+            do {
+                System.out.println("\n--- Menu da Conta de " + contaEncontrada.getDono() + " ---");
+                System.out.println("Saldo Atual: R$" + contaEncontrada.getSaldo());
+                System.out.println("1- Depositar");
+                System.out.println("2- Sacar");
+                System.out.println("3- Pagar Mensalidade");
+                System.out.println("4- Voltar ao Menu Principal");
+                System.out.print("Escolha uma opção: ");
+                opcaoConta = scanner.nextInt();
+
+                switch (opcaoConta) {
+                    case 1:
+                        System.out.print("Digite o valor para depositar: ");
+                        double valorDeposito = scanner.nextDouble();
+                        contaEncontrada.depositar(valorDeposito);
+                        break;
+                    case 2:
+                        System.out.print("Digite o valor para sacar: ");
+                        double valorSaque = scanner.nextDouble();
+                        contaEncontrada.sacar(valorSaque);
+                        break;
+                    case 3:
+                        contaEncontrada.pagarMensal();
+                        break;
+                    case 4:
+                        System.out.println("Voltando ao menu principal...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida!");
+                        break;
+                }
+            } while (opcaoConta != 4);
+
+        } else {
+            System.out.println("Conta com número " + numProcurado + " não encontrada.");
+        }
+    }
+
 }
