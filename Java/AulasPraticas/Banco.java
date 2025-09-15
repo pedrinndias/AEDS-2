@@ -317,7 +317,7 @@ public class Banco {
                 // Este loop continua enquanto a opção for diferente de 4 (Voltar).
             } while (opcaoConta != 4);
 
-        } else { // Se "contaEncontrada" ainda for nula, significa que o loop terminou e não achamos a conta.
+        } else { // Se "contaEncontrada" ainda for nula significa que o loop terminou e não achamos a conta.
             System.out.println("Conta com número " + numProcurado + " não encontrada.");
         }
     }

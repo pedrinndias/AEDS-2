@@ -73,7 +73,7 @@ public class ContaBanco{
         }
     }
 
-    // 2. MÉTODO DEPOSITAR CORRIGIDO
+    // 2. MÉTODO DEPOSITAR CORRIGID
     public void depositar(double valor) {
         if (this.isStatus()) {
             if (valor > 0) {
