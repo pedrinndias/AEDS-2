@@ -1,0 +1,1 @@
+- Foram adicionados os trabalhos práticos por enquanto até dia 24/10/25

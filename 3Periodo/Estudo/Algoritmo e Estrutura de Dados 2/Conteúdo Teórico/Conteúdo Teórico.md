@@ -1,0 +1,10 @@
+- Foram adicionados os conteúdos teóricos por enquanto até dia 24/10/25
+- [[u01 Fundamentos de Análise de Algoritmos]]
+- [[u02 Estruturas de dados básicas lineares]]
+- [[u03 Ordenação em memória principal]]
+- [[u04 Estruturas de dados básicas flexíveis]]
+- [[u05 Árvores binárias]]
+- [[u06 Balanceamento de árvores]]
+- [[u07 Tabelas e dicionários]]
+- [[u08 Árvores TRIE]]
+- 

@@ -1,0 +1,8 @@
+![[02-mapa-conceitual.jpg]]
+
+[[ÁRVORE BINÁRIA]]
+[[LISTA FLEXÍVEL]]
+[[CLASSE AUTORREFERENCIAL]]
+[[LISTA LINEAR]]
+[[TABELA HASH]]
+[[INTRODUÇÃO]]

@@ -1,0 +1,7 @@
+
+## NESTA SESSÃO
+
+As listas lineares ou sequenciais são estruturas formadas por um _array_ e um contador. Elas têm métodos para inserção e remoção de elementos. Os métodos para inserção devem tratar a situação em que o contador de elementos se torna maior que a capacidade de armazenamento do _array_. Uma forma de resolver esse problema é proibir a inserção e outra é, quando necessário, aumentar a capacidade de armazenamento da nossa estrutura. A primeira forma é mais simples e é utilizada na lista implementada nesta sessão. A segunda forma é utilizada nas classes _ArrayList_ e _List<T>_ do C#. Nessas classes, quando atingimos a capacidade de armazenamento do _array_, o C# cria um novo _array_ maior que o atual, copia todos os elementos do _array_ antigo para o novo e desaloca o antigo. Os métodos de remoção devem tratar remoções quando o elemento a ser removido não existe ou quando a lista estiver vazia.
+
+A lista linear apresentada nesta sessão contém os atributos citados, métodos construtores e os métodos _InserirInicio_, _InserirFim_, _Inserir_, _RemoverIicio_, _RemoverFim_, _Remover_ e _Mostrar_. Outros métodos poderiam ser implementados como métodos de pesquisa e ordenação. A lista apresentada nesta sessão aborta o programa caso aconteça a remoção em uma lista vazia ou uma inserção em que o _array_ está sem espaço para armazenamento. Outras adaptações também podem ser efetuadas em nossa lista.
+
